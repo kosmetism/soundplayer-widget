@@ -1,0 +1,48 @@
+{
+  "name": "soundplayer-widget",
+  "version": "0.1.0",
+  "description": "Lightweight embedded SoundCloud player widgets",
+  "main": "src/index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "build": "browserify . | uglifyjs -cm > dist/soundplayer-widget.min.js",
+    "watch": "watchify . -o dist/soundplayer-widget.js -v -d"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "stage": 0
+        },
+        "envify"
+      ]
+    ]
+  },
+  "keywords": [
+    "soundcloud",
+    "widget",
+    "player",
+    "embed",
+    "react",
+    "deku",
+    "functional",
+    "component"
+  ],
+  "author": "Dmitri Voronianski <dmitri.voronianski@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "deku": "^0.2.15",
+    "soundcloud-audio": "^0.1.4"
+  },
+  "devDependencies": {
+    "babel": "^5.2.15",
+    "babelify": "^6.0.2",
+    "browserify": "^10.1.0",
+    "envify": "^3.4.0",
+    "uglify-js": "^2.4.21",
+    "watchify": "^3.2.1"
+  }
+}
