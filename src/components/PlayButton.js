@@ -35,7 +35,7 @@ const PlayButton = {
         }
 
         return (
-            <button class="soundplayer-play-button" onClick={handleClick}>
+            <button class="sb-soundplayer-widget-play" onClick={handleClick}>
                 {props.playing ? 'Pause' : 'Play'}
             </button>
         );
