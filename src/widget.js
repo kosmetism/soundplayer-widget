@@ -27,6 +27,7 @@ const Widget = {
 
         function onAudioStarted () {
             setState({playing: true});
+            // stop all other
         }
 
         function getCurrentTime () {
@@ -70,7 +71,14 @@ const Widget = {
 
         return (
             <div>
-                Widget Content!
+                {state.track ? (
+                    <div>
+                        <img src={state.track.artwork_url.replace('large', 't500x500')} />
+                        <h2>{state.track ? state.track.title : 'Loading..'}</h2>
+                    </div>
+                ) : (
+                    <div>Loading..</div>
+                )}
                 <PlayButton
                     playing={state.playing}
                     soundCloudAudio={props.soundCloudAudio}
