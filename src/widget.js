@@ -1,9 +1,12 @@
 /** @jsx deku.dom */
 
 import deku from 'deku';
+import SoundCloudAudio from 'soundcloud-audio';
 
 import PlayButton from './components/PlayButton';
 import Timer from './components/Timer';
+
+import { stopAllOther, addToStore } from './utils/audioStore';
 
 const Widget = {
     initialState() {
@@ -27,7 +30,9 @@ const Widget = {
 
         function onAudioStarted () {
             setState({playing: true});
-            // stop all other
+
+            stopAllOther(soundCloudAudio.playing);
+            addToStore(soundCloudAudio);
         }
 
         function getCurrentTime () {
@@ -93,8 +98,10 @@ const Widget = {
 };
 
 export function create (el, opts) {
+    let soundCloudAudio = new SoundCloudAudio(opts.clientId);
+
     let app = deku.scene(
-        <Widget url={opts.url} soundCloudAudio={opts.soundCloudAudio} />
+        <Widget url={opts.url} soundCloudAudio={soundCloudAudio} />
     );
 
     deku.render(app, el);

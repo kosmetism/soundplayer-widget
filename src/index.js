@@ -3,19 +3,14 @@
 // pass data to constructor function and render deku widget
 
 import * as SPWidget from './widget';
-import SoundCloudAudio from 'soundcloud-audio';
 
 let elements = document.querySelectorAll('.sb-soundplayer-widget');
 
-let audioStore = [];
-
 for (let i = 0, len = elements.length; i < len; i++) {
     let el = elements[i];
-    let clientId = el.getAttribute('data-clientid');
+
     let url = el.getAttribute('data-url');
-    let soundCloudAudio = new SoundCloudAudio(clientId);
+    let clientId = el.getAttribute('data-clientid');
 
-    audioStore.push({ url, soundCloudAudio });
-
-    SPWidget.create(el, { url, soundCloudAudio });
+    SPWidget.create(el, { url, clientId });
 }
