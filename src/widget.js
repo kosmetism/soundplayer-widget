@@ -4,6 +4,7 @@ import deku from 'deku';
 import SoundCloudAudio from 'soundcloud-audio';
 
 import PlayButton from './components/PlayButton';
+import Progress from './components/Progress';
 import Timer from './components/Timer';
 
 import { stopAllOther, addToStore } from './utils/audioStore';
@@ -86,6 +87,10 @@ const Widget = {
                 )}
                 <PlayButton
                     playing={state.playing}
+                    soundCloudAudio={props.soundCloudAudio}
+                />
+                <Progress
+                    value={state.currentTime / state.duration * 100 || 0}
                     soundCloudAudio={props.soundCloudAudio}
                 />
                 <Timer
