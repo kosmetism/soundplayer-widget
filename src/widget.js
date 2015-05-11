@@ -75,28 +75,36 @@ const Widget = {
     render(component) {
         let { state, props } = component;
 
+        console.log('render');
+
         return (
-            <div>
+            <div class="sb-soundplayer-widget-cover" style={state.track ? {
+                'background-image': `url(${state.track.artwork_url.replace('large', 't500x500')})`
+            } : {
+                'background-color': '#f2f2f2'
+            }}>
                 {state.track ? (
                     <div>
-                        <img src={state.track.artwork_url.replace('large', 't500x500')} />
-                        <h2>{state.track ? state.track.title : 'Loading..'}</h2>
+                        <div class="sb-soundplayer-widget-overlay" />
+                        <h2 class="sb-soundplayer-widget-title">{state.track.title}</h2>
+                        <div class="sb-soundplayer-widget-controls">
+                            <PlayButton
+                                playing={state.playing}
+                                soundCloudAudio={props.soundCloudAudio}
+                            />
+                            <Progress
+                                value={state.currentTime / state.duration * 100 || 0}
+                                soundCloudAudio={props.soundCloudAudio}
+                            />
+                            <Timer
+                                duration={state.duration}
+                                currentTime={state.currentTime}
+                            />
+                        </div>
                     </div>
                 ) : (
                     <div>Loading..</div>
                 )}
-                <PlayButton
-                    playing={state.playing}
-                    soundCloudAudio={props.soundCloudAudio}
-                />
-                <Progress
-                    value={state.currentTime / state.duration * 100 || 0}
-                    soundCloudAudio={props.soundCloudAudio}
-                />
-                <Timer
-                    duration={state.duration}
-                    currentTime={state.currentTime}
-                />
             </div>
         );
     }
