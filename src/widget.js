@@ -113,7 +113,7 @@ const Widget = {
 export function create (el, opts) {
     let soundCloudAudio = new SoundCloudAudio(opts.clientId);
 
-    let app = deku.scene(
+    let app = deku.tree(
         <Widget url={opts.url} soundCloudAudio={soundCloudAudio} />
     );
 
