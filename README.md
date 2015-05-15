@@ -47,7 +47,7 @@ Dependency on [Deku](https://github.com/segmentio/deku) which (due to its' tiny 
 
 ![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari/safari_48x48.png)
 --- | --- | --- | --- | --- |
-39+ ✔ | 34+ ✔ | 8+ ✔ | 7+ ✔ |
+39+ ✔ | 34+ ✔ | 10+ ✔ | 7+ ✔ |
 
 ---
 
