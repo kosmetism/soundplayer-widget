@@ -1,16 +1,16 @@
-# Embedded SoundCloud Players
+# Embeddable SoundCloud Players
 
 ![](http://img.shields.io/badge/Status-Work%20In%20Progress-FA572C.svg?style=flat-square)
 
-> The proof-of-concept of how it's possible to use modern component-based and functional approaches in order to build high-quality customized embeddable widgets. Under the hood of **Soundplayer Widget SDK** is [Deku](https://github.com/segmentio/deku) for components and [SoundCloud Audio](https://github.com/voronianski/soundcloud-audio.js) for HTML5 Audio API.
+> The proof-of-concept of modern component-based and functional approaches in order to build high-quality customized embeddable widgets. Under the hood of **Soundplayer Widget**  there are [Deku](https://github.com/segmentio/deku) for components and [SoundCloud Audio](https://github.com/voronianski/soundcloud-audio.js) for HTML5 Audio API.
 
-[## Online Generator](http://labs.voronianski.com/soundplayer-widget-generator)
+## [Online Generator](http://labs.voronianski.com/soundplayer-widget-generator)
 
 ## Manual Setup 
 
-1. Get SoundCloud API client id from https://developers.soundcloud.com.
+I. Get SoundCloud API client id from https://developers.soundcloud.com.
 
-2. Include the script into your html page:
+II. Include the script into your html page:
 
 ```html
 <script>
@@ -29,21 +29,21 @@ var sb_soundplayer_client_id = 'YOUR-CLIENT-ID';
 </script>
 ```
 
-3. Insert widget into the place where you want it to be shown on the page with necessary SoundCloud track or playlist link in `data-url`:
+III. Insert widget into the place where you want it to be shown on the page with necessary SoundCloud track or playlist link in `data-url`:
 
 ```html
 <div class="sb-soundplayer-widget" data-url="https://soundcloud.com/shura/shura-indecision-12-edit-1"></div>
 ```
 
-4. Enjoy! :sunglasses: :fireworks: :dancer:
+IV. Enjoy! :sunglasses: :fireworks: :dancer:
 
 ## Why Deku and not React?!
 
-Article on this topic (and about the process of development) is coming soon..
+Article on this topic (and about the whole process of development) is coming soon..
 
 ## Browser support
 
-Dependency on [Deku](https://github.com/segmentio/deku) which (due to its' tiny size) doesn't support legacy browsers - https://github.com/segmentio/deku/#tests means that Soundplayer widget has the same range of supported browsers.
+Dependency on [Deku](https://github.com/segmentio/deku) which (due to its' tiny size) doesn't support legacy [browsers](https://github.com/segmentio/deku/#tests) means that _SoundPlayer_ has the same range of supported browsers.
 
 ![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari/safari_48x48.png)
 --- | --- | --- | --- | --- |
