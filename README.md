@@ -32,7 +32,7 @@ var sb_soundplayer_client_id = 'YOUR-CLIENT-ID';
 **III.** Insert widget into the place where you want it to be shown on the page with necessary SoundCloud track or playlist link in `data-url`:
 
 ```html
-<div class="sb-soundplayer-widget" data-url="https://soundcloud.com/shura/shura-indecision-12-edit-1"></div>
+<div data-url="https://soundcloud.com/shura/shura-indecision-12-edit-1"></div>
 ```
 
 **IV.** Enjoy! :sunglasses: :fireworks: :dancer:
