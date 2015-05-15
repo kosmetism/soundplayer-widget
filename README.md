@@ -8,7 +8,7 @@
 
 ## Manual Setup 
 
-I. Get SoundCloud API client id from https://developers.soundcloud.com.
+**I.** Get SoundCloud API client id from https://developers.soundcloud.com.
 
 II. Include the script into your html page:
 
