@@ -111,7 +111,13 @@ const Widget = {
 };
 
 export function create (el, opts) {
-    let soundCloudAudio = new SoundCloudAudio(opts.clientId);
+    const clientId = opts.clientId || window.sb_soundplayer_client_id;
+    if (!clientId) {
+        console.log('Get clientId from https://developers.soundcloud.com/');
+        return;
+    }
+
+    let soundCloudAudio = new SoundCloudAudio(clientId);
 
     let app = deku.tree(
         <Widget url={opts.url} soundCloudAudio={soundCloudAudio} />

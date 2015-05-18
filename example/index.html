@@ -25,6 +25,7 @@
 
     .sb-soundplayer-widget {
         box-sizing: border-box;
+        margin: 10px;
     }
     .sb-soundplayer-widget *,
     .sb-soundplayer-widget *:before,
@@ -44,6 +45,7 @@
         text-transform: uppercase;
         letter-spacing: .1em;
         font-size: 20px;
+        user-select: none;
     }
     .sb-soundplayer-widget-controls {
         padding: 0 10px;
@@ -72,24 +74,38 @@
         position: relative;
     }
     .sb-soundplayer-widget-overlay {
+        background-color: rgba(0, 0, 0, .25);
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, .32);
+        border-radius: 3px;
+    }
+    .sb-soundplayer-widget-play {
+        padding: 1.25rem;
+    }
+    .sb-soundplayer-widget-button-icon {
+        width: 1em;
+        height: 1em;
+        position: relative;
+        vertical-align: middle;
     }
     </style>
 </head>
 <body>
 
-<div class="sb-soundplayer-widget" data-url="https://soundcloud.com/shura/shura-indecision-12-edit-1" data-layout="box" data-clientid="08f79801a998c381762ec5b15e4914d5"></div>
+<div class="sb-soundplayer-widget" data-url="https://soundcloud.com/shura/shura-indecision-12-edit-1" data-layout="box"></div>
 
 <hr />
 
-<div class="sb-soundplayer-widget" data-url="https://soundcloud.com/johnnyjewel/glass-candy-shell-game" data-layout="box" data-clientid="08f79801a998c381762ec5b15e4914d5"></div>
+<div class="sb-soundplayer-widget" data-url="https://soundcloud.com/johnnyjewel/glass-candy-shell-game" data-layout="box"></div>
 
 <script>
+/* * * CONFIGURATION VARIABLES * * */
+var sb_soundplayer_client_id = '08f79801a998c381762ec5b15e4914d5';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
 (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;

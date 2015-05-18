@@ -2,6 +2,8 @@
 
 import deku from 'deku';
 
+import { PlayIconSVG, PauseIconSVG } from './Icons';
+
 const PlayButton = {
     defaultProps: {
         playing: false,
@@ -36,7 +38,11 @@ const PlayButton = {
 
         return (
             <button class="sb-soundplayer-widget-play" onClick={handleClick}>
-                {props.playing ? 'Pause' : 'Play'}
+                {!props.playing ? (
+                    <PlayIconSVG />
+                ) : (
+                    <PauseIconSVG />
+                )}
             </button>
         );
     }
