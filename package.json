@@ -7,8 +7,12 @@
     "example": "example"
   },
   "scripts": {
-    "build": "NODE_ENV=production browserify . | uglifyjs -cm > dist/soundplayer-widget.min.js",
-    "watch": "watchify . -o dist/soundplayer-widget.js -v -d"
+    "watch-css": "./node_modules/.bin/cssnext cssnext/main.css dist/soundplayer-widget.css -w",
+    "watch-js": "watchify . -o dist/soundplayer-widget.js -v -d",
+    "build-css": "./node_modules/.bin/cssnext cssnext/main.css dist/soundplayer-widget.min.css -c",
+    "build-js": "NODE_ENV=production browserify . | uglifyjs -cm > dist/soundplayer-widget.min.js",
+    "build": "npm run build-js && npm run build-css",
+    "watch": "npm run watch-js & npm run watch-css"
   },
   "browserify": {
     "transform": [
@@ -41,6 +45,7 @@
     "babel": "^5.2.15",
     "babelify": "^6.0.2",
     "browserify": "^10.1.0",
+    "cssnext": "^1.4.0",
     "envify": "^3.4.0",
     "uglify-js": "^2.4.21",
     "watchify": "^3.2.1"

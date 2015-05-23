@@ -85,37 +85,37 @@ const Widget = {
     },
 
     render(component) {
-        let { state, props } = component;
+        const { state, props } = component;
+
+        if (!state.track) {
+            return <span />;
+        }
+
+        console.log(state.track);
 
         return (
-            <div class="sb-soundplayer-widget-cover" style={state.track ? {
+            <div class="sb-soundplayer-widget-cover" style={{
                 'background-image': `url(${state.track.artwork_url.replace('large', 't500x500')})`
-            } : {
-                'background-color': '#f2f2f2'
             }}>
-                {state.track ? (
-                    <div>
-                        <SoundCloudLogoSVG />
-                        <div class="sb-soundplayer-widget-overlay" />
-                        <h2 class="sb-soundplayer-widget-title">{state.track.title}</h2>
-                        <div class="sb-soundplayer-widget-controls">
-                            <PlayButton
-                                playing={state.playing}
-                                soundCloudAudio={props.soundCloudAudio}
-                            />
-                            <Progress
-                                value={state.currentTime / state.duration * 100 || 0}
-                                soundCloudAudio={props.soundCloudAudio}
-                            />
-                            <Timer
-                                duration={state.duration}
-                                currentTime={state.currentTime}
-                            />
-                        </div>
-                    </div>
-                ) : (
-                    <div>Loading..</div>
-                )}
+                <div class="sb-soundplayer-widget-overlay" />
+                <h2 class="sb-soundplayer-widget-title">{state.track.title}</h2>
+                <a href={state.track.permalink_url} target="_blank">
+                    <SoundCloudLogoSVG />
+                </a>
+                <div class="sb-soundplayer-widget-controls">
+                    <PlayButton
+                        playing={state.playing}
+                        soundCloudAudio={props.soundCloudAudio}
+                    />
+                    <Progress
+                        value={state.currentTime / state.duration * 100 || 0}
+                        soundCloudAudio={props.soundCloudAudio}
+                    />
+                    <Timer
+                        duration={state.track.duration / 1000}
+                        currentTime={state.currentTime}
+                    />
+                </div>
             </div>
         );
     }

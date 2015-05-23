@@ -30,15 +30,13 @@ const PlayButton = {
         function handleClick (e) {
             e.preventDefault();
 
-            const { playing, soundCloudAudio, onTogglePlay } = props;
+            const { playing, soundCloudAudio } = props;
 
             if (!playing) {
                 soundCloudAudio && soundCloudAudio.play();
             } else {
                 soundCloudAudio && soundCloudAudio.pause();
             }
-
-            onTogglePlay && onTogglePlay(e);
         }
 
         return (
