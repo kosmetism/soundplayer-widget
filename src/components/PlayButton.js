@@ -12,10 +12,15 @@ const PlayButton = {
 
     propTypes: {
         playing: {
-            type: 'boolean'
+            type: 'boolean',
+            optional: true
         },
         seeking: {
-            type: 'boolean'
+            type: 'boolean',
+            optional: true
+        },
+        soundCloudAudio: {
+            type: 'object'
         }
     },
 
@@ -39,9 +44,9 @@ const PlayButton = {
         return (
             <button class="sb-soundplayer-widget-play" onClick={handleClick}>
                 {!props.playing ? (
-                    <PlayIconSVG />
+                    <PlayIconSVG onClick={handleClick} />
                 ) : (
-                    <PauseIconSVG />
+                    <PauseIconSVG onClick={handleClick} />
                 )}
             </button>
         );

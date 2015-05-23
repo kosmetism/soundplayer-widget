@@ -1,15 +1,27 @@
 /** @jsx deku.dom */
 
+const env = process.env.NODE_ENV || 'development';
+
 import deku from 'deku';
 import SoundCloudAudio from 'soundcloud-audio';
 
 import PlayButton from './components/PlayButton';
 import Progress from './components/Progress';
 import Timer from './components/Timer';
+import { SoundCloudLogoSVG } from './components/Icons';
 
 import { stopAllOther, addToStore } from './utils/audioStore';
 
 const Widget = {
+    propTypes: {
+        url: {
+            type: 'string'
+        },
+        soundCloudAudio: {
+            type: 'object'
+        }
+    },
+
     initialState() {
         return {
             duration: 0,
@@ -83,6 +95,7 @@ const Widget = {
             }}>
                 {state.track ? (
                     <div>
+                        <SoundCloudLogoSVG />
                         <div class="sb-soundplayer-widget-overlay" />
                         <h2 class="sb-soundplayer-widget-title">{state.track.title}</h2>
                         <div class="sb-soundplayer-widget-controls">
@@ -120,6 +133,10 @@ export function create (el, opts) {
     let app = deku.tree(
         <Widget url={opts.url} soundCloudAudio={soundCloudAudio} />
     );
+
+    if (env === 'development') {
+        app.option('validateProps', true);
+    }
 
     deku.render(app, el);
 }

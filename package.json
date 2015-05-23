@@ -7,7 +7,7 @@
     "example": "example"
   },
   "scripts": {
-    "build": "browserify . | uglifyjs -cm > dist/soundplayer-widget.min.js",
+    "build": "NODE_ENV=production browserify . | uglifyjs -cm > dist/soundplayer-widget.min.js",
     "watch": "watchify . -o dist/soundplayer-widget.js -v -d"
   },
   "browserify": {
@@ -16,9 +16,9 @@
         "babelify",
         {
           "stage": 0
-        },
-        "envify"
-      ]
+        }
+      ],
+      "envify"
     ]
   },
   "keywords": [
@@ -34,7 +34,7 @@
   "author": "Dmitri Voronianski <dmitri.voronianski@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "deku": "^0.2.17",
+    "deku": "^0.4.0",
     "soundcloud-audio": "^0.1.4"
   },
   "devDependencies": {

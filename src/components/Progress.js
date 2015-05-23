@@ -10,6 +10,9 @@ const Progress = {
     propTypes: {
         value: {
             type: 'number'
+        },
+        soundCloudAudio: {
+            type: 'object'
         }
     },
 
