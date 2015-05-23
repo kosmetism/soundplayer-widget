@@ -49,6 +49,13 @@ Dependency on [Deku](https://github.com/segmentio/deku) which (due to its' tiny 
 --- | --- | --- | --- | --- |
 39+ ✔ | 34+ ✔ | 10+ ✔ | 7+ ✔ |
 
+## To Do
+
+- [ ] support for multiple different style layouts
+- [ ] global SDK object (for purposes like subscribe to audio events etc.)
+
+Have a [suggestion](https://github.com/soundblogs/embed-soundplayer-widget/issues)?
+
 ---
 
 **MIT Licensed**
