@@ -31,10 +31,9 @@ const Progress = {
         let style = {width: `${value}%`};
 
         function handleSeekTrack (e) {
-            const xPos = (e.pageX - e.currentTarget.getBoundingClientRect().left) / e.currentTarget.offsetWidth;
+            const xPos = (e.pageX - e.delegateTarget.getBoundingClientRect().left) / e.delegateTarget.offsetWidth;
 
             if (soundCloudAudio && !isNaN(soundCloudAudio.audio.duration)) {
-                console.log(e.pageX, e.currentTarget.getBoundingClientRect().left, e.currentTarget.offsetWidth, soundCloudAudio.audio.duration, e.currentTarget.getBoundingClientRect(), e.currentTarget, e.target);
                 soundCloudAudio.audio.currentTime = (xPos * soundCloudAudio.audio.duration);
             }
         }
