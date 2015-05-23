@@ -75,8 +75,6 @@ const Widget = {
     render(component) {
         let { state, props } = component;
 
-        console.log('render');
-
         return (
             <div class="sb-soundplayer-widget-cover" style={state.track ? {
                 'background-image': `url(${state.track.artwork_url.replace('large', 't500x500')})`
@@ -113,7 +111,7 @@ const Widget = {
 export function create (el, opts) {
     const clientId = opts.clientId || window.sb_soundplayer_client_id;
     if (!clientId) {
-        console.log('Get clientId from https://developers.soundcloud.com/');
+        console.log('Please get SoundCloud clientId from https://developers.soundcloud.com/');
         return;
     }
 

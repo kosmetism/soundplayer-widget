@@ -10,7 +10,7 @@ for (let i = 0, len = elements.length; i < len; i++) {
     let el = elements[i];
 
     let url = el.getAttribute('data-url');
-    let clientId = el.getAttribute('data-clientid');
+    let layout = el.getAttribute('data-layout');
 
-    SPWidget.create(el, { url, clientId });
+    SPWidget.create(el, { url, layout });
 }
