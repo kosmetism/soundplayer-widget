@@ -51,6 +51,7 @@ Dependency on [Deku](https://github.com/segmentio/deku) which (due to its' tiny 
 
 ## To Do
 
+- [ ] playlists support
 - [ ] support for multiple different style layouts
 - [ ] global SDK object (for purposes like subscribe to audio events etc.)
 
