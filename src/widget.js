@@ -91,14 +91,23 @@ const Widget = {
             return <span />;
         }
 
-        console.log(state.track);
+        if (state.track && !state.track.streamable) {
+            return (
+                <div class="sb-soundplayer-widget-message">
+                    <a href={state.track.permalink_url} target="_blank">{state.track.title}</a> is not streamable!
+                </div>
+            );
+        }
 
         return (
             <div class="sb-soundplayer-widget-cover" style={{
                 'background-image': `url(${state.track.artwork_url.replace('large', 't500x500')})`
             }}>
                 <div class="sb-soundplayer-widget-overlay" />
-                <h2 class="sb-soundplayer-widget-title">{state.track.title}</h2>
+                <div class="sb-soundplayer-widget-track-info">
+                    <h3 class="sb-soundplayer-widget-user">{state.track.user.username}</h3>
+                    <h2 class="sb-soundplayer-widget-title">{state.track.title}</h2>
+                </div>
                 <a href={state.track.permalink_url} target="_blank">
                     <SoundCloudLogoSVG />
                 </a>
