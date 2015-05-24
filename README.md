@@ -4,7 +4,7 @@
 
 > The proof-of-concept of modern component-based and functional approaches in order to build high-quality customized embeddable widgets. Under the hood of **Soundplayer Widget**  there are [Deku](https://github.com/segmentio/deku) for components and [SoundCloud Audio](https://github.com/voronianski/soundcloud-audio.js) for HTML5 Audio API.
 
-### [Online Generator](http://labs.voronianski.com/soundplayer-widget-generator)
+### [Get Player Online](http://labs.voronianski.com/soundplayer-widget-generator)
 
 ## Manual Setup 
 

@@ -12,6 +12,17 @@ import { SoundCloudLogoSVG } from './components/Icons';
 
 import { stopAllOther, addToStore } from './utils/audioStore';
 
+const noClientIdMessage = [
+    'You must provide SoundCloud clientId for SoundPlayer widget',
+    '',
+    'Example:',
+    '<script>',
+    'var sb_soundplayer_client_id = "YOUR-CLIENT-ID";',
+    '</script>',
+    '',
+    'Register for app and get clientId at https://developers.soundcloud.com/'
+].join('\n');
+
 const Widget = {
     propTypes: {
         url: {
@@ -133,7 +144,7 @@ const Widget = {
 export function create (el, opts) {
     const clientId = opts.clientId || window.sb_soundplayer_client_id;
     if (!clientId) {
-        console.log('Please get SoundCloud clientId from https://developers.soundcloud.com/');
+        console.error(noClientIdMessage);
         return;
     }
 
