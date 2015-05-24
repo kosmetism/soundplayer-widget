@@ -4,7 +4,7 @@ import deku from 'deku';
 
 import { PlayIconSVG, PauseIconSVG } from './Icons';
 
-const PlayButton = {
+export default {
     defaultProps: {
         playing: false,
         seeking: false
@@ -50,5 +50,3 @@ const PlayButton = {
         );
     }
 };
-
-export default PlayButton;

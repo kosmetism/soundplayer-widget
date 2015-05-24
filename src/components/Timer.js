@@ -21,7 +21,7 @@ function prettyTime (time) {
     }
 }
 
-const Timer = {
+export default {
     defaultProps: {
         duration: 0,
         currentTime: 0
@@ -46,5 +46,3 @@ const Timer = {
         );
     }
 };
-
-export default Timer;

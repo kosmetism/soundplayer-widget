@@ -47,9 +47,9 @@ const Widget = {
         const { soundCloudAudio } = props;
 
         soundCloudAudio.resolve(props.url, (data) => {
-            setState({
-                [data.tracks ? 'playlist' : 'track']: data
-            });
+            // TBD: support for playlists
+            const track = data.tracks ? data.tracks[0] : data;
+            setState({ track });
         });
 
         function onAudioStarted () {
@@ -148,9 +148,9 @@ export function create (el, opts) {
         return;
     }
 
-    let soundCloudAudio = new SoundCloudAudio(clientId);
+    const soundCloudAudio = new SoundCloudAudio(clientId);
 
-    let app = deku.tree(
+    const app = deku.tree(
         <Widget url={opts.url} soundCloudAudio={soundCloudAudio} />
     );
 

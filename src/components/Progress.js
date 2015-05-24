@@ -2,7 +2,7 @@
 
 import deku from 'deku';
 
-const Progress = {
+export default {
     defaultProps: {
         value: 0
     },
@@ -45,5 +45,3 @@ const Progress = {
         );
     }
 };
-
-export default Progress;
