@@ -1,6 +1,7 @@
 /** @jsx deku.dom */
 
 import deku from 'deku';
+import SoundCloudAudio from 'soundcloud-audio';
 
 export default {
     defaultProps: {
@@ -11,8 +12,8 @@ export default {
         value: {
             type: 'number'
         },
-        soundCloudAudio: {
-            type: 'object'
+        soundCloudAudio: function (prop) {
+            return (prop instanceof SoundCloudAudio);
         }
     },
 

@@ -4,6 +4,8 @@
 
 import * as SPWidget from './widget';
 
+// insert .css from cdn hosted url
+
 let elements = document.querySelectorAll('.sb-soundplayer-widget');
 
 for (let i = 0, len = elements.length; i < len; i++) {

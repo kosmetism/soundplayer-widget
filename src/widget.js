@@ -28,8 +28,8 @@ const Widget = {
         url: {
             type: 'string'
         },
-        soundCloudAudio: {
-            type: 'object'
+        soundCloudAudio: function (prop) {
+            return (prop instanceof SoundCloudAudio);
         }
     },
 

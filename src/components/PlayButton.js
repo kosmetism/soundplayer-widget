@@ -1,6 +1,7 @@
 /** @jsx deku.dom */
 
 import deku from 'deku';
+import SoundCloudAudio from 'soundcloud-audio';
 
 import { PlayIconSVG, PauseIconSVG } from './Icons';
 
@@ -19,8 +20,8 @@ export default {
             type: 'boolean',
             optional: true
         },
-        soundCloudAudio: {
-            type: 'object'
+        soundCloudAudio: function (prop) {
+            return (prop instanceof SoundCloudAudio);
         }
     },
 
