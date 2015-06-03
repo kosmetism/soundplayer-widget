@@ -7,7 +7,7 @@
 
 <!-- ![](http://img.shields.io/badge/Status-Work%20In%20Progress-FA572C.svg?style=flat-square) -->
 
-> The proof of concept in building of component-based, high-quality embeddable widgets. Under the hood of **Soundplayer Widget** consists of [Deku](https://github.com/segmentio/deku) for components and [SoundCloud Audio](https://github.com/voronianski/soundcloud-audio.js) for HTML5 Audio API.
+> The proof of concept in building of component-based, high-quality embeddable widgets. Under the hood **Soundplayer Widget** consists of [Deku](https://github.com/segmentio/deku) for components and [SoundCloud Audio](https://github.com/voronianski/soundcloud-audio.js) for HTML5 Audio API.
 
 <!-- ### [Get Player Online](http://labs.voronianski.com/soundplayer-widget-generator) -->
 
@@ -42,8 +42,6 @@ var sb_soundplayer_css_url = 'http://cdn/path/to/soundplayer-widget.min.css'; //
 ```
 
 **IV.** Enjoy! :sunglasses: :fireworks: :dancer:
-
-===
 
 Soundplayer Widget is also available on [npm](https://www.npmjs.com/package/soundplayer-widget):
 
