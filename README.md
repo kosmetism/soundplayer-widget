@@ -13,7 +13,7 @@
 
 ## Manual Setup 
 
-**I.** Get SoundCloud API client id from https://developers.soundcloud.com.
+**I.** Register for an app and get SoundCloud API clientId at https://developers.soundcloud.com.
 
 **II.** Include the script into your html page:
 
@@ -21,7 +21,7 @@
 <script>
 /* * * CONFIGURATION VARIABLES * * */
 var sb_soundplayer_client_id = 'YOUR-CLIENT-ID'; // required
-var sb_soundplayer_css_url = 'http://cdn/path/to/soundplayer-widget.min.css'; // optional
+var sb_soundplayer_css_url = 'https://cdnjs.cloudflare.com/ajax/libs/soundplayer-widget/0.1.1/soundplayer-widget.min.css'; // optional
 
 /* * * DON'T EDIT BELOW THIS LINE * * */
 (function(d, s, id) {
@@ -29,7 +29,7 @@ var sb_soundplayer_css_url = 'http://cdn/path/to/soundplayer-widget.min.css'; //
     if (d.getElementById(id)) return;
     js = d.createElement(s);
     js.id = id;
-    js.src = 'http://cdn/path/to/soundplayer-widget.min.js';
+    js.src = 'https://cdnjs.cloudflare.com/ajax/libs/soundplayer-widget/0.1.1/soundplayer-widget.min.js';
     fjs.parentNode.insertBefore(js, fjs);
 })(document, 'script', 'sb-soundplayer-widget-sdk');
 </script>

@@ -20,7 +20,7 @@ const noClientIdMessage = [
     'var sb_soundplayer_client_id = "YOUR-CLIENT-ID";',
     '</script>',
     '',
-    'Register for app and get clientId at https://developers.soundcloud.com/'
+    'Register for an app and get clientId at https://developers.soundcloud.com/'
 ].join('\n');
 
 const Widget = {
