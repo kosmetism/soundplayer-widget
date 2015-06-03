@@ -1,18 +1,23 @@
-// query all elements with class `.soundplayer-widget`
-// get `data-url` and `data-layout` attrs of every element
-// pass data to constructor function and render deku widget
-
 import * as SPWidget from './widget';
 
-// insert .css from cdn hosted url
+// optionally append styles
+const cssUrl = window.sb_soundplayer_css_url;
+if (cssUrl) {
+    const head = document.getElementsByTagName('head')[0];
+    const css = document.createElement('link');
+    css.id = 'sb-soundplayer-widget-style';
+    css.setAttribute('rel', 'stylesheet');
+    css.setAttribute('type', 'text/css');
+    css.setAttribute('href', cssUrl);
+    head.appendChild(css);
+}
 
-let elements = document.querySelectorAll('.sb-soundplayer-widget');
+const elements = document.querySelectorAll('.sb-soundplayer-widget');
 
 for (let i = 0, len = elements.length; i < len; i++) {
-    let el = elements[i];
-
-    let url = el.getAttribute('data-url');
-    let layout = el.getAttribute('data-layout');
+    const el = elements[i];
+    const url = el.getAttribute('data-url');
+    const layout = el.getAttribute('data-layout');
 
     SPWidget.create(el, { url, layout });
 }

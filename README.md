@@ -15,7 +15,8 @@
 ```html
 <script>
 /* * * CONFIGURATION VARIABLES * * */
-var sb_soundplayer_client_id = 'YOUR-CLIENT-ID';
+var sb_soundplayer_client_id = 'YOUR-CLIENT-ID'; // required
+var sb_soundplayer_css_url = 'http://cdn/path/to/soundplayer-widget.min.css'; // optional
 
 /* * * DON'T EDIT BELOW THIS LINE * * */
 (function(d, s, id) {
@@ -23,7 +24,7 @@ var sb_soundplayer_client_id = 'YOUR-CLIENT-ID';
     if (d.getElementById(id)) return;
     js = d.createElement(s);
     js.id = id;
-    js.src = "http://cdn/path/to/soundplayer-widget.min.js";
+    js.src = 'http://cdn/path/to/soundplayer-widget.min.js';
     fjs.parentNode.insertBefore(js, fjs);
 })(document, 'script', 'sb-soundplayer-widget-sdk');
 </script>

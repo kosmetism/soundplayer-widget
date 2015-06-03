@@ -6,7 +6,7 @@
 
     <link rel="shortcut icon" type="image/png" href="http://icons.iconarchive.com/icons/danleech/simple/1024/soundcloud-icon.png">
 
-    <link rel="stylesheet" type="text/css" href="../dist/soundplayer-widget.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../dist/soundplayer-widget.css"> -->
     <style>
     * {
         margin: 0;
@@ -42,6 +42,7 @@
 <script>
 /* * * CONFIGURATION VARIABLES * * */
 var sb_soundplayer_client_id = '08f79801a998c381762ec5b15e4914d5';
+var sb_soundplayer_css_url = '../dist/soundplayer-widget.min.css';
 
 /* * * DON'T EDIT BELOW THIS LINE * * */
 (function(d, s, id) {
@@ -49,9 +50,9 @@ var sb_soundplayer_client_id = '08f79801a998c381762ec5b15e4914d5';
     if (d.getElementById(id)) return;
     js = d.createElement(s);
     js.id = id;
-    js.src = "../dist/soundplayer-widget.js";
+    js.src = '../dist/soundplayer-widget.min.js';
     fjs.parentNode.insertBefore(js, fjs);
-})(document, 'script', 'soundplayer-widget-sdk');
+})(document, 'script', 'sb-soundplayer-widget-sdk');
 </script>
 </body>
 </html>
