@@ -1,7 +1,7 @@
 # <img src="http://www.officialpsds.com/images/thumbs/Soundcloud-Logo-psd47614.png" width="75" align="left">&nbsp;Embeddable SoundCloud Players
 
 [![npm version](http://badge.fury.io/js/soundplayer-widget.svg)](http://badge.fury.io/js/soundplayer-widget)
-[![Dependency Status](http://david-dm.org/soundblogs/soundplayer-widget.svg)](http://david-dm.org/soundblogs/soundplayer-widget)
+[![Dependency Status](http://david-dm.org/soundblogs/embed-soundplayer-widget.svg)](http://david-dm.org/soundblogs/embed-soundplayer-widget)
 
 <!-- [![Download Count](http://img.shields.io/npm/dm/soundplayer-widget.svg?style=flat)](http://www.npmjs.com/package/soundplayer-widget) -->
 
@@ -42,6 +42,14 @@ var sb_soundplayer_css_url = 'http://cdn/path/to/soundplayer-widget.min.css'; //
 ```
 
 **IV.** Enjoy! :sunglasses: :fireworks: :dancer:
+
+===
+
+Soundplayer Widget is also available on [npm](https://www.npmjs.com/package/soundplayer-widget):
+
+```bash
+npm install soundplayer-widget --save
+```
 
 ## Why Deku and not React?!
 
