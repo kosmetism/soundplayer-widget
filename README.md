@@ -49,6 +49,7 @@ Soundplayer Widget is also available on [npm](https://www.npmjs.com/package/soun
 ```bash
 npm install soundplayer-widget --save
 ```
+===
 
 ## Why Deku and not React?!
 
