@@ -42,6 +42,7 @@ var sb_soundplayer_css_url = 'http://cdn/path/to/soundplayer-widget.min.css'; //
 ```
 
 **IV.** Enjoy! :sunglasses: :fireworks: :dancer:
+
 ===
 Soundplayer Widget is also available on [npm](https://www.npmjs.com/package/soundplayer-widget):
 
