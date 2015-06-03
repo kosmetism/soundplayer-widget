@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Lightweight embedded SoundCloud player widgets",
   "main": "src/index.js",
+  "style": "cssnext/main.css",
   "directories": {
     "example": "example"
   },
