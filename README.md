@@ -20,18 +20,22 @@
 ```html
 <script>
 /* * * CONFIGURATION VARIABLES * * */
-var sb_soundplayer_client_id = 'YOUR-CLIENT-ID'; // required
-var sb_soundplayer_css_url = 'https://cdnjs.cloudflare.com/ajax/libs/soundplayer-widget/0.1.1/soundplayer-widget.min.css'; // optional
+var sb_soundplayer_client_id = 'YOUR_CLIENT_ID';
 
 /* * * DON'T EDIT BELOW THIS LINE * * */
-(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
+(function(d, s, id, cdn) {
+    var js, css, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
     js = d.createElement(s);
     js.id = id;
-    js.src = 'https://cdnjs.cloudflare.com/ajax/libs/soundplayer-widget/0.1.1/soundplayer-widget.min.js';
+    js.src = cdn+'/soundplayer-widget.min.js';
+    css = d.createElement('link');
+    css.setAttribute('rel', 'stylesheet');
+    css.setAttribute('type', 'text/css');
+    css.setAttribute('href', cdn+'/soundplayer-widget.min.css');
+    fjs.parentNode.insertBefore(css, fjs)
     fjs.parentNode.insertBefore(js, fjs);
-})(document, 'script', 'sb-soundplayer-widget-sdk');
+})(document, 'script', 'sb-soundplayer-widget-sdk', '//cdnjs.cloudflare.com/ajax/libs/soundplayer-widget/0.1.1');
 </script>
 ```
 
