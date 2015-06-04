@@ -46,7 +46,8 @@ var sb_soundplayer_client_id = '08f79801a998c381762ec5b15e4914d5';
 /* * * DON'T EDIT BELOW THIS LINE * * */
 (function(d, s, id) {
     if (d.getElementById(id)) return;
-    var js, fjs = d.getElementsByTagName(s)[0];
+    var js, p, fjs = d.getElementsByTagName(s)[0];
+    p = /^http:/.test(d.location) ? 'http' : 'https';
     js = d.createElement(s);
     js.id = id;
     js.src = '../dist/soundplayer-widget.js';

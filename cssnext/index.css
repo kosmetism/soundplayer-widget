@@ -69,7 +69,7 @@
     min-height: 240px;
 }
 .sb-soundplayer-widget-overlay {
-    background-color: rgba(0, 0, 0, .35);
+    background-color: rgba(0, 0, 0, .3);
     position: absolute;
     top: 0;
     left: 0;
