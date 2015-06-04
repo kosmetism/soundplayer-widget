@@ -17,7 +17,7 @@ const noClientIdMessage = [
     '',
     'Example:',
     '<script>',
-    'var sb_soundplayer_client_id = "YOUR-CLIENT-ID";',
+    'var sb_soundplayer_client_id = "YOUR_CLIENT_ID";',
     '</script>',
     '',
     'Register for an app and get clientId at https://developers.soundcloud.com/'

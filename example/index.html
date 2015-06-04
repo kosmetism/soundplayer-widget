@@ -42,15 +42,14 @@
 <script>
 /* * * CONFIGURATION VARIABLES * * */
 var sb_soundplayer_client_id = '08f79801a998c381762ec5b15e4914d5';
-var sb_soundplayer_css_url = '../dist/soundplayer-widget.min.css';
 
 /* * * DON'T EDIT BELOW THIS LINE * * */
 (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
+    var js, fjs = d.getElementsByTagName(s)[0];
     js = d.createElement(s);
     js.id = id;
-    js.src = '../dist/soundplayer-widget.min.js';
+    js.src = '../dist/soundplayer-widget.js';
     fjs.parentNode.insertBefore(js, fjs);
 })(document, 'script', 'sb-soundplayer-widget-sdk');
 </script>
