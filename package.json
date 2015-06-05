@@ -10,7 +10,8 @@
   "scripts": {
     "build-css": "cssnext cssnext/index.css dist/soundplayer-widget.min.css -c",
     "build": "NODE_ENV=production webpack --config webpack.config.js --progress --colors -p",
-    "watch": "webpack --config webpack.config.js --progress --colors --watch"
+    "watch": "webpack --config webpack.config.js --progress --colors --watch",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "soundcloud",

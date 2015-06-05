@@ -12,6 +12,7 @@ export default {
         value: {
             type: 'number'
         },
+
         soundCloudAudio: function (prop) {
             return (prop instanceof SoundCloudAudio);
         }
