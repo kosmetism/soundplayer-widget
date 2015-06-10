@@ -29,7 +29,7 @@ var sb_soundplayer_client_id = 'YOUR_CLIENT_ID';
     p = /^http:/.test(d.location) ? 'http' : 'https';
     js = d.createElement(s);
     js.id = id;
-    js.src = p + '://cdnjs.cloudflare.com/ajax/libs/soundplayer-widget/0.1.2/soundplayer-widget.min.js';
+    js.src = p + '://cdnjs.cloudflare.com/ajax/libs/soundplayer-widget/0.1.3/soundplayer-widget.min.js';
     fjs.parentNode.insertBefore(js, fjs);
 })(document, 'script', 'sb-soundplayer-widget-sdk');
 </script>

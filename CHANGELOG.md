@@ -1,3 +1,7 @@
+# 0.1.3 / 2015-06-05
+
+- expose `Player` component
+
 # 0.1.2 / 2015-06-04
 
 - inline styles
