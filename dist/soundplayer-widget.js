@@ -553,6 +553,7 @@
 	 */
 
 	exports.element =
+	exports.createElement =
 	exports.dom = __webpack_require__(33)
 
 
@@ -827,56 +828,16 @@
 	var walk = __webpack_require__(14)
 	var isDom = __webpack_require__(15)
 	var uid = __webpack_require__(16)
-	var throttle = __webpack_require__(17)
-	var keypath = __webpack_require__(18)
-	var type = __webpack_require__(11)
-	var utils = __webpack_require__(19)
-	var svg = __webpack_require__(20)
+	var keypath = __webpack_require__(17)
+	var type = __webpack_require__(18)
+	var utils = __webpack_require__(11)
+	var svg = __webpack_require__(19)
+	var events = __webpack_require__(21)
 	var defaults = utils.defaults
 	var forEach = __webpack_require__(22)
 	var assign = __webpack_require__(26)
 	var reduce = __webpack_require__(27)
 	var isPromise = __webpack_require__(31)
-
-	/**
-	 * All of the events can bind to
-	 */
-
-	var events = {
-	  onBlur: 'blur',
-	  onChange: 'change',
-	  onClick: 'click',
-	  onContextMenu: 'contextmenu',
-	  onCopy: 'copy',
-	  onCut: 'cut',
-	  onDoubleClick: 'dblclick',
-	  onDrag: 'drag',
-	  onDragEnd: 'dragend',
-	  onDragEnter: 'dragenter',
-	  onDragExit: 'dragexit',
-	  onDragLeave: 'dragleave',
-	  onDragOver: 'dragover',
-	  onDragStart: 'dragstart',
-	  onDrop: 'drop',
-	  onFocus: 'focus',
-	  onInput: 'input',
-	  onKeyDown: 'keydown',
-	  onKeyUp: 'keyup',
-	  onMouseDown: 'mousedown',
-	  onMouseEnter: 'mouseenter',
-	  onMouseLeave: 'mouseleave',
-	  onMouseMove: 'mousemove',
-	  onMouseOut: 'mouseout',
-	  onMouseOver: 'mouseover',
-	  onMouseUp: 'mouseup',
-	  onPaste: 'paste',
-	  onScroll: 'scroll',
-	  onSubmit: 'submit',
-	  onTouchCancel: 'touchcancel',
-	  onTouchEnd: 'touchend',
-	  onTouchMove: 'touchmove',
-	  onTouchStart: 'touchstart'
-	}
 
 	/**
 	 * These elements won't be pooled
@@ -1961,18 +1922,46 @@
 	   */
 
 	  function register (entity) {
+	    registerEntity(entity)
+	    var component = entity.component
+	    if (component.registered) return
+
+	    // initialize sources once for a component type.
+	    registerSources(entity)
+	    component.registered = true
+	  }
+
+	  /**
+	   * Add entity to data-structures related to components/entities.
+	   *
+	   * @param {Entity} entity
+	   */
+
+	  function registerEntity(entity) {
 	    var component = entity.component
 	    // all entities for this component type.
 	    var entities = component.entities = component.entities || {}
 	    // add entity to component list
 	    entities[entity.id] = entity
 	    // map to component so you can remove later.
-	    components[entity.id] = component;
+	    components[entity.id] = component
+	  }
 
+	  /**
+	   * Initialize sources for a component by type.
+	   *
+	   * @param {Entity} entity
+	   */
+
+	  function registerSources(entity) {
+	    var component = components[entity.id]
 	    // get 'class-level' sources.
+	    // if we've already hooked it up, then we're good.
 	    var sources = component.sources
 	    if (sources) return
+	    var entities = component.entities
 
+	    // hook up sources.
 	    var map = component.sourceToPropertyName = {}
 	    component.sources = sources = []
 	    var propTypes = component.propTypes
@@ -2070,7 +2059,7 @@
 	   */
 
 	  function addEvent (entityId, path, eventType, fn) {
-	    keypath.set(handlers, [entityId, path, eventType], throttle(function (e) {
+	    keypath.set(handlers, [entityId, path, eventType], function (e) {
 	      var entity = entities[entityId]
 	      if (entity) {
 	        var update = setState(entity)
@@ -2081,7 +2070,7 @@
 	      } else {
 	        fn.call(null, e)
 	      }
-	    }))
+	    })
 	  }
 
 	  /**
@@ -2268,39 +2257,23 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * toString ref.
-	 */
-
-	var toString = Object.prototype.toString;
-
-	/**
-	 * Return the type of `val`.
+	 * The npm 'defaults' module but without clone because
+	 * it was requiring the 'Buffer' module which is huge.
 	 *
-	 * @param {Mixed} val
-	 * @return {String}
-	 * @api public
+	 * @param {Object} options
+	 * @param {Object} defaults
+	 *
+	 * @return {Object}
 	 */
 
-	module.exports = function(val){
-	  switch (toString.call(val)) {
-	    case '[object Date]': return 'date';
-	    case '[object RegExp]': return 'regexp';
-	    case '[object Arguments]': return 'arguments';
-	    case '[object Array]': return 'array';
-	    case '[object Error]': return 'error';
-	  }
-
-	  if (val === null) return 'null';
-	  if (val === undefined) return 'undefined';
-	  if (val !== val) return 'nan';
-	  if (val && val.nodeType === 1) return 'element';
-
-	  val = val.valueOf
-	    ? val.valueOf()
-	    : Object.prototype.valueOf.apply(val)
-
-	  return typeof val;
-	};
+	exports.defaults = function(options, defaults) {
+	  Object.keys(defaults).forEach(function(key) {
+	    if (typeof options[key] === 'undefined') {
+	      options[key] = defaults[key]
+	    }
+	  })
+	  return options
+	}
 
 
 /***/ },
@@ -2465,49 +2438,6 @@
 
 /***/ },
 /* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Module Dependencies.
-	 */
-
-	var raf = __webpack_require__(12);
-
-	/**
-	 * Export `throttle`.
-	 */
-
-	module.exports = throttle;
-
-	/**
-	 * Executes a function at most once per animation frame. Kind of like
-	 * throttle, but it throttles at ~60Hz.
-	 *
-	 * @param {Function} fn - the Function to throttle once per animation frame
-	 * @return {Function}
-	 * @public
-	 */
-
-	function throttle(fn) {
-	  var rtn;
-	  var ignoring = false;
-
-	  return function queue() {
-	    if (ignoring) return rtn;
-	    ignoring = true;
-
-	    raf(function() {
-	      ignoring = false;
-	    });
-
-	    rtn = fn.apply(this, arguments);
-	    return rtn;
-	  };
-	}
-
-
-/***/ },
-/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory){
@@ -2782,34 +2712,50 @@
 
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * The npm 'defaults' module but without clone because
-	 * it was requiring the 'Buffer' module which is huge.
-	 *
-	 * @param {Object} options
-	 * @param {Object} defaults
-	 *
-	 * @return {Object}
+	 * toString ref.
 	 */
 
-	exports.defaults = function(options, defaults) {
-	  Object.keys(defaults).forEach(function(key) {
-	    if (typeof options[key] === 'undefined') {
-	      options[key] = defaults[key]
-	    }
-	  })
-	  return options
-	}
+	var toString = Object.prototype.toString;
+
+	/**
+	 * Return the type of `val`.
+	 *
+	 * @param {Mixed} val
+	 * @return {String}
+	 * @api public
+	 */
+
+	module.exports = function(val){
+	  switch (toString.call(val)) {
+	    case '[object Date]': return 'date';
+	    case '[object RegExp]': return 'regexp';
+	    case '[object Arguments]': return 'arguments';
+	    case '[object Array]': return 'array';
+	    case '[object Error]': return 'error';
+	  }
+
+	  if (val === null) return 'null';
+	  if (val === undefined) return 'undefined';
+	  if (val !== val) return 'nan';
+	  if (val && val.nodeType === 1) return 'element';
+
+	  val = val.valueOf
+	    ? val.valueOf()
+	    : Object.prototype.valueOf.apply(val)
+
+	  return typeof val;
+	};
 
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var indexOf = __webpack_require__(21)
+	var indexOf = __webpack_require__(20)
 
 	/**
 	 * This file lists the supported SVG elements used by the
@@ -2918,7 +2864,7 @@
 
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2954,6 +2900,53 @@
 	  }
 	  return -1;
 	};
+
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * All of the events can bind to
+	 */
+
+	module.exports = {
+	  onBlur: 'blur',
+	  onChange: 'change',
+	  onClick: 'click',
+	  onContextMenu: 'contextmenu',
+	  onCopy: 'copy',
+	  onCut: 'cut',
+	  onDoubleClick: 'dblclick',
+	  onDrag: 'drag',
+	  onDragEnd: 'dragend',
+	  onDragEnter: 'dragenter',
+	  onDragExit: 'dragexit',
+	  onDragLeave: 'dragleave',
+	  onDragOver: 'dragover',
+	  onDragStart: 'dragstart',
+	  onDrop: 'drop',
+	  onFocus: 'focus',
+	  onInput: 'input',
+	  onKeyDown: 'keydown',
+	  onKeyPress: 'keypress',
+	  onKeyUp: 'keyup',
+	  onMouseDown: 'mousedown',
+	  onMouseEnter: 'mouseenter',
+	  onMouseLeave: 'mouseleave',
+	  onMouseMove: 'mousemove',
+	  onMouseOut: 'mouseout',
+	  onMouseOver: 'mouseover',
+	  onMouseUp: 'mouseup',
+	  onPaste: 'paste',
+	  onScroll: 'scroll',
+	  onSubmit: 'submit',
+	  onTouchCancel: 'touchcancel',
+	  onTouchEnd: 'touchend',
+	  onTouchMove: 'touchmove',
+	  onTouchStart: 'touchstart',
+	  onWheel: 'wheel'
+	}
 
 
 /***/ },
@@ -3241,7 +3234,8 @@
 /* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var utils = __webpack_require__(19)
+	var utils = __webpack_require__(11)
+	var events = __webpack_require__(21)
 	var defaults = utils.defaults
 
 	/**
@@ -3329,6 +3323,7 @@
 	  var str = ''
 	  for (var key in attributes) {
 	    if (key === 'innerHTML') continue
+	    if (events[key]) continue
 	    str += attr(key, attributes[key])
 	  }
 	  return str
@@ -3356,7 +3351,7 @@
 	 * Module dependencies.
 	 */
 
-	var type = __webpack_require__(11)
+	var type = __webpack_require__(18)
 	var slice = __webpack_require__(34)
 	var flatten = __webpack_require__(36)
 
