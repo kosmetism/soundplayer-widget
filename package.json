@@ -1,6 +1,6 @@
 {
   "name": "soundplayer-widget",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Lightweight embedded SoundCloud player widgets",
   "main": "src/index.js",
   "style": "cssnext/index.css",
@@ -27,6 +27,7 @@
   "license": "MIT",
   "dependencies": {
     "deku": "^0.4.5",
+    "deku-soundplayer": "0.1.0-rc",
     "soundcloud-audio": "^0.1.4"
   },
   "devDependencies": {

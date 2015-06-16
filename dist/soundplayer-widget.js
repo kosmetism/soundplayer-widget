@@ -397,13 +397,13 @@
 
 	var _deku2 = _interopRequireDefault(_deku);
 
-	var _soundcloudAudio = __webpack_require__(37);
+	var _dekuSoundplayer = __webpack_require__(37);
+
+	var _dekuSoundplayer2 = _interopRequireDefault(_dekuSoundplayer);
+
+	var _soundcloudAudio = __webpack_require__(39);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
-
-	var _Player = __webpack_require__(38);
-
-	var _Player2 = _interopRequireDefault(_Player);
 
 	var env = process.env.NODE_ENV || 'development';
 
@@ -416,7 +416,7 @@
 
 	    var soundCloudAudio = new _soundcloudAudio2['default'](clientId);
 
-	    var app = _deku2['default'].tree(_deku2['default'].dom(_Player2['default'], { url: opts.url, soundCloudAudio: soundCloudAudio }));
+	    var app = _deku2['default'].tree(_deku2['default'].dom(_dekuSoundplayer2['default'], { url: opts.url, soundCloudAudio: soundCloudAudio }));
 
 	    if (env === 'development') {
 	        app.option('validateProps', true);
@@ -3709,6 +3709,189 @@
 /* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = __webpack_require__(38);
+
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx deku.dom */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _deku = __webpack_require__(7);
+
+	var _deku2 = _interopRequireDefault(_deku);
+
+	var _soundcloudAudio = __webpack_require__(39);
+
+	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
+
+	var _componentsPlayButton = __webpack_require__(40);
+
+	var _componentsPlayButton2 = _interopRequireDefault(_componentsPlayButton);
+
+	var _componentsProgress = __webpack_require__(42);
+
+	var _componentsProgress2 = _interopRequireDefault(_componentsProgress);
+
+	var _componentsTimer = __webpack_require__(43);
+
+	var _componentsTimer2 = _interopRequireDefault(_componentsTimer);
+
+	var _componentsIcons = __webpack_require__(41);
+
+	var _utilsAudioStore = __webpack_require__(44);
+
+	exports['default'] = {
+	    propTypes: {
+	        url: {
+	            type: 'string'
+	        },
+	        soundCloudAudio: function soundCloudAudio(prop) {
+	            return prop instanceof _soundcloudAudio2['default'];
+	        }
+	    },
+
+	    initialState: function initialState() {
+	        return {
+	            duration: 0,
+	            currentTime: 0,
+	            seeking: false,
+	            playing: false
+	        };
+	    },
+
+	    afterMount: function afterMount(component, el, setState) {
+	        var props = component.props;
+	        var soundCloudAudio = props.soundCloudAudio;
+
+	        soundCloudAudio.resolve(props.url, function (data) {
+	            // TBD: support for playlists
+	            var track = data.tracks ? data.tracks[0] : data;
+	            setState({ track: track });
+	        });
+
+	        function onAudioStarted() {
+	            setState({ playing: true });
+
+	            (0, _utilsAudioStore.stopAllOther)(soundCloudAudio.playing);
+	            (0, _utilsAudioStore.addToStore)(soundCloudAudio);
+	        }
+
+	        function getCurrentTime() {
+	            setState({ currentTime: soundCloudAudio.audio.currentTime });
+	        }
+
+	        function getDuration() {
+	            setState({ duration: soundCloudAudio.audio.duration });
+	        }
+
+	        function onSeekingTrack() {
+	            setState({ seeking: true });
+	        }
+
+	        function onSeekedTrack() {
+	            setState({ seeking: false });
+	        }
+
+	        function onAudioEnded() {
+	            setState({ playing: false });
+	        }
+
+	        // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
+	        soundCloudAudio.on('playing', onAudioStarted);
+	        soundCloudAudio.on('timeupdate', getCurrentTime);
+	        soundCloudAudio.on('loadedmetadata', getDuration);
+	        soundCloudAudio.on('seeking', onSeekingTrack);
+	        soundCloudAudio.on('seeked', onSeekedTrack);
+	        soundCloudAudio.on('pause', onAudioEnded);
+	        soundCloudAudio.on('ended', onAudioEnded);
+	    },
+
+	    beforeMount: function beforeMount(component) {
+	        var props = component.props;
+
+	        props.soundCloudAudio.unbindAll();
+	    },
+
+	    render: function render(component) {
+	        var state = component.state;
+	        var props = component.props;
+
+	        if (!state.track) {
+	            return _deku2['default'].dom('span', null);
+	        }
+
+	        if (state.track && !state.track.streamable) {
+	            return _deku2['default'].dom(
+	                'div',
+	                { 'class': 'sb-soundplayer-widget-message' },
+	                _deku2['default'].dom(
+	                    'a',
+	                    { href: state.track.permalink_url, target: '_blank' },
+	                    state.track.title
+	                ),
+	                ' is not streamable!'
+	            );
+	        }
+
+	        return _deku2['default'].dom(
+	            'div',
+	            { 'class': 'sb-soundplayer-widget-cover', style: {
+	                    'background-image': 'url(' + state.track.artwork_url.replace('large', 't500x500') + ')'
+	                } },
+	            _deku2['default'].dom('div', { 'class': 'sb-soundplayer-widget-overlay' }),
+	            _deku2['default'].dom(
+	                'div',
+	                { 'class': 'sb-soundplayer-widget-track-info' },
+	                _deku2['default'].dom(
+	                    'h3',
+	                    { 'class': 'sb-soundplayer-widget-user' },
+	                    state.track.user.username
+	                ),
+	                _deku2['default'].dom(
+	                    'h2',
+	                    { 'class': 'sb-soundplayer-widget-title' },
+	                    state.track.title
+	                )
+	            ),
+	            _deku2['default'].dom(
+	                'a',
+	                { href: state.track.permalink_url, target: '_blank' },
+	                _deku2['default'].dom(_componentsIcons.SoundCloudLogoSVG, null)
+	            ),
+	            _deku2['default'].dom(
+	                'div',
+	                { 'class': 'sb-soundplayer-widget-controls' },
+	                _deku2['default'].dom(_componentsPlayButton2['default'], {
+	                    playing: state.playing,
+	                    soundCloudAudio: props.soundCloudAudio
+	                }),
+	                _deku2['default'].dom(_componentsProgress2['default'], {
+	                    value: state.currentTime / state.duration * 100 || 0,
+	                    soundCloudAudio: props.soundCloudAudio
+	                }),
+	                _deku2['default'].dom(_componentsTimer2['default'], {
+	                    duration: state.track.duration / 1000,
+	                    currentTime: state.currentTime
+	                })
+	            )
+	        );
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	function SoundCloud (clientId) {
@@ -3869,11 +4052,10 @@
 
 
 /***/ },
-/* 38 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx deku.dom */
-
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
@@ -3886,188 +4068,11 @@
 
 	var _deku2 = _interopRequireDefault(_deku);
 
-	var _soundcloudAudio = __webpack_require__(37);
+	var _soundcloudAudio = __webpack_require__(39);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
-	var _componentsPlayButton = __webpack_require__(39);
-
-	var _componentsPlayButton2 = _interopRequireDefault(_componentsPlayButton);
-
-	var _componentsProgress = __webpack_require__(41);
-
-	var _componentsProgress2 = _interopRequireDefault(_componentsProgress);
-
-	var _componentsTimer = __webpack_require__(42);
-
-	var _componentsTimer2 = _interopRequireDefault(_componentsTimer);
-
-	var _componentsIcons = __webpack_require__(40);
-
-	var _utilsAudioStore = __webpack_require__(43);
-
-	exports['default'] = {
-	    propTypes: {
-	        url: {
-	            type: 'string'
-	        },
-	        soundCloudAudio: function soundCloudAudio(prop) {
-	            return prop instanceof _soundcloudAudio2['default'];
-	        }
-	    },
-
-	    initialState: function initialState() {
-	        return {
-	            duration: 0,
-	            currentTime: 0,
-	            seeking: false,
-	            playing: false
-	        };
-	    },
-
-	    afterMount: function afterMount(component, el, setState) {
-	        var props = component.props;
-	        var soundCloudAudio = props.soundCloudAudio;
-
-	        soundCloudAudio.resolve(props.url, function (data) {
-	            // TBD: support for playlists
-	            var track = data.tracks ? data.tracks[0] : data;
-	            setState({ track: track });
-	        });
-
-	        function onAudioStarted() {
-	            setState({ playing: true });
-
-	            (0, _utilsAudioStore.stopAllOther)(soundCloudAudio.playing);
-	            (0, _utilsAudioStore.addToStore)(soundCloudAudio);
-	        }
-
-	        function getCurrentTime() {
-	            setState({ currentTime: soundCloudAudio.audio.currentTime });
-	        }
-
-	        function getDuration() {
-	            setState({ duration: soundCloudAudio.audio.duration });
-	        }
-
-	        function onSeekingTrack() {
-	            setState({ seeking: true });
-	        }
-
-	        function onSeekedTrack() {
-	            setState({ seeking: false });
-	        }
-
-	        function onAudioEnded() {
-	            setState({ playing: false });
-	        }
-
-	        // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
-	        soundCloudAudio.on('playing', onAudioStarted);
-	        soundCloudAudio.on('timeupdate', getCurrentTime);
-	        soundCloudAudio.on('loadedmetadata', getDuration);
-	        soundCloudAudio.on('seeking', onSeekingTrack);
-	        soundCloudAudio.on('seeked', onSeekedTrack);
-	        soundCloudAudio.on('pause', onAudioEnded);
-	        soundCloudAudio.on('ended', onAudioEnded);
-	    },
-
-	    beforeMount: function beforeMount(component) {
-	        var props = component.props;
-
-	        props.soundCloudAudio.unbindAll();
-	    },
-
-	    render: function render(component) {
-	        var state = component.state;
-	        var props = component.props;
-
-	        if (!state.track) {
-	            return _deku2['default'].dom('span', null);
-	        }
-
-	        if (state.track && !state.track.streamable) {
-	            return _deku2['default'].dom(
-	                'div',
-	                { 'class': 'sb-soundplayer-widget-message' },
-	                _deku2['default'].dom(
-	                    'a',
-	                    { href: state.track.permalink_url, target: '_blank' },
-	                    state.track.title
-	                ),
-	                ' is not streamable!'
-	            );
-	        }
-
-	        return _deku2['default'].dom(
-	            'div',
-	            { 'class': 'sb-soundplayer-widget-cover', style: {
-	                    'background-image': 'url(' + state.track.artwork_url.replace('large', 't500x500') + ')'
-	                } },
-	            _deku2['default'].dom('div', { 'class': 'sb-soundplayer-widget-overlay' }),
-	            _deku2['default'].dom(
-	                'div',
-	                { 'class': 'sb-soundplayer-widget-track-info' },
-	                _deku2['default'].dom(
-	                    'h3',
-	                    { 'class': 'sb-soundplayer-widget-user' },
-	                    state.track.user.username
-	                ),
-	                _deku2['default'].dom(
-	                    'h2',
-	                    { 'class': 'sb-soundplayer-widget-title' },
-	                    state.track.title
-	                )
-	            ),
-	            _deku2['default'].dom(
-	                'a',
-	                { href: state.track.permalink_url, target: '_blank' },
-	                _deku2['default'].dom(_componentsIcons.SoundCloudLogoSVG, null)
-	            ),
-	            _deku2['default'].dom(
-	                'div',
-	                { 'class': 'sb-soundplayer-widget-controls' },
-	                _deku2['default'].dom(_componentsPlayButton2['default'], {
-	                    playing: state.playing,
-	                    soundCloudAudio: props.soundCloudAudio
-	                }),
-	                _deku2['default'].dom(_componentsProgress2['default'], {
-	                    value: state.currentTime / state.duration * 100 || 0,
-	                    soundCloudAudio: props.soundCloudAudio
-	                }),
-	                _deku2['default'].dom(_componentsTimer2['default'], {
-	                    duration: state.track.duration / 1000,
-	                    currentTime: state.currentTime
-	                })
-	            )
-	        );
-	    }
-	};
-	module.exports = exports['default'];
-
-/***/ },
-/* 39 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/** @jsx deku.dom */
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _deku = __webpack_require__(7);
-
-	var _deku2 = _interopRequireDefault(_deku);
-
-	var _soundcloudAudio = __webpack_require__(37);
-
-	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
-
-	var _Icons = __webpack_require__(40);
+	var _Icons = __webpack_require__(41);
 
 	exports['default'] = {
 	    defaultProps: {
@@ -4115,11 +4120,10 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx deku.dom */
-
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
@@ -4280,11 +4284,10 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx deku.dom */
-
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
@@ -4297,7 +4300,7 @@
 
 	var _deku2 = _interopRequireDefault(_deku);
 
-	var _soundcloudAudio = __webpack_require__(37);
+	var _soundcloudAudio = __webpack_require__(39);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
@@ -4349,11 +4352,10 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx deku.dom */
-
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
@@ -4415,7 +4417,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// handling multiple audio on the page helpers

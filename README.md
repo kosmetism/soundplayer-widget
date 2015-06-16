@@ -1,15 +1,14 @@
 # <img src="http://www.officialpsds.com/images/thumbs/Soundcloud-Logo-psd47614.png" width="75" align="left">&nbsp;Embeddable SoundCloud Players
 
 [![npm version](http://badge.fury.io/js/soundplayer-widget.svg)](http://badge.fury.io/js/soundplayer-widget)
-[![Dependency Status](http://david-dm.org/soundblogs/embed-soundplayer-widget.svg)](http://david-dm.org/soundblogs/embed-soundplayer-widget)
-
-<!-- [![Download Count](http://img.shields.io/npm/dm/soundplayer-widget.svg?style=flat)](http://www.npmjs.com/package/soundplayer-widget) -->
+[![Dependency Status](http://david-dm.org/soundblogs/soundplayer-widget.svg)](http://david-dm.org/soundblogs/soundplayer-widget)
+[![Download Count](http://img.shields.io/npm/dm/soundplayer-widget.svg?style=flat)](http://www.npmjs.com/package/soundplayer-widget)
 
 <!-- ![](http://img.shields.io/badge/Status-Work%20In%20Progress-FA572C.svg?style=flat-square) -->
 
 > The proof of concept in building of component-based, high-quality embeddable widgets. Under the hood **Soundplayer Widget** consists of [Deku](https://github.com/segmentio/deku) for components and [SoundCloud Audio](https://github.com/voronianski/soundcloud-audio.js) for HTML5 Audio API.
 
-<!-- ### [Get Player Online](http://labs.voronianski.com/soundplayer-widget-generator) -->
+### [Demo](http://labs.voronianski.com/get-soundplayer)
 
 ## Manual Setup 
 

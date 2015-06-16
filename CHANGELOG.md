@@ -1,3 +1,7 @@
+# 0.2.0 / 2015-06-15
+
+- move all components to separate module - [DekuSoundPlayer](https://github.com/soundblogs/deku-soundplayer)
+
 # 0.1.3 / 2015-06-05
 
 - expose `Player` component
