@@ -43,7 +43,8 @@ var sb_soundplayer_client_id = 'YOUR_CLIENT_ID';
 **IV.** Enjoy! :sunglasses: :fireworks: :dancer:
 
 ===
-Soundplayer Widget is also available on [npm](https://www.npmjs.com/package/soundplayer-widget):
+
+##### Soundplayer Widget is also available on [npm](https://www.npmjs.com/package/soundplayer-widget):
 
 ```bash
 npm install soundplayer-widget --save
