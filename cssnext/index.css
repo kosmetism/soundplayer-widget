@@ -25,13 +25,13 @@
     z-index: 1;
     text-align: center;
     padding-top: 80px;
-    padding-bottom: 45px;
+    padding-bottom: 53px;
     text-transform: uppercase;
     letter-spacing: .1em;
 }
 .sb-soundplayer-widget-user,
 .sb-soundplayer-widget-title {
-    margin: 5px 0;
+    margin: 2px 0;
     user-select: none;
     cursor: default;
 }

@@ -95,7 +95,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(3)();
-	exports.push([module.id, ".sb-soundplayer-widget {\n    color: #fff;\n    font-family: 'Avenir Next', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;\n    background-color: #f5f5f5;\n    background-image: url('https://w.soundcloud.com/player/assets/images/logo-200x120-177df3dd.png');\n    background-repeat: no-repeat;\n    background-position: center center;\n    background-size: 100px 60px;\n    min-height: 240px;\n    overflow: hidden;\n    position: relative;\n    box-sizing: border-box;\n    border-radius: 3px;\n}\n.sb-soundplayer-widget *,\n.sb-soundplayer-widget *:before,\n.sb-soundplayer-widget *:after {\n    box-sizing: inherit;\n    margin: 0;\n    padding: 0;\n}\n.sb-soundplayer-widget-track-info {\n    color: #fff;\n    position: relative;\n    z-index: 1;\n    text-align: center;\n    padding-top: 80px;\n    padding-bottom: 45px;\n    text-transform: uppercase;\n    letter-spacing: .1em;\n}\n.sb-soundplayer-widget-user,\n.sb-soundplayer-widget-title {\n    margin: 5px 0;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n    cursor: default;\n}\n.sb-soundplayer-widget-user {\n    font-size: 14px;\n}\n.sb-soundplayer-widget-title {\n    font-size: 20px;\n}\n.sb-soundplayer-widget-controls {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n        -ms-flex-align: center;\n            align-items: center;\n    padding: 0 10px 15px;\n    position: relative;\n    z-index: 1;\n}\n.sb-soundplayer-widget-progress-container {\n    background-color: #000000;\n    background-color: rgba(0, 0, 0, .25);\n    width: 100%;\n    height: 8px;\n    overflow: hidden;\n    cursor: pointer;\n    border-radius: 3px;\n}\n.sb-soundplayer-widget-progress-inner {\n    background-color: #fff;\n    height: 100%;\n    -webkit-transition: width .2s ease-in;\n            transition: width .2s ease-in;\n}\n.sb-soundplayer-widget-cover {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n    border-radius: 3px;\n    position: relative;\n    min-height: 240px;\n}\n.sb-soundplayer-widget-overlay {\n    background-color: #000000;\n    background-color: rgba(0, 0, 0, .3);\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    border-radius: 3px;\n}\n.sb-soundplayer-widget-play {\n    display: inline-block;\n    border: 1px solid transparent;\n    color: #fff;\n    font-size: 20px;\n    text-decoration: none;\n    line-height: 1;\n    padding: 8px 16px;\n    height: auto;\n    vertical-align: middle;\n    -webkit-box-flex: 0;\n    -webkit-flex: none;\n        -ms-flex: none;\n            flex: none;\n    margin-right: 12px;\n    position: relative;\n    z-index: 2;\n    background-color: transparent;\n    -webkit-transition-duration: .1s;\n            transition-duration: .1s;\n    -webkit-transition-timing-function: ease-out;\n            transition-timing-function: ease-out;\n    -webkit-transition-property: box-shadow;\n            transition-property: box-shadow;\n    -webkit-appearance: none;\n    border-radius: 3px;\n    cursor: pointer;\n}\n.sb-soundplayer-widget-play:before {\n    content: '';\n    display: block;\n    border: 1px solid transparent;\n    background-color: currentcolor;\n    position: absolute;\n    z-index: -1;\n    top: -1px;\n    right: -1px;\n    bottom: -1px;\n    left: -1px;\n    -webkit-transition-duration: .1s;\n            transition-duration: .1s;\n    -webkit-transition-timing-function: ease-out;\n            transition-timing-function: ease-out;\n    -webkit-transition-property: opacity;\n            transition-property: opacity;\n    opacity: 0;\n    border-radius: 3px;\n}\n.sb-soundplayer-widget-play:hover,\n.sb-soundplayer-widget-play:active {\n  box-shadow: none;\n}\n.sb-soundplayer-widget-play:hover:before,\n.sb-soundplayer-widget-play:focus:before {\n    opacity: .09375;\n}\n.sb-soundplayer-widget-play:focus {\n    outline: none;\n    border-color: transparent;\n    box-shadow: 0 0 0 2px;\n}\n.sb-soundplayer-widget-button-icon {\n    width: 1em;\n    height: 1em;\n    position: relative;\n    vertical-align: middle;\n}\n.sb-soundplayer-widget-cover-logo {\n    color: #fff;\n    width: 100px;\n    height: 14px;\n    position: absolute;\n    top: 10px;\n    right: 10px;\n    z-index: 1;\n}\n.sb-soundplayer-widget-timer {\n    -webkit-box-flex: 0;\n    -webkit-flex: none;\n        -ms-flex: none;\n            flex: none;\n    color: #fff;\n    font-size: 12px;\n    padding: 0 3px 0 15px;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n    cursor: default;\n}\n.sb-soundplayer-widget-message {\n    color: #999;\n    font-size: 12px;\n    text-align: center;\n    position: absolute;\n    right: 0;\n    left: 0;\n    bottom: 10px;\n}\n.sb-soundplayer-widget-message a {\n    color: #666;\n}\n", ""]);
+	exports.push([module.id, ".sb-soundplayer-widget {\n    color: #fff;\n    font-family: 'Avenir Next', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;\n    background-color: #f5f5f5;\n    background-image: url('https://w.soundcloud.com/player/assets/images/logo-200x120-177df3dd.png');\n    background-repeat: no-repeat;\n    background-position: center center;\n    background-size: 100px 60px;\n    min-height: 240px;\n    overflow: hidden;\n    position: relative;\n    box-sizing: border-box;\n    border-radius: 3px;\n}\n.sb-soundplayer-widget *,\n.sb-soundplayer-widget *:before,\n.sb-soundplayer-widget *:after {\n    box-sizing: inherit;\n    margin: 0;\n    padding: 0;\n}\n.sb-soundplayer-widget-track-info {\n    color: #fff;\n    position: relative;\n    z-index: 1;\n    text-align: center;\n    padding-top: 80px;\n    padding-bottom: 53px;\n    text-transform: uppercase;\n    letter-spacing: .1em;\n}\n.sb-soundplayer-widget-user,\n.sb-soundplayer-widget-title {\n    margin: 2px 0;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n    cursor: default;\n}\n.sb-soundplayer-widget-user {\n    font-size: 14px;\n}\n.sb-soundplayer-widget-title {\n    font-size: 20px;\n}\n.sb-soundplayer-widget-controls {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n        -ms-flex-align: center;\n            align-items: center;\n    padding: 0 10px 15px;\n    position: relative;\n    z-index: 1;\n}\n.sb-soundplayer-widget-progress-container {\n    background-color: #000000;\n    background-color: rgba(0, 0, 0, .25);\n    width: 100%;\n    height: 8px;\n    overflow: hidden;\n    cursor: pointer;\n    border-radius: 3px;\n}\n.sb-soundplayer-widget-progress-inner {\n    background-color: #fff;\n    height: 100%;\n    -webkit-transition: width .2s ease-in;\n            transition: width .2s ease-in;\n}\n.sb-soundplayer-widget-cover {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n    border-radius: 3px;\n    position: relative;\n    min-height: 240px;\n}\n.sb-soundplayer-widget-overlay {\n    background-color: #000000;\n    background-color: rgba(0, 0, 0, .3);\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    border-radius: 3px;\n}\n.sb-soundplayer-widget-play {\n    display: inline-block;\n    border: 1px solid transparent;\n    color: #fff;\n    font-size: 20px;\n    text-decoration: none;\n    line-height: 1;\n    padding: 8px 16px;\n    height: auto;\n    vertical-align: middle;\n    -webkit-box-flex: 0;\n    -webkit-flex: none;\n        -ms-flex: none;\n            flex: none;\n    margin-right: 12px;\n    position: relative;\n    z-index: 2;\n    background-color: transparent;\n    -webkit-transition-duration: .1s;\n            transition-duration: .1s;\n    -webkit-transition-timing-function: ease-out;\n            transition-timing-function: ease-out;\n    -webkit-transition-property: box-shadow;\n            transition-property: box-shadow;\n    -webkit-appearance: none;\n    border-radius: 3px;\n    cursor: pointer;\n}\n.sb-soundplayer-widget-play:before {\n    content: '';\n    display: block;\n    border: 1px solid transparent;\n    background-color: currentcolor;\n    position: absolute;\n    z-index: -1;\n    top: -1px;\n    right: -1px;\n    bottom: -1px;\n    left: -1px;\n    -webkit-transition-duration: .1s;\n            transition-duration: .1s;\n    -webkit-transition-timing-function: ease-out;\n            transition-timing-function: ease-out;\n    -webkit-transition-property: opacity;\n            transition-property: opacity;\n    opacity: 0;\n    border-radius: 3px;\n}\n.sb-soundplayer-widget-play:hover,\n.sb-soundplayer-widget-play:active {\n  box-shadow: none;\n}\n.sb-soundplayer-widget-play:hover:before,\n.sb-soundplayer-widget-play:focus:before {\n    opacity: .09375;\n}\n.sb-soundplayer-widget-play:focus {\n    outline: none;\n    border-color: transparent;\n    box-shadow: 0 0 0 2px;\n}\n.sb-soundplayer-widget-button-icon {\n    width: 1em;\n    height: 1em;\n    position: relative;\n    vertical-align: middle;\n}\n.sb-soundplayer-widget-cover-logo {\n    color: #fff;\n    width: 100px;\n    height: 14px;\n    position: absolute;\n    top: 10px;\n    right: 10px;\n    z-index: 1;\n}\n.sb-soundplayer-widget-timer {\n    -webkit-box-flex: 0;\n    -webkit-flex: none;\n        -ms-flex: none;\n            flex: none;\n    color: #fff;\n    font-size: 12px;\n    padding: 0 3px 0 15px;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n    cursor: default;\n}\n.sb-soundplayer-widget-message {\n    color: #999;\n    font-size: 12px;\n    text-align: center;\n    position: absolute;\n    right: 0;\n    left: 0;\n    bottom: 10px;\n}\n.sb-soundplayer-widget-message a {\n    color: #666;\n}\n", ""]);
 
 /***/ },
 /* 3 */
@@ -401,7 +401,7 @@
 
 	var _dekuSoundplayer2 = _interopRequireDefault(_dekuSoundplayer);
 
-	var _soundcloudAudio = __webpack_require__(39);
+	var _soundcloudAudio = __webpack_require__(40);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
@@ -3716,7 +3716,7 @@
 /* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/** @jsx deku.dom */
+	/** @jsx dom */
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
@@ -3727,27 +3727,128 @@
 
 	var _deku = __webpack_require__(7);
 
-	var _deku2 = _interopRequireDefault(_deku);
-
-	var _soundcloudAudio = __webpack_require__(39);
+	var _soundcloudAudio = __webpack_require__(40);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
-	var _componentsPlayButton = __webpack_require__(40);
+	var _componentsCover = __webpack_require__(41);
 
-	var _componentsPlayButton2 = _interopRequireDefault(_componentsPlayButton);
-
-	var _componentsProgress = __webpack_require__(42);
-
-	var _componentsProgress2 = _interopRequireDefault(_componentsProgress);
+	var _componentsCover2 = _interopRequireDefault(_componentsCover);
 
 	var _componentsTimer = __webpack_require__(43);
 
 	var _componentsTimer2 = _interopRequireDefault(_componentsTimer);
 
-	var _componentsIcons = __webpack_require__(41);
+	var _componentsProgress = __webpack_require__(39);
 
-	var _utilsAudioStore = __webpack_require__(44);
+	var _componentsProgress2 = _interopRequireDefault(_componentsProgress);
+
+	var _componentsPlayButton = __webpack_require__(44);
+
+	var _componentsPlayButton2 = _interopRequireDefault(_componentsPlayButton);
+
+	var _addonsSoundPlayerContainer = __webpack_require__(46);
+
+	var _addonsSoundPlayerContainer2 = _interopRequireDefault(_addonsSoundPlayerContainer);
+
+	var _componentsIcons = __webpack_require__(45);
+
+	var Player = {
+	    propTypes: {
+	        duration: {
+	            type: 'number',
+	            optional: true
+	        },
+	        currentTime: {
+	            type: 'number',
+	            optional: true
+	        },
+	        playing: {
+	            type: 'boolean',
+	            optional: true
+	        },
+	        seeking: {
+	            type: 'boolean',
+	            optional: true
+	        },
+	        track: {
+	            type: 'object',
+	            optional: true
+	        },
+	        soundCloudAudio: function soundCloudAudio(prop) {
+	            return prop instanceof _soundcloudAudio2['default'];
+	        }
+	    },
+
+	    defaultProps: {
+	        duration: 0,
+	        currentTime: 0,
+	        seeking: false,
+	        playing: false
+	    },
+
+	    render: function render(component) {
+	        var props = component.props;
+
+	        if (!props.track) {
+	            return (0, _deku.dom)('span', null);
+	        }
+
+	        if (props.track && !props.track.streamable) {
+	            return (0, _deku.dom)(
+	                'div',
+	                { 'class': 'sb-soundplayer-widget-message' },
+	                (0, _deku.dom)(
+	                    'a',
+	                    { href: props.track.permalink_url, target: '_blank' },
+	                    props.track.title
+	                ),
+	                ' is not streamable!'
+	            );
+	        }
+
+	        return (0, _deku.dom)(
+	            _componentsCover2['default'],
+	            { artworkUrl: props.track.artwork_url.replace('large', 't500x500') },
+	            (0, _deku.dom)('div', { 'class': 'sb-soundplayer-widget-overlay' }),
+	            (0, _deku.dom)(
+	                'div',
+	                { 'class': 'sb-soundplayer-widget-track-info' },
+	                (0, _deku.dom)(
+	                    'h3',
+	                    { 'class': 'sb-soundplayer-widget-user' },
+	                    props.track.user.username
+	                ),
+	                (0, _deku.dom)(
+	                    'h2',
+	                    { 'class': 'sb-soundplayer-widget-title' },
+	                    props.track.title
+	                )
+	            ),
+	            (0, _deku.dom)(
+	                'a',
+	                { href: props.track.permalink_url, target: '_blank' },
+	                (0, _deku.dom)(_componentsIcons.SoundCloudLogoSVG, null)
+	            ),
+	            (0, _deku.dom)(
+	                'div',
+	                { 'class': 'sb-soundplayer-widget-controls' },
+	                (0, _deku.dom)(_componentsPlayButton2['default'], {
+	                    playing: props.playing,
+	                    soundCloudAudio: props.soundCloudAudio
+	                }),
+	                (0, _deku.dom)(_componentsProgress2['default'], {
+	                    value: props.currentTime / props.duration * 100 || 0,
+	                    soundCloudAudio: props.soundCloudAudio
+	                }),
+	                (0, _deku.dom)(_componentsTimer2['default'], {
+	                    duration: props.track.duration / 1000,
+	                    currentTime: props.currentTime
+	                })
+	            )
+	        );
+	    }
+	};
 
 	exports['default'] = {
 	    propTypes: {
@@ -3759,130 +3860,13 @@
 	        }
 	    },
 
-	    initialState: function initialState() {
-	        return {
-	            duration: 0,
-	            currentTime: 0,
-	            seeking: false,
-	            playing: false
-	        };
-	    },
-
-	    afterMount: function afterMount(component, el, setState) {
-	        var props = component.props;
-	        var soundCloudAudio = props.soundCloudAudio;
-
-	        soundCloudAudio.resolve(props.url, function (data) {
-	            // TBD: support for playlists
-	            var track = data.tracks ? data.tracks[0] : data;
-	            setState({ track: track });
-	        });
-
-	        function onAudioStarted() {
-	            setState({ playing: true });
-
-	            (0, _utilsAudioStore.stopAllOther)(soundCloudAudio.playing);
-	            (0, _utilsAudioStore.addToStore)(soundCloudAudio);
-	        }
-
-	        function getCurrentTime() {
-	            setState({ currentTime: soundCloudAudio.audio.currentTime });
-	        }
-
-	        function getDuration() {
-	            setState({ duration: soundCloudAudio.audio.duration });
-	        }
-
-	        function onSeekingTrack() {
-	            setState({ seeking: true });
-	        }
-
-	        function onSeekedTrack() {
-	            setState({ seeking: false });
-	        }
-
-	        function onAudioEnded() {
-	            setState({ playing: false });
-	        }
-
-	        // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
-	        soundCloudAudio.on('playing', onAudioStarted);
-	        soundCloudAudio.on('timeupdate', getCurrentTime);
-	        soundCloudAudio.on('loadedmetadata', getDuration);
-	        soundCloudAudio.on('seeking', onSeekingTrack);
-	        soundCloudAudio.on('seeked', onSeekedTrack);
-	        soundCloudAudio.on('pause', onAudioEnded);
-	        soundCloudAudio.on('ended', onAudioEnded);
-	    },
-
-	    beforeMount: function beforeMount(component) {
-	        var props = component.props;
-
-	        props.soundCloudAudio.unbindAll();
-	    },
-
 	    render: function render(component) {
-	        var state = component.state;
 	        var props = component.props;
 
-	        if (!state.track) {
-	            return _deku2['default'].dom('span', null);
-	        }
-
-	        if (state.track && !state.track.streamable) {
-	            return _deku2['default'].dom(
-	                'div',
-	                { 'class': 'sb-soundplayer-widget-message' },
-	                _deku2['default'].dom(
-	                    'a',
-	                    { href: state.track.permalink_url, target: '_blank' },
-	                    state.track.title
-	                ),
-	                ' is not streamable!'
-	            );
-	        }
-
-	        return _deku2['default'].dom(
-	            'div',
-	            { 'class': 'sb-soundplayer-widget-cover', style: {
-	                    'background-image': 'url(' + state.track.artwork_url.replace('large', 't500x500') + ')'
-	                } },
-	            _deku2['default'].dom('div', { 'class': 'sb-soundplayer-widget-overlay' }),
-	            _deku2['default'].dom(
-	                'div',
-	                { 'class': 'sb-soundplayer-widget-track-info' },
-	                _deku2['default'].dom(
-	                    'h3',
-	                    { 'class': 'sb-soundplayer-widget-user' },
-	                    state.track.user.username
-	                ),
-	                _deku2['default'].dom(
-	                    'h2',
-	                    { 'class': 'sb-soundplayer-widget-title' },
-	                    state.track.title
-	                )
-	            ),
-	            _deku2['default'].dom(
-	                'a',
-	                { href: state.track.permalink_url, target: '_blank' },
-	                _deku2['default'].dom(_componentsIcons.SoundCloudLogoSVG, null)
-	            ),
-	            _deku2['default'].dom(
-	                'div',
-	                { 'class': 'sb-soundplayer-widget-controls' },
-	                _deku2['default'].dom(_componentsPlayButton2['default'], {
-	                    playing: state.playing,
-	                    soundCloudAudio: props.soundCloudAudio
-	                }),
-	                _deku2['default'].dom(_componentsProgress2['default'], {
-	                    value: state.currentTime / state.duration * 100 || 0,
-	                    soundCloudAudio: props.soundCloudAudio
-	                }),
-	                _deku2['default'].dom(_componentsTimer2['default'], {
-	                    duration: state.track.duration / 1000,
-	                    currentTime: state.currentTime
-	                })
-	            )
+	        return (0, _deku.dom)(
+	            _addonsSoundPlayerContainer2['default'],
+	            props,
+	            (0, _deku.dom)(Player, null)
 	        );
 	    }
 	};
@@ -3890,6 +3874,72 @@
 
 /***/ },
 /* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx dom */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _deku = __webpack_require__(7);
+
+	var _soundcloudAudio = __webpack_require__(40);
+
+	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
+
+	exports['default'] = {
+	    defaultProps: {
+	        value: 0
+	    },
+
+	    propTypes: {
+	        value: {
+	            type: 'number'
+	        },
+
+	        soundCloudAudio: function soundCloudAudio(prop) {
+	            return prop instanceof _soundcloudAudio2['default'];
+	        }
+	    },
+
+	    render: function render(component) {
+	        var props = component.props;
+	        var value = props.value;
+	        var soundCloudAudio = props.soundCloudAudio;
+
+	        if (value < 0) {
+	            value = 0;
+	        }
+
+	        if (value > 100) {
+	            value = 100;
+	        }
+
+	        var style = { width: '' + value + '%' };
+
+	        function handleSeekTrack(e) {
+	            var xPos = (e.pageX - e.delegateTarget.getBoundingClientRect().left) / e.delegateTarget.offsetWidth;
+
+	            if (soundCloudAudio && !isNaN(soundCloudAudio.audio.duration)) {
+	                soundCloudAudio.audio.currentTime = xPos * soundCloudAudio.audio.duration;
+	            }
+	        }
+
+	        return (0, _deku.dom)(
+	            'div',
+	            { 'class': 'sb-soundplayer-widget-progress-container', onClick: handleSeekTrack },
+	            (0, _deku.dom)('div', { 'class': 'sb-soundplayer-widget-progress-inner', style: style })
+	        );
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4052,78 +4102,10 @@
 
 
 /***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/** @jsx deku.dom */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _deku = __webpack_require__(7);
-
-	var _deku2 = _interopRequireDefault(_deku);
-
-	var _soundcloudAudio = __webpack_require__(39);
-
-	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
-
-	var _Icons = __webpack_require__(41);
-
-	exports['default'] = {
-	    defaultProps: {
-	        playing: false,
-	        seeking: false
-	    },
-
-	    propTypes: {
-	        playing: {
-	            type: 'boolean',
-	            optional: true
-	        },
-	        seeking: {
-	            type: 'boolean',
-	            optional: true
-	        },
-	        soundCloudAudio: function soundCloudAudio(prop) {
-	            return prop instanceof _soundcloudAudio2['default'];
-	        }
-	    },
-
-	    render: function render(component) {
-	        var props = component.props;
-
-	        function handleClick(e) {
-	            e.preventDefault();
-
-	            var playing = props.playing;
-	            var soundCloudAudio = props.soundCloudAudio;
-
-	            if (!playing) {
-	                soundCloudAudio && soundCloudAudio.play();
-	            } else {
-	                soundCloudAudio && soundCloudAudio.pause();
-	            }
-	        }
-
-	        return _deku2['default'].dom(
-	            'button',
-	            { 'class': 'sb-soundplayer-widget-play', onClick: handleClick },
-	            !props.playing ? _deku2['default'].dom(_Icons.PlayIconSVG, { onClick: handleClick }) : _deku2['default'].dom(_Icons.PauseIconSVG, { onClick: handleClick })
-	        );
-	    }
-	};
-	module.exports = exports['default'];
-
-/***/ },
 /* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/** @jsx deku.dom */
+	/** @jsx dom */
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
@@ -4134,152 +4116,28 @@
 
 	var _deku = __webpack_require__(7);
 
-	var _deku2 = _interopRequireDefault(_deku);
+	var _classnames = __webpack_require__(42);
 
-	var iconPropTypes = {
-	    onClick: {
-	        type: 'function',
-	        optional: true
-	    }
-	};
+	var _classnames2 = _interopRequireDefault(_classnames);
 
-	// SoundCloud Logo
-	var SoundCloudLogoSVG = {
-	    propTypes: iconPropTypes,
-
-	    shouldUpdate: function shouldUpdate() {
-	        return false;
+	exports['default'] = {
+	    propTypes: {
+	        artworkUrl: {
+	            type: 'string'
+	        }
 	    },
 
 	    render: function render(component) {
 	        var props = component.props;
 
-	        return _deku2['default'].dom(
-	            'svg',
-	            {
-	                'class': 'sb-soundplayer-widget-cover-logo',
-	                xmlns: 'http://www.w3.org/2000/svg',
-	                fill: 'currentColor',
-	                onClick: props.onClick
-	            },
-	            _deku2['default'].dom('path', { d: 'M10.517 3.742c-.323 0-.49.363-.49.582 0 0-.244 3.591-.244 4.641 0 1.602.15 2.621.15 2.621 0 .222.261.401.584.401.321 0 .519-.179.519-.401 0 0 .398-1.038.398-2.639 0-1.837-.153-4.127-.284-4.592-.112-.395-.313-.613-.633-.613zm-1.996.268c-.323 0-.49.363-.49.582 0 0-.244 3.322-.244 4.372 0 1.602.119 2.621.119 2.621 0 .222.26.401.584.401.321 0 .581-.179.581-.401 0 0 .081-1.007.081-2.608 0-1.837-.206-4.386-.206-4.386 0-.218-.104-.581-.425-.581zm-2.021 1.729c-.324 0-.49.362-.49.582 0 0-.272 1.594-.272 2.644 0 1.602.179 2.559.179 2.559 0 .222.229.463.552.463.321 0 .519-.241.519-.463 0 0 .19-.944.19-2.546 0-1.837-.253-2.657-.253-2.657 0-.22-.104-.582-.425-.582zm-2.046-.358c-.323 0-.49.363-.49.582 0 0-.162 1.92-.162 2.97 0 1.602.069 2.496.069 2.496 0 .222.26.557.584.557.321 0 .581-.304.581-.526 0 0 .143-.936.143-2.538 0-1.837-.206-2.96-.206-2.96 0-.218-.198-.581-.519-.581zm-2.169 1.482c-.272 0-.232.218-.232.218v3.982s-.04.335.232.335c.351 0 .716-.832.716-2.348 0-1.245-.436-2.187-.716-2.187zm18.715-.976c-.289 0-.567.042-.832.116-.417-2.266-2.806-3.989-5.263-3.989-1.127 0-2.095.705-2.931 1.316v8.16s0 .484.5.484h8.526c1.655 0 3-1.55 3-3.155 0-1.607-1.346-2.932-3-2.932zm10.17.857c-1.077-.253-1.368-.389-1.368-.815 0-.3.242-.611.97-.611.621 0 1.106.253 1.542.699l.981-.951c-.641-.669-1.417-1.067-2.474-1.067-1.339 0-2.425.757-2.425 1.99 0 1.338.873 1.736 2.124 2.026 1.281.291 1.513.486 1.513.923 0 .514-.379.738-1.184.738-.65 0-1.26-.223-1.736-.777l-.98.873c.514.757 1.504 1.232 2.639 1.232 1.853 0 2.668-.873 2.668-2.163 0-1.477-1.193-1.845-2.27-2.097zm6.803-2.745c-1.853 0-2.949 1.435-2.949 3.502s1.096 3.501 2.949 3.501c1.852 0 2.949-1.434 2.949-3.501s-1.096-3.502-2.949-3.502zm0 5.655c-1.097 0-1.553-.941-1.553-2.153 0-1.213.456-2.153 1.553-2.153 1.096 0 1.551.94 1.551 2.153.001 1.213-.454 2.153-1.551 2.153zm8.939-1.736c0 1.086-.533 1.756-1.396 1.756-.864 0-1.388-.689-1.388-1.775v-3.897h-1.358v3.916c0 1.978 1.106 3.084 2.746 3.084 1.726 0 2.754-1.136 2.754-3.103v-3.897h-1.358v3.916zm8.142-.89l.019 1.485c-.087-.174-.31-.515-.475-.768l-2.703-3.692h-1.362v6.894h1.401v-2.988l-.02-1.484c.088.175.311.514.475.767l2.79 3.705h1.213v-6.894h-1.339v2.975zm5.895-2.923h-2.124v6.791h2.027c1.746 0 3.474-1.01 3.474-3.395 0-2.484-1.437-3.396-3.377-3.396zm-.097 5.472h-.67v-4.152h.719c1.436 0 2.028.688 2.028 2.076 0 1.242-.651 2.076-2.077 2.076zm7.909-4.229c.611 0 1 .271 1.242.737l1.26-.582c-.426-.883-1.202-1.503-2.483-1.503-1.775 0-3.016 1.435-3.016 3.502 0 2.143 1.191 3.501 2.968 3.501 1.232 0 2.047-.572 2.513-1.533l-1.145-.68c-.358.602-.718.864-1.329.864-1.019 0-1.611-.932-1.611-2.153-.001-1.261.583-2.153 1.601-2.153zm5.17-1.192h-1.359v6.791h4.083v-1.338h-2.724v-5.453zm6.396-.157c-1.854 0-2.949 1.435-2.949 3.502s1.095 3.501 2.949 3.501c1.853 0 2.95-1.434 2.95-3.501s-1.097-3.502-2.95-3.502zm0 5.655c-1.097 0-1.553-.941-1.553-2.153 0-1.213.456-2.153 1.553-2.153 1.095 0 1.55.94 1.55 2.153.001 1.213-.454 2.153-1.55 2.153zm8.557-1.736c0 1.086-.532 1.756-1.396 1.756-.864 0-1.388-.689-1.388-1.775v-3.794h-1.358v3.813c0 1.978 1.106 3.084 2.746 3.084 1.726 0 2.755-1.136 2.755-3.103v-3.794h-1.36v3.813zm5.449-3.907h-2.318v6.978h2.211c1.908 0 3.789-1.037 3.789-3.489 0-2.552-1.565-3.489-3.682-3.489zm-.108 5.623h-.729v-4.266h.783c1.565 0 2.21.706 2.21 2.133.001 1.276-.707 2.133-2.264 2.133z' })
-	        );
-	    }
-	};
+	        var classNames = (0, _classnames2['default'])('sb-soundplayer-widget-cover', props['class']);
 
-	// Player Button Icons
-	var ButtonIconSVG = {
-	    propTypes: iconPropTypes,
-
-	    render: function render(component) {
-	        var props = component.props;
-
-	        return _deku2['default'].dom(
-	            'svg',
-	            {
-	                'class': 'sb-soundplayer-widget-button-icon',
-	                xmlns: 'http://www.w3.org/2000/svg',
-	                viewBox: '0 0 32 32',
-	                fill: 'currentColor',
-	                onClick: props.onClick
-	            },
+	        return (0, _deku.dom)(
+	            'div',
+	            { 'class': classNames, style: { 'background-image': 'url(' + props.artworkUrl + ')' } },
 	            props.children
 	        );
 	    }
-	};
-
-	// |> Play
-	var PlayIconSVG = {
-	    propTypes: iconPropTypes,
-
-	    shouldUpdate: function shouldUpdate() {
-	        return false;
-	    },
-
-	    render: function render(component) {
-	        var props = component.props;
-
-	        return _deku2['default'].dom(
-	            ButtonIconSVG,
-	            props,
-	            _deku2['default'].dom('path', { d: 'M0 0 L32 16 L0 32 z' })
-	        );
-	    }
-	};
-
-	// || Pause
-	var PauseIconSVG = {
-	    propTypes: iconPropTypes,
-
-	    shouldUpdate: function shouldUpdate() {
-	        return false;
-	    },
-
-	    render: function render(component) {
-	        var props = component.props;
-
-	        return _deku2['default'].dom(
-	            ButtonIconSVG,
-	            props,
-	            _deku2['default'].dom('path', { d: 'M0 0 H12 V32 H0 z M20 0 H32 V32 H20 z' })
-	        );
-	    }
-	};
-
-	// |>| Next
-	var NextIconSVG = {
-	    propTypes: {
-	        onClick: {
-	            type: 'function',
-	            optional: true
-	        }
-	    },
-
-	    shouldUpdate: function shouldUpdate() {
-	        return false;
-	    },
-
-	    render: function render(component) {
-	        var props = component.props;
-
-	        return _deku2['default'].dom(
-	            ButtonIconSVG,
-	            props,
-	            _deku2['default'].dom('path', { d: 'M4 4 L24 14 V4 H28 V28 H24 V18 L4 28 z ' })
-	        );
-	    }
-	};
-
-	// |<| Prev
-	var PrevIconSVG = {
-	    propTypes: {
-	        onClick: {
-	            type: 'function',
-	            optional: true
-	        }
-	    },
-
-	    shouldUpdate: function shouldUpdate() {
-	        return false;
-	    },
-
-	    render: function render(component) {
-	        var props = component.props;
-
-	        return _deku2['default'].dom(
-	            ButtonIconSVG,
-	            props,
-	            _deku2['default'].dom('path', { d: 'M4 4 H8 V14 L28 4 V28 L8 18 V28 H4 z ' })
-	        );
-	    }
-	};
-
-	exports['default'] = {
-	    SoundCloudLogoSVG: SoundCloudLogoSVG,
-	    PlayIconSVG: PlayIconSVG,
-	    PauseIconSVG: PauseIconSVG,
-	    NextIconSVG: NextIconSVG,
-	    PrevIconSVG: PrevIconSVG
 	};
 	module.exports = exports['default'];
 
@@ -4287,86 +4145,69 @@
 /* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/** @jsx deku.dom */
-	'use strict';
+	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2015 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
 
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
+	(function () {
+		'use strict';
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+		function classNames () {
 
-	var _deku = __webpack_require__(7);
+			var classes = '';
 
-	var _deku2 = _interopRequireDefault(_deku);
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
 
-	var _soundcloudAudio = __webpack_require__(39);
+				var argType = typeof arg;
 
-	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
+				if ('string' === argType || 'number' === argType) {
+					classes += ' ' + arg;
 
-	exports['default'] = {
-	    defaultProps: {
-	        value: 0
-	    },
+				} else if (Array.isArray(arg)) {
+					classes += ' ' + classNames.apply(null, arg);
 
-	    propTypes: {
-	        value: {
-	            type: 'number'
-	        },
+				} else if ('object' === argType) {
+					for (var key in arg) {
+						if (arg.hasOwnProperty(key) && arg[key]) {
+							classes += ' ' + key;
+						}
+					}
+				}
+			}
 
-	        soundCloudAudio: function soundCloudAudio(prop) {
-	            return prop instanceof _soundcloudAudio2['default'];
-	        }
-	    },
+			return classes.substr(1);
+		}
 
-	    render: function render(component) {
-	        var props = component.props;
-	        var value = props.value;
-	        var soundCloudAudio = props.soundCloudAudio;
+		if (true) {
+			// AMD. Register as an anonymous module.
+			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else {
+			window.classNames = classNames;
+		}
 
-	        if (value < 0) {
-	            value = 0;
-	        }
+	}());
 
-	        if (value > 100) {
-	            value = 100;
-	        }
-
-	        var style = { width: '' + value + '%' };
-
-	        function handleSeekTrack(e) {
-	            var xPos = (e.pageX - e.delegateTarget.getBoundingClientRect().left) / e.delegateTarget.offsetWidth;
-
-	            if (soundCloudAudio && !isNaN(soundCloudAudio.audio.duration)) {
-	                soundCloudAudio.audio.currentTime = xPos * soundCloudAudio.audio.duration;
-	            }
-	        }
-
-	        return _deku2['default'].dom(
-	            'div',
-	            { 'class': 'sb-soundplayer-widget-progress-container', onClick: handleSeekTrack },
-	            _deku2['default'].dom('div', { 'class': 'sb-soundplayer-widget-progress-inner', style: style })
-	        );
-	    }
-	};
-	module.exports = exports['default'];
 
 /***/ },
 /* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/** @jsx deku.dom */
+	/** @jsx dom */
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
 	var _deku = __webpack_require__(7);
-
-	var _deku2 = _interopRequireDefault(_deku);
 
 	function prettyTime(time) {
 	    var hours = Math.floor(time / 3600);
@@ -4405,7 +4246,7 @@
 	    render: function render(component) {
 	        var props = component.props;
 
-	        return _deku2['default'].dom(
+	        return (0, _deku.dom)(
 	            'div',
 	            { 'class': 'sb-soundplayer-widget-timer' },
 	            prettyTime(props.currentTime),
@@ -4418,6 +4259,395 @@
 
 /***/ },
 /* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx dom */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _deku = __webpack_require__(7);
+
+	var _soundcloudAudio = __webpack_require__(40);
+
+	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
+
+	var _Icons = __webpack_require__(45);
+
+	exports['default'] = {
+	    defaultProps: {
+	        playing: false,
+	        seeking: false
+	    },
+
+	    propTypes: {
+	        playing: {
+	            type: 'boolean',
+	            optional: true
+	        },
+	        seeking: {
+	            type: 'boolean',
+	            optional: true
+	        },
+	        soundCloudAudio: function soundCloudAudio(prop) {
+	            return prop instanceof _soundcloudAudio2['default'];
+	        }
+	    },
+
+	    render: function render(component) {
+	        var props = component.props;
+
+	        function handleClick(e) {
+	            e.preventDefault();
+
+	            var playing = props.playing;
+	            var soundCloudAudio = props.soundCloudAudio;
+
+	            if (!playing) {
+	                soundCloudAudio && soundCloudAudio.play();
+	            } else {
+	                soundCloudAudio && soundCloudAudio.pause();
+	            }
+	        }
+
+	        return (0, _deku.dom)(
+	            'button',
+	            { 'class': 'sb-soundplayer-widget-play', onClick: handleClick },
+	            !props.playing ? (0, _deku.dom)(_Icons.PlayIconSVG, { onClick: handleClick }) : (0, _deku.dom)(_Icons.PauseIconSVG, { onClick: handleClick })
+	        );
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx dom */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _deku = __webpack_require__(7);
+
+	var iconPropTypes = {
+	    onClick: {
+	        type: 'function',
+	        optional: true
+	    }
+	};
+
+	// SoundCloud Logo
+	var SoundCloudLogoSVG = {
+	    propTypes: iconPropTypes,
+
+	    shouldUpdate: function shouldUpdate() {
+	        return false;
+	    },
+
+	    render: function render(component) {
+	        var props = component.props;
+
+	        return (0, _deku.dom)(
+	            'svg',
+	            {
+	                'class': 'sb-soundplayer-widget-cover-logo',
+	                xmlns: 'http://www.w3.org/2000/svg',
+	                fill: 'currentColor',
+	                onClick: props.onClick
+	            },
+	            (0, _deku.dom)('path', { d: 'M10.517 3.742c-.323 0-.49.363-.49.582 0 0-.244 3.591-.244 4.641 0 1.602.15 2.621.15 2.621 0 .222.261.401.584.401.321 0 .519-.179.519-.401 0 0 .398-1.038.398-2.639 0-1.837-.153-4.127-.284-4.592-.112-.395-.313-.613-.633-.613zm-1.996.268c-.323 0-.49.363-.49.582 0 0-.244 3.322-.244 4.372 0 1.602.119 2.621.119 2.621 0 .222.26.401.584.401.321 0 .581-.179.581-.401 0 0 .081-1.007.081-2.608 0-1.837-.206-4.386-.206-4.386 0-.218-.104-.581-.425-.581zm-2.021 1.729c-.324 0-.49.362-.49.582 0 0-.272 1.594-.272 2.644 0 1.602.179 2.559.179 2.559 0 .222.229.463.552.463.321 0 .519-.241.519-.463 0 0 .19-.944.19-2.546 0-1.837-.253-2.657-.253-2.657 0-.22-.104-.582-.425-.582zm-2.046-.358c-.323 0-.49.363-.49.582 0 0-.162 1.92-.162 2.97 0 1.602.069 2.496.069 2.496 0 .222.26.557.584.557.321 0 .581-.304.581-.526 0 0 .143-.936.143-2.538 0-1.837-.206-2.96-.206-2.96 0-.218-.198-.581-.519-.581zm-2.169 1.482c-.272 0-.232.218-.232.218v3.982s-.04.335.232.335c.351 0 .716-.832.716-2.348 0-1.245-.436-2.187-.716-2.187zm18.715-.976c-.289 0-.567.042-.832.116-.417-2.266-2.806-3.989-5.263-3.989-1.127 0-2.095.705-2.931 1.316v8.16s0 .484.5.484h8.526c1.655 0 3-1.55 3-3.155 0-1.607-1.346-2.932-3-2.932zm10.17.857c-1.077-.253-1.368-.389-1.368-.815 0-.3.242-.611.97-.611.621 0 1.106.253 1.542.699l.981-.951c-.641-.669-1.417-1.067-2.474-1.067-1.339 0-2.425.757-2.425 1.99 0 1.338.873 1.736 2.124 2.026 1.281.291 1.513.486 1.513.923 0 .514-.379.738-1.184.738-.65 0-1.26-.223-1.736-.777l-.98.873c.514.757 1.504 1.232 2.639 1.232 1.853 0 2.668-.873 2.668-2.163 0-1.477-1.193-1.845-2.27-2.097zm6.803-2.745c-1.853 0-2.949 1.435-2.949 3.502s1.096 3.501 2.949 3.501c1.852 0 2.949-1.434 2.949-3.501s-1.096-3.502-2.949-3.502zm0 5.655c-1.097 0-1.553-.941-1.553-2.153 0-1.213.456-2.153 1.553-2.153 1.096 0 1.551.94 1.551 2.153.001 1.213-.454 2.153-1.551 2.153zm8.939-1.736c0 1.086-.533 1.756-1.396 1.756-.864 0-1.388-.689-1.388-1.775v-3.897h-1.358v3.916c0 1.978 1.106 3.084 2.746 3.084 1.726 0 2.754-1.136 2.754-3.103v-3.897h-1.358v3.916zm8.142-.89l.019 1.485c-.087-.174-.31-.515-.475-.768l-2.703-3.692h-1.362v6.894h1.401v-2.988l-.02-1.484c.088.175.311.514.475.767l2.79 3.705h1.213v-6.894h-1.339v2.975zm5.895-2.923h-2.124v6.791h2.027c1.746 0 3.474-1.01 3.474-3.395 0-2.484-1.437-3.396-3.377-3.396zm-.097 5.472h-.67v-4.152h.719c1.436 0 2.028.688 2.028 2.076 0 1.242-.651 2.076-2.077 2.076zm7.909-4.229c.611 0 1 .271 1.242.737l1.26-.582c-.426-.883-1.202-1.503-2.483-1.503-1.775 0-3.016 1.435-3.016 3.502 0 2.143 1.191 3.501 2.968 3.501 1.232 0 2.047-.572 2.513-1.533l-1.145-.68c-.358.602-.718.864-1.329.864-1.019 0-1.611-.932-1.611-2.153-.001-1.261.583-2.153 1.601-2.153zm5.17-1.192h-1.359v6.791h4.083v-1.338h-2.724v-5.453zm6.396-.157c-1.854 0-2.949 1.435-2.949 3.502s1.095 3.501 2.949 3.501c1.853 0 2.95-1.434 2.95-3.501s-1.097-3.502-2.95-3.502zm0 5.655c-1.097 0-1.553-.941-1.553-2.153 0-1.213.456-2.153 1.553-2.153 1.095 0 1.55.94 1.55 2.153.001 1.213-.454 2.153-1.55 2.153zm8.557-1.736c0 1.086-.532 1.756-1.396 1.756-.864 0-1.388-.689-1.388-1.775v-3.794h-1.358v3.813c0 1.978 1.106 3.084 2.746 3.084 1.726 0 2.755-1.136 2.755-3.103v-3.794h-1.36v3.813zm5.449-3.907h-2.318v6.978h2.211c1.908 0 3.789-1.037 3.789-3.489 0-2.552-1.565-3.489-3.682-3.489zm-.108 5.623h-.729v-4.266h.783c1.565 0 2.21.706 2.21 2.133.001 1.276-.707 2.133-2.264 2.133z' })
+	        );
+	    }
+	};
+
+	// Player Button Icons
+	var ButtonIconSVG = {
+	    propTypes: iconPropTypes,
+
+	    render: function render(component) {
+	        var props = component.props;
+
+	        return (0, _deku.dom)(
+	            'svg',
+	            {
+	                'class': 'sb-soundplayer-widget-button-icon',
+	                xmlns: 'http://www.w3.org/2000/svg',
+	                viewBox: '0 0 32 32',
+	                fill: 'currentColor',
+	                onClick: props.onClick
+	            },
+	            props.children
+	        );
+	    }
+	};
+
+	// |> Play
+	var PlayIconSVG = {
+	    propTypes: iconPropTypes,
+
+	    shouldUpdate: function shouldUpdate() {
+	        return false;
+	    },
+
+	    render: function render(component) {
+	        var props = component.props;
+
+	        return (0, _deku.dom)(
+	            ButtonIconSVG,
+	            props,
+	            (0, _deku.dom)('path', { d: 'M0 0 L32 16 L0 32 z' })
+	        );
+	    }
+	};
+
+	// || Pause
+	var PauseIconSVG = {
+	    propTypes: iconPropTypes,
+
+	    shouldUpdate: function shouldUpdate() {
+	        return false;
+	    },
+
+	    render: function render(component) {
+	        var props = component.props;
+
+	        return (0, _deku.dom)(
+	            ButtonIconSVG,
+	            props,
+	            (0, _deku.dom)('path', { d: 'M0 0 H12 V32 H0 z M20 0 H32 V32 H20 z' })
+	        );
+	    }
+	};
+
+	// |>| Next
+	var NextIconSVG = {
+	    propTypes: {
+	        onClick: {
+	            type: 'function',
+	            optional: true
+	        }
+	    },
+
+	    shouldUpdate: function shouldUpdate() {
+	        return false;
+	    },
+
+	    render: function render(component) {
+	        var props = component.props;
+
+	        return (0, _deku.dom)(
+	            ButtonIconSVG,
+	            props,
+	            (0, _deku.dom)('path', { d: 'M4 4 L24 14 V4 H28 V28 H24 V18 L4 28 z ' })
+	        );
+	    }
+	};
+
+	// |<| Prev
+	var PrevIconSVG = {
+	    propTypes: {
+	        onClick: {
+	            type: 'function',
+	            optional: true
+	        }
+	    },
+
+	    shouldUpdate: function shouldUpdate() {
+	        return false;
+	    },
+
+	    render: function render(component) {
+	        var props = component.props;
+
+	        return (0, _deku.dom)(
+	            ButtonIconSVG,
+	            props,
+	            (0, _deku.dom)('path', { d: 'M4 4 H8 V14 L28 4 V28 L8 18 V28 H4 z ' })
+	        );
+	    }
+	};
+
+	exports['default'] = {
+	    SoundCloudLogoSVG: SoundCloudLogoSVG,
+	    PlayIconSVG: PlayIconSVG,
+	    PauseIconSVG: PauseIconSVG,
+	    NextIconSVG: NextIconSVG,
+	    PrevIconSVG: PrevIconSVG
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx dom */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _deku = __webpack_require__(7);
+
+	var _objectAssign = __webpack_require__(47);
+
+	var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
+	var _soundcloudAudio = __webpack_require__(40);
+
+	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
+
+	var _utilsAudioStore = __webpack_require__(48);
+
+	exports['default'] = {
+	    propTypes: {
+	        url: {
+	            type: 'string'
+	        },
+	        soundCloudAudio: function soundCloudAudio(prop) {
+	            return prop instanceof _soundcloudAudio2['default'];
+	        }
+	    },
+
+	    initialState: function initialState() {
+	        return {
+	            duration: 0,
+	            currentTime: 0,
+	            seeking: false,
+	            playing: false
+	        };
+	    },
+
+	    afterMount: function afterMount(component, el, setState) {
+	        var props = component.props;
+	        var soundCloudAudio = props.soundCloudAudio;
+
+	        soundCloudAudio.resolve(props.url, function (data) {
+	            // TBD: support for playlists
+	            var track = data.tracks ? data.tracks[0] : data;
+	            setState({ track: track });
+	        });
+
+	        function onAudioStarted() {
+	            setState({ playing: true });
+
+	            (0, _utilsAudioStore.stopAllOther)(soundCloudAudio.playing);
+	            (0, _utilsAudioStore.addToStore)(soundCloudAudio);
+	        }
+
+	        function getCurrentTime() {
+	            setState({ currentTime: soundCloudAudio.audio.currentTime });
+	        }
+
+	        function getDuration() {
+	            setState({ duration: soundCloudAudio.audio.duration });
+	        }
+
+	        function onSeekingTrack() {
+	            setState({ seeking: true });
+	        }
+
+	        function onSeekedTrack() {
+	            setState({ seeking: false });
+	        }
+
+	        function onAudioEnded() {
+	            setState({ playing: false });
+	        }
+
+	        // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
+	        soundCloudAudio.on('playing', onAudioStarted);
+	        soundCloudAudio.on('timeupdate', getCurrentTime);
+	        soundCloudAudio.on('loadedmetadata', getDuration);
+	        soundCloudAudio.on('seeking', onSeekingTrack);
+	        soundCloudAudio.on('seeked', onSeekedTrack);
+	        soundCloudAudio.on('pause', onAudioEnded);
+	        soundCloudAudio.on('ended', onAudioEnded);
+	    },
+
+	    beforeUnmount: function beforeUnmount(component) {
+	        var props = component.props;
+
+	        props.soundCloudAudio.unbindAll();
+	    },
+
+	    render: function render(component) {
+	        var props = component.props;
+	        var state = component.state;
+
+	        function wrapChild(child) {
+	            var cloneElement = (0, _objectAssign2['default'])({}, child);
+	            if (cloneElement.props) {
+	                cloneElement.props = (0, _objectAssign2['default'])({}, cloneElement.props, state, { soundCloudAudio: props.soundCloudAudio });
+	            }
+	            return cloneElement;
+	        }
+
+	        return (0, _deku.dom)(
+	            'span',
+	            null,
+	            props.children.map(wrapChild)
+	        );
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+	function ToObject(val) {
+		if (val == null) {
+			throw new TypeError('Object.assign cannot be called with null or undefined');
+		}
+
+		return Object(val);
+	}
+
+	function ownEnumerableKeys(obj) {
+		var keys = Object.getOwnPropertyNames(obj);
+
+		if (Object.getOwnPropertySymbols) {
+			keys = keys.concat(Object.getOwnPropertySymbols(obj));
+		}
+
+		return keys.filter(function (key) {
+			return propIsEnumerable.call(obj, key);
+		});
+	}
+
+	module.exports = Object.assign || function (target, source) {
+		var from;
+		var keys;
+		var to = ToObject(target);
+
+		for (var s = 1; s < arguments.length; s++) {
+			from = arguments[s];
+			keys = ownEnumerableKeys(Object(from));
+
+			for (var i = 0; i < keys.length; i++) {
+				to[keys[i]] = from[keys[i]];
+			}
+		}
+
+		return to;
+	};
+
+
+/***/ },
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// handling multiple audio on the page helpers
