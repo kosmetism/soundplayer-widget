@@ -26,7 +26,7 @@
   "author": "Dmitri Voronianski <dmitri.voronianski@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "deku": "^0.4.5",
+    "deku": "^0.4.9",
     "deku-soundplayer": "^0.1.4-rc",
     "soundcloud-audio": "^0.1.4"
   },

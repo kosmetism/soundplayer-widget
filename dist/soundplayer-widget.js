@@ -843,7 +843,7 @@
 	 * These elements won't be pooled
 	 */
 
-	var avoidPooling = ['input', 'textarea'];
+	var avoidPooling = ['input', 'textarea', 'select', 'option'];
 
 	/**
 	 * Expose `dom`.
@@ -1151,7 +1151,10 @@
 	    var entity = entities[entityId]
 	    setSources(entity)
 
-	    if (!shouldUpdate(entity)) return updateChildren(entityId)
+	    if (!shouldUpdate(entity)) {
+	      commit(entity)
+	      return updateChildren(entityId)
+	    }
 
 	    var currentTree = entity.virtualElement
 	    var nextProps = entity.pendingProps
@@ -1558,7 +1561,7 @@
 	    } else {
 
 	      // Just remove the text node
-	      if (!isElement(el)) return el.parentNode.removeChild(el)
+	      if (!isElement(el)) return el && el.parentNode.removeChild(el)
 
 	      // Then we need to find any components within this
 	      // branch and unmount them.
@@ -1742,7 +1745,7 @@
 	   */
 
 	  function isElement (el) {
-	    return !!el.tagName
+	    return !!(el && el.tagName)
 	  }
 
 	  /**
@@ -2772,6 +2775,7 @@
 	 */
 
 	exports.elements = [
+	  'animate',
 	  'circle',
 	  'defs',
 	  'ellipse',
@@ -3646,6 +3650,13 @@
 /* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict'
+
+	/**
+	 * Expose `arrayFlatten`.
+	 */
+	module.exports = arrayFlatten
+
 	/**
 	 * Recursive flatten function with depth.
 	 *
@@ -3654,12 +3665,12 @@
 	 * @param  {Number} depth
 	 * @return {Array}
 	 */
-	function flattenDepth (array, result, depth) {
+	function flattenWithDepth (array, result, depth) {
 	  for (var i = 0; i < array.length; i++) {
 	    var value = array[i]
 
 	    if (depth > 0 && Array.isArray(value)) {
-	      flattenDepth(value, result, depth - 1)
+	      flattenWithDepth(value, result, depth - 1)
 	    } else {
 	      result.push(value)
 	    }
@@ -3696,12 +3707,12 @@
 	 * @param  {Number} depth
 	 * @return {Array}
 	 */
-	module.exports = function (array, depth) {
+	function arrayFlatten (array, depth) {
 	  if (depth == null) {
 	    return flattenForever(array, [])
 	  }
 
-	  return flattenDepth(array, [], depth)
+	  return flattenWithDepth(array, [], depth)
 	}
 
 
