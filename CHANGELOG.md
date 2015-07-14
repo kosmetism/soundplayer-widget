@@ -1,6 +1,20 @@
+# 0.3.3 / 2015-07-14
+
+- create and export `Player` deku component consisted from [deku-soundplayer](https://github.com/soundblogs/deku-soundplayer) components
+
+Now it's possible to use widget's player through npm:
+
+```javascript
+import Player from 'soundcloud-widget';
+// create Player component inside your deku app
+```
+
+- update class names and styles
+- update dependencies to latest 
+
 # 0.2.0 / 2015-06-15
 
-- move all components to separate module - [DekuSoundPlayer](https://github.com/soundblogs/deku-soundplayer)
+- move all components to separate module - [deku-soundplayer](https://github.com/soundblogs/deku-soundplayer)
 
 # 0.1.3 / 2015-06-05
 
