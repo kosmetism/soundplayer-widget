@@ -3,8 +3,9 @@
 const env = process.env.NODE_ENV || 'development';
 
 import deku from 'deku';
-import SoundPlayer from 'deku-soundplayer';
 import SoundCloudAudio from 'soundcloud-audio';
+
+import Player from './Player';
 
 export function create (el, opts) {
     const clientId = opts.clientId || window.sb_soundplayer_client_id;
@@ -25,7 +26,7 @@ export function create (el, opts) {
     const soundCloudAudio = new SoundCloudAudio(clientId);
 
     const app = deku.tree(
-        <SoundPlayer url={opts.url} soundCloudAudio={soundCloudAudio} />
+        <Player url={opts.url} soundCloudAudio={soundCloudAudio} />
     );
 
     if (env === 'development') {

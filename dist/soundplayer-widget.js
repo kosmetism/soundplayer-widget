@@ -95,7 +95,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(3)();
-	exports.push([module.id, ".sb-soundplayer-widget {\n    color: #fff;\n    font-family: 'Avenir Next', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;\n    background-color: #f5f5f5;\n    background-image: url('https://w.soundcloud.com/player/assets/images/logo-200x120-177df3dd.png');\n    background-repeat: no-repeat;\n    background-position: center center;\n    background-size: 100px 60px;\n    min-height: 240px;\n    overflow: hidden;\n    position: relative;\n    box-sizing: border-box;\n    border-radius: 3px;\n}\n.sb-soundplayer-widget *,\n.sb-soundplayer-widget *:before,\n.sb-soundplayer-widget *:after {\n    box-sizing: inherit;\n    margin: 0;\n    padding: 0;\n}\n.sb-soundplayer-widget-track-info {\n    color: #fff;\n    position: relative;\n    z-index: 1;\n    text-align: center;\n    padding-top: 80px;\n    padding-bottom: 53px;\n    text-transform: uppercase;\n    letter-spacing: .1em;\n}\n.sb-soundplayer-widget-user,\n.sb-soundplayer-widget-title {\n    margin: 2px 0;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n    cursor: default;\n}\n.sb-soundplayer-widget-user {\n    font-size: 14px;\n}\n.sb-soundplayer-widget-title {\n    font-size: 20px;\n}\n.sb-soundplayer-widget-controls {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n        -ms-flex-align: center;\n            align-items: center;\n    padding: 0 10px 15px;\n    position: relative;\n    z-index: 1;\n}\n.sb-soundplayer-widget-progress-container {\n    background-color: #000000;\n    background-color: rgba(0, 0, 0, .25);\n    width: 100%;\n    height: 8px;\n    overflow: hidden;\n    cursor: pointer;\n    border-radius: 3px;\n}\n.sb-soundplayer-widget-progress-inner {\n    background-color: #fff;\n    height: 100%;\n    -webkit-transition: width .2s ease-in;\n            transition: width .2s ease-in;\n}\n.sb-soundplayer-widget-cover {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n    border-radius: 3px;\n    position: relative;\n    min-height: 240px;\n}\n.sb-soundplayer-widget-overlay {\n    background-color: #000000;\n    background-color: rgba(0, 0, 0, .3);\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    border-radius: 3px;\n}\n.sb-soundplayer-widget-play {\n    display: inline-block;\n    border: 1px solid transparent;\n    color: #fff;\n    font-size: 20px;\n    text-decoration: none;\n    line-height: 1;\n    padding: 8px 16px;\n    height: auto;\n    vertical-align: middle;\n    -webkit-box-flex: 0;\n    -webkit-flex: none;\n        -ms-flex: none;\n            flex: none;\n    margin-right: 12px;\n    position: relative;\n    z-index: 2;\n    background-color: transparent;\n    -webkit-transition-duration: .1s;\n            transition-duration: .1s;\n    -webkit-transition-timing-function: ease-out;\n            transition-timing-function: ease-out;\n    -webkit-transition-property: box-shadow;\n            transition-property: box-shadow;\n    -webkit-appearance: none;\n    border-radius: 3px;\n    cursor: pointer;\n}\n.sb-soundplayer-widget-play:before {\n    content: '';\n    display: block;\n    border: 1px solid transparent;\n    background-color: currentcolor;\n    position: absolute;\n    z-index: -1;\n    top: -1px;\n    right: -1px;\n    bottom: -1px;\n    left: -1px;\n    -webkit-transition-duration: .1s;\n            transition-duration: .1s;\n    -webkit-transition-timing-function: ease-out;\n            transition-timing-function: ease-out;\n    -webkit-transition-property: opacity;\n            transition-property: opacity;\n    opacity: 0;\n    border-radius: 3px;\n}\n.sb-soundplayer-widget-play:hover,\n.sb-soundplayer-widget-play:active {\n  box-shadow: none;\n}\n.sb-soundplayer-widget-play:hover:before,\n.sb-soundplayer-widget-play:focus:before {\n    opacity: .09375;\n}\n.sb-soundplayer-widget-play:focus {\n    outline: none;\n    border-color: transparent;\n    box-shadow: 0 0 0 2px;\n}\n.sb-soundplayer-widget-button-icon {\n    width: 1em;\n    height: 1em;\n    position: relative;\n    vertical-align: middle;\n}\n.sb-soundplayer-widget-cover-logo {\n    color: #fff;\n    width: 100px;\n    height: 14px;\n    position: absolute;\n    top: 10px;\n    right: 10px;\n    z-index: 1;\n}\n.sb-soundplayer-widget-timer {\n    -webkit-box-flex: 0;\n    -webkit-flex: none;\n        -ms-flex: none;\n            flex: none;\n    color: #fff;\n    font-size: 12px;\n    padding: 0 3px 0 15px;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n    cursor: default;\n}\n.sb-soundplayer-widget-message {\n    color: #999;\n    font-size: 12px;\n    text-align: center;\n    position: absolute;\n    right: 0;\n    left: 0;\n    bottom: 10px;\n}\n.sb-soundplayer-widget-message a {\n    color: #666;\n}\n", ""]);
+	exports.push([module.id, ".sb-soundplayer-widget {\n    color: #fff;\n    font-family: 'Avenir Next', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;\n    background-color: #f5f5f5;\n    background-image: url('https://w.soundcloud.com/player/assets/images/logo-200x120-177df3dd.png');\n    background-repeat: no-repeat;\n    background-position: center center;\n    background-size: 100px 60px;\n    min-height: 240px;\n    overflow: hidden;\n    position: relative;\n    box-sizing: border-box;\n    border-radius: 3px;\n}\n.sb-soundplayer-widget *,\n.sb-soundplayer-widget *:before,\n.sb-soundplayer-widget *:after {\n    box-sizing: inherit;\n    margin: 0;\n    padding: 0;\n}\n.sb-soundplayer-widget-track-info {\n    color: #fff;\n    position: relative;\n    z-index: 1;\n    text-align: center;\n    padding-top: 80px;\n    padding-bottom: 53px;\n    text-transform: uppercase;\n    letter-spacing: .1em;\n}\n.sb-soundplayer-widget-user,\n.sb-soundplayer-widget-title {\n    margin: 2px 0;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n    cursor: default;\n}\n.sb-soundplayer-widget-user {\n    font-size: 14px;\n}\n.sb-soundplayer-widget-title {\n    font-size: 20px;\n}\n.sb-soundplayer-widget-controls {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n        -ms-flex-align: center;\n            align-items: center;\n    padding: 0 10px 15px;\n    position: relative;\n    z-index: 1;\n}\n.sb-soundplayer-progress-container {\n    background-color: #000000;\n    background-color: rgba(0, 0, 0, .25);\n    width: 100%;\n    height: 8px;\n    overflow: hidden;\n    cursor: pointer;\n    border-radius: 3px;\n}\n.sb-soundplayer-progress-inner {\n    background-color: #fff;\n    height: 100%;\n    -webkit-transition: width .2s ease-in;\n            transition: width .2s ease-in;\n}\n.sb-soundplayer-cover {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n    border-radius: 3px;\n    position: relative;\n    min-height: 240px;\n}\n.sb-soundplayer-widget-overlay {\n    background-color: #000000;\n    background-color: rgba(0, 0, 0, .3);\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    border-radius: 3px;\n}\n.sb-soundplayer-play-btn {\n    display: inline-block;\n    border: 1px solid transparent;\n    color: #fff;\n    font-size: 20px;\n    text-decoration: none;\n    line-height: 1;\n    padding: 8px 16px;\n    height: auto;\n    vertical-align: middle;\n    -webkit-box-flex: 0;\n    -webkit-flex: none;\n        -ms-flex: none;\n            flex: none;\n    margin-right: 12px;\n    position: relative;\n    z-index: 2;\n    background-color: transparent;\n    -webkit-transition-duration: .1s;\n            transition-duration: .1s;\n    -webkit-transition-timing-function: ease-out;\n            transition-timing-function: ease-out;\n    -webkit-transition-property: box-shadow;\n            transition-property: box-shadow;\n    -webkit-appearance: none;\n    border-radius: 3px;\n    cursor: pointer;\n}\n.sb-soundplayer-play-btn:before {\n    content: '';\n    display: block;\n    border: 1px solid transparent;\n    background-color: currentcolor;\n    position: absolute;\n    z-index: -1;\n    top: -1px;\n    right: -1px;\n    bottom: -1px;\n    left: -1px;\n    -webkit-transition-duration: .1s;\n            transition-duration: .1s;\n    -webkit-transition-timing-function: ease-out;\n            transition-timing-function: ease-out;\n    -webkit-transition-property: opacity;\n            transition-property: opacity;\n    opacity: 0;\n    border-radius: 3px;\n}\n.sb-soundplayer-play-btn:hover,\n.sb-soundplayer-play-btn:active {\n  box-shadow: none;\n}\n.sb-soundplayer-play-btn:hover:before,\n.sb-soundplayer-play-btn:focus:before {\n    opacity: .09375;\n}\n.sb-soundplayer-play-btn:focus {\n    outline: none;\n    border-color: transparent;\n    box-shadow: 0 0 0 2px;\n}\n.sb-soundplayer-button-icon {\n    width: 1em;\n    height: 1em;\n    position: relative;\n    vertical-align: middle;\n}\n.sb-soundplayer-cover-logo {\n    color: #fff;\n    width: 100px;\n    height: 14px;\n    position: absolute;\n    top: 10px;\n    right: 10px;\n    z-index: 1;\n}\n.sb-soundplayer-timer {\n    -webkit-box-flex: 0;\n    -webkit-flex: none;\n        -ms-flex: none;\n            flex: none;\n    color: #fff;\n    font-size: 12px;\n    padding: 0 3px 0 15px;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n    cursor: default;\n}\n.sb-soundplayer-widget-message {\n    color: #999;\n    font-size: 12px;\n    text-align: center;\n    position: absolute;\n    right: 0;\n    left: 0;\n    bottom: 10px;\n}\n.sb-soundplayer-widget-message a {\n    color: #666;\n}\n", ""]);
 
 /***/ },
 /* 3 */
@@ -397,13 +397,13 @@
 
 	var _deku2 = _interopRequireDefault(_deku);
 
-	var _dekuSoundplayer = __webpack_require__(37);
-
-	var _dekuSoundplayer2 = _interopRequireDefault(_dekuSoundplayer);
-
-	var _soundcloudAudio = __webpack_require__(40);
+	var _soundcloudAudio = __webpack_require__(37);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
+
+	var _Player = __webpack_require__(38);
+
+	var _Player2 = _interopRequireDefault(_Player);
 
 	var env = process.env.NODE_ENV || 'development';
 
@@ -416,7 +416,7 @@
 
 	    var soundCloudAudio = new _soundcloudAudio2['default'](clientId);
 
-	    var app = _deku2['default'].tree(_deku2['default'].dom(_dekuSoundplayer2['default'], { url: opts.url, soundCloudAudio: soundCloudAudio }));
+	    var app = _deku2['default'].tree(_deku2['default'].dom(_Player2['default'], { url: opts.url, soundCloudAudio: soundCloudAudio }));
 
 	    if (env === 'development') {
 	        app.option('validateProps', true);
@@ -3720,239 +3720,6 @@
 /* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(38);
-
-
-/***/ },
-/* 38 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/** @jsx dom */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _deku = __webpack_require__(7);
-
-	var _soundcloudAudio = __webpack_require__(40);
-
-	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
-
-	var _componentsCover = __webpack_require__(41);
-
-	var _componentsCover2 = _interopRequireDefault(_componentsCover);
-
-	var _componentsTimer = __webpack_require__(43);
-
-	var _componentsTimer2 = _interopRequireDefault(_componentsTimer);
-
-	var _componentsProgress = __webpack_require__(39);
-
-	var _componentsProgress2 = _interopRequireDefault(_componentsProgress);
-
-	var _componentsPlayButton = __webpack_require__(44);
-
-	var _componentsPlayButton2 = _interopRequireDefault(_componentsPlayButton);
-
-	var _addonsSoundPlayerContainer = __webpack_require__(46);
-
-	var _addonsSoundPlayerContainer2 = _interopRequireDefault(_addonsSoundPlayerContainer);
-
-	var _componentsIcons = __webpack_require__(45);
-
-	var Player = {
-	    propTypes: {
-	        duration: {
-	            type: 'number',
-	            optional: true
-	        },
-	        currentTime: {
-	            type: 'number',
-	            optional: true
-	        },
-	        playing: {
-	            type: 'boolean',
-	            optional: true
-	        },
-	        seeking: {
-	            type: 'boolean',
-	            optional: true
-	        },
-	        track: {
-	            type: 'object',
-	            optional: true
-	        },
-	        soundCloudAudio: function soundCloudAudio(prop) {
-	            return prop instanceof _soundcloudAudio2['default'];
-	        }
-	    },
-
-	    defaultProps: {
-	        duration: 0,
-	        currentTime: 0,
-	        seeking: false,
-	        playing: false
-	    },
-
-	    render: function render(component) {
-	        var props = component.props;
-
-	        if (!props.track) {
-	            return (0, _deku.dom)('span', null);
-	        }
-
-	        if (props.track && !props.track.streamable) {
-	            return (0, _deku.dom)(
-	                'div',
-	                { 'class': 'sb-soundplayer-widget-message' },
-	                (0, _deku.dom)(
-	                    'a',
-	                    { href: props.track.permalink_url, target: '_blank' },
-	                    props.track.title
-	                ),
-	                ' is not streamable!'
-	            );
-	        }
-
-	        return (0, _deku.dom)(
-	            _componentsCover2['default'],
-	            { artworkUrl: props.track.artwork_url.replace('large', 't500x500') },
-	            (0, _deku.dom)('div', { 'class': 'sb-soundplayer-widget-overlay' }),
-	            (0, _deku.dom)(
-	                'div',
-	                { 'class': 'sb-soundplayer-widget-track-info' },
-	                (0, _deku.dom)(
-	                    'h3',
-	                    { 'class': 'sb-soundplayer-widget-user' },
-	                    props.track.user.username
-	                ),
-	                (0, _deku.dom)(
-	                    'h2',
-	                    { 'class': 'sb-soundplayer-widget-title' },
-	                    props.track.title
-	                )
-	            ),
-	            (0, _deku.dom)(
-	                'a',
-	                { href: props.track.permalink_url, target: '_blank' },
-	                (0, _deku.dom)(_componentsIcons.SoundCloudLogoSVG, null)
-	            ),
-	            (0, _deku.dom)(
-	                'div',
-	                { 'class': 'sb-soundplayer-widget-controls' },
-	                (0, _deku.dom)(_componentsPlayButton2['default'], {
-	                    playing: props.playing,
-	                    soundCloudAudio: props.soundCloudAudio
-	                }),
-	                (0, _deku.dom)(_componentsProgress2['default'], {
-	                    value: props.currentTime / props.duration * 100 || 0,
-	                    soundCloudAudio: props.soundCloudAudio
-	                }),
-	                (0, _deku.dom)(_componentsTimer2['default'], {
-	                    duration: props.track.duration / 1000,
-	                    currentTime: props.currentTime
-	                })
-	            )
-	        );
-	    }
-	};
-
-	exports['default'] = {
-	    propTypes: {
-	        url: {
-	            type: 'string'
-	        },
-	        soundCloudAudio: function soundCloudAudio(prop) {
-	            return prop instanceof _soundcloudAudio2['default'];
-	        }
-	    },
-
-	    render: function render(component) {
-	        var props = component.props;
-
-	        return (0, _deku.dom)(
-	            _addonsSoundPlayerContainer2['default'],
-	            props,
-	            (0, _deku.dom)(Player, null)
-	        );
-	    }
-	};
-	module.exports = exports['default'];
-
-/***/ },
-/* 39 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/** @jsx dom */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _deku = __webpack_require__(7);
-
-	var _soundcloudAudio = __webpack_require__(40);
-
-	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
-
-	exports['default'] = {
-	    defaultProps: {
-	        value: 0
-	    },
-
-	    propTypes: {
-	        value: {
-	            type: 'number'
-	        },
-
-	        soundCloudAudio: function soundCloudAudio(prop) {
-	            return prop instanceof _soundcloudAudio2['default'];
-	        }
-	    },
-
-	    render: function render(component) {
-	        var props = component.props;
-	        var value = props.value;
-	        var soundCloudAudio = props.soundCloudAudio;
-
-	        if (value < 0) {
-	            value = 0;
-	        }
-
-	        if (value > 100) {
-	            value = 100;
-	        }
-
-	        var style = { width: '' + value + '%' };
-
-	        function handleSeekTrack(e) {
-	            var xPos = (e.pageX - e.delegateTarget.getBoundingClientRect().left) / e.delegateTarget.offsetWidth;
-
-	            if (soundCloudAudio && !isNaN(soundCloudAudio.audio.duration)) {
-	                soundCloudAudio.audio.currentTime = xPos * soundCloudAudio.audio.duration;
-	            }
-	        }
-
-	        return (0, _deku.dom)(
-	            'div',
-	            { 'class': 'sb-soundplayer-widget-progress-container', onClick: handleSeekTrack },
-	            (0, _deku.dom)('div', { 'class': 'sb-soundplayer-widget-progress-inner', style: style })
-	        );
-	    }
-	};
-	module.exports = exports['default'];
-
-/***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	function SoundCloud (clientId) {
@@ -4113,6 +3880,207 @@
 
 
 /***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx dom */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _deku = __webpack_require__(7);
+
+	// eslint-disable-line no-unused-vars
+
+	var _soundcloudAudio = __webpack_require__(37);
+
+	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
+
+	var _dekuSoundplayerComponents = __webpack_require__(39);
+
+	var _dekuSoundplayerAddons = __webpack_require__(47);
+
+	var SoundCloudLogoSVG = _dekuSoundplayerComponents.Icons.SoundCloudLogoSVG;
+
+	var Player = {
+	    propTypes: {
+	        duration: {
+	            type: 'number',
+	            optional: true
+	        },
+
+	        currentTime: {
+	            type: 'number',
+	            optional: true
+	        },
+
+	        playing: {
+	            type: 'boolean',
+	            optional: true
+	        },
+
+	        seeking: {
+	            type: 'boolean',
+	            optional: true
+	        },
+
+	        track: {
+	            type: 'object',
+	            optional: true
+	        },
+
+	        soundCloudAudio: function soundCloudAudio(prop) {
+	            return prop instanceof _soundcloudAudio2['default'];
+	        }
+	    },
+
+	    defaultProps: {
+	        duration: 0,
+	        currentTime: 0,
+	        seeking: false,
+	        playing: false
+	    },
+
+	    render: function render(component) {
+	        var props = component.props;
+
+	        if (!props.track) {
+	            return (0, _deku.dom)('span', null);
+	        }
+
+	        if (props.track && !props.track.streamable) {
+	            return (0, _deku.dom)(
+	                'div',
+	                { 'class': 'sb-soundplayer-widget-message' },
+	                (0, _deku.dom)(
+	                    'a',
+	                    { href: props.track.permalink_url, target: '_blank' },
+	                    props.track.title
+	                ),
+	                ' is not streamable!'
+	            );
+	        }
+
+	        return (0, _deku.dom)(
+	            _dekuSoundplayerComponents.Cover,
+	            { artworkUrl: props.track.artwork_url.replace('large', 't500x500') },
+	            (0, _deku.dom)('div', { 'class': 'sb-soundplayer-widget-overlay' }),
+	            (0, _deku.dom)(
+	                'div',
+	                { 'class': 'sb-soundplayer-widget-track-info' },
+	                (0, _deku.dom)(
+	                    'h3',
+	                    { 'class': 'sb-soundplayer-widget-user' },
+	                    props.track.user.username
+	                ),
+	                (0, _deku.dom)(
+	                    'h2',
+	                    { 'class': 'sb-soundplayer-widget-title' },
+	                    props.track.title
+	                )
+	            ),
+	            (0, _deku.dom)(
+	                'a',
+	                { href: props.track.permalink_url, target: '_blank' },
+	                (0, _deku.dom)(SoundCloudLogoSVG, null)
+	            ),
+	            (0, _deku.dom)(
+	                'div',
+	                { 'class': 'sb-soundplayer-widget-controls' },
+	                (0, _deku.dom)(_dekuSoundplayerComponents.PlayButton, {
+	                    playing: props.playing,
+	                    soundCloudAudio: props.soundCloudAudio
+	                }),
+	                (0, _deku.dom)(_dekuSoundplayerComponents.Progress, {
+	                    value: props.currentTime / props.duration * 100 || 0,
+	                    soundCloudAudio: props.soundCloudAudio
+	                }),
+	                (0, _deku.dom)(_dekuSoundplayerComponents.Timer, {
+	                    duration: props.track.duration / 1000,
+	                    currentTime: props.currentTime
+	                })
+	            )
+	        );
+	    }
+	};
+
+	exports['default'] = {
+	    propTypes: {
+	        url: {
+	            type: 'string'
+	        },
+
+	        soundCloudAudio: function soundCloudAudio(prop) {
+	            return prop instanceof _soundcloudAudio2['default'];
+	        }
+	    },
+
+	    render: function render(component) {
+	        var props = component.props;
+
+	        return (0, _deku.dom)(
+	            _dekuSoundplayerAddons.SoundPlayerContainer,
+	            props,
+	            (0, _deku.dom)(Player, null)
+	        );
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(40);
+
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _PlayButton2 = __webpack_require__(41);
+
+	var _PlayButton3 = _interopRequireDefault(_PlayButton2);
+
+	exports.PlayButton = _PlayButton3['default'];
+
+	var _Progress2 = __webpack_require__(43);
+
+	var _Progress3 = _interopRequireDefault(_Progress2);
+
+	exports.Progress = _Progress3['default'];
+
+	var _Timer2 = __webpack_require__(44);
+
+	var _Timer3 = _interopRequireDefault(_Timer2);
+
+	exports.Timer = _Timer3['default'];
+
+	var _Cover2 = __webpack_require__(45);
+
+	var _Cover3 = _interopRequireDefault(_Cover2);
+
+	exports.Cover = _Cover3['default'];
+
+	var _Icons2 = __webpack_require__(42);
+
+	var _Icons3 = _interopRequireDefault(_Icons2);
+
+	exports.Icons = _Icons3['default'];
+
+/***/ },
 /* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -4127,167 +4095,13 @@
 
 	var _deku = __webpack_require__(7);
 
-	var _classnames = __webpack_require__(42);
+	// eslint-disable-line no-unused-vars
 
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	exports['default'] = {
-	    propTypes: {
-	        artworkUrl: {
-	            type: 'string'
-	        }
-	    },
-
-	    render: function render(component) {
-	        var props = component.props;
-
-	        var classNames = (0, _classnames2['default'])('sb-soundplayer-widget-cover', props['class']);
-
-	        return (0, _deku.dom)(
-	            'div',
-	            { 'class': classNames, style: { 'background-image': 'url(' + props.artworkUrl + ')' } },
-	            props.children
-	        );
-	    }
-	};
-	module.exports = exports['default'];
-
-/***/ },
-/* 42 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2015 Jed Watson.
-	  Licensed under the MIT License (MIT), see
-	  http://jedwatson.github.io/classnames
-	*/
-
-	(function () {
-		'use strict';
-
-		function classNames () {
-
-			var classes = '';
-
-			for (var i = 0; i < arguments.length; i++) {
-				var arg = arguments[i];
-				if (!arg) continue;
-
-				var argType = typeof arg;
-
-				if ('string' === argType || 'number' === argType) {
-					classes += ' ' + arg;
-
-				} else if (Array.isArray(arg)) {
-					classes += ' ' + classNames.apply(null, arg);
-
-				} else if ('object' === argType) {
-					for (var key in arg) {
-						if (arg.hasOwnProperty(key) && arg[key]) {
-							classes += ' ' + key;
-						}
-					}
-				}
-			}
-
-			return classes.substr(1);
-		}
-
-		if (true) {
-			// AMD. Register as an anonymous module.
-			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
-				return classNames;
-			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else if (typeof module !== 'undefined' && module.exports) {
-			module.exports = classNames;
-		} else {
-			window.classNames = classNames;
-		}
-
-	}());
-
-
-/***/ },
-/* 43 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/** @jsx dom */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _deku = __webpack_require__(7);
-
-	function prettyTime(time) {
-	    var hours = Math.floor(time / 3600);
-	    var mins = '0' + Math.floor(time % 3600 / 60);
-	    var secs = '0' + Math.floor(time % 60);
-
-	    mins = mins.substr(mins.length - 2);
-	    secs = secs.substr(secs.length - 2);
-
-	    if (!isNaN(secs)) {
-	        if (hours) {
-	            return '' + hours + ':' + mins + ':' + secs;
-	        } else {
-	            return '' + mins + ':' + secs;
-	        }
-	    } else {
-	        return '00:00';
-	    }
-	}
-
-	exports['default'] = {
-	    defaultProps: {
-	        duration: 0,
-	        currentTime: 0
-	    },
-
-	    propTypes: {
-	        duration: {
-	            type: 'number'
-	        },
-	        currentTime: {
-	            type: 'number'
-	        }
-	    },
-
-	    render: function render(component) {
-	        var props = component.props;
-
-	        return (0, _deku.dom)(
-	            'div',
-	            { 'class': 'sb-soundplayer-widget-timer' },
-	            prettyTime(props.currentTime),
-	            ' / ',
-	            prettyTime(props.duration)
-	        );
-	    }
-	};
-	module.exports = exports['default'];
-
-/***/ },
-/* 44 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/** @jsx dom */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _deku = __webpack_require__(7);
-
-	var _soundcloudAudio = __webpack_require__(40);
+	var _soundcloudAudio = __webpack_require__(37);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
-	var _Icons = __webpack_require__(45);
+	var _Icons = __webpack_require__(42);
 
 	exports['default'] = {
 	    defaultProps: {
@@ -4327,7 +4141,7 @@
 
 	        return (0, _deku.dom)(
 	            'button',
-	            { 'class': 'sb-soundplayer-widget-play', onClick: handleClick },
+	            { 'class': 'sb-soundplayer-play-btn', onClick: handleClick },
 	            !props.playing ? (0, _deku.dom)(_Icons.PlayIconSVG, { onClick: handleClick }) : (0, _deku.dom)(_Icons.PauseIconSVG, { onClick: handleClick })
 	        );
 	    }
@@ -4335,7 +4149,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 45 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -4346,6 +4160,8 @@
 	});
 
 	var _deku = __webpack_require__(7);
+
+	// eslint-disable-line no-unused-vars
 
 	var iconPropTypes = {
 	    onClick: {
@@ -4368,7 +4184,7 @@
 	        return (0, _deku.dom)(
 	            'svg',
 	            {
-	                'class': 'sb-soundplayer-widget-cover-logo',
+	                'class': 'sb-soundplayer-cover-logo',
 	                xmlns: 'http://www.w3.org/2000/svg',
 	                fill: 'currentColor',
 	                onClick: props.onClick
@@ -4388,7 +4204,7 @@
 	        return (0, _deku.dom)(
 	            'svg',
 	            {
-	                'class': 'sb-soundplayer-widget-button-icon',
+	                'class': 'sb-soundplayer-button-icon',
 	                xmlns: 'http://www.w3.org/2000/svg',
 	                viewBox: '0 0 32 32',
 	                fill: 'currentColor',
@@ -4495,7 +4311,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 46 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -4509,21 +4325,278 @@
 
 	var _deku = __webpack_require__(7);
 
-	var _objectAssign = __webpack_require__(47);
+	// eslint-disable-line no-unused-vars
 
-	var _objectAssign2 = _interopRequireDefault(_objectAssign);
-
-	var _soundcloudAudio = __webpack_require__(40);
+	var _soundcloudAudio = __webpack_require__(37);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
-	var _utilsAudioStore = __webpack_require__(48);
+	exports['default'] = {
+	    defaultProps: {
+	        value: 0
+	    },
+
+	    propTypes: {
+	        value: {
+	            type: 'number'
+	        },
+
+	        soundCloudAudio: function soundCloudAudio(prop) {
+	            return prop instanceof _soundcloudAudio2['default'];
+	        }
+	    },
+
+	    render: function render(component) {
+	        var props = component.props;
+	        var value = props.value;
+	        var soundCloudAudio = props.soundCloudAudio;
+
+	        if (value < 0) {
+	            value = 0;
+	        }
+
+	        if (value > 100) {
+	            value = 100;
+	        }
+
+	        var style = { width: '' + value + '%' };
+
+	        function handleSeekTrack(e) {
+	            var xPos = (e.pageX - e.delegateTarget.getBoundingClientRect().left) / e.delegateTarget.offsetWidth;
+
+	            if (soundCloudAudio && !isNaN(soundCloudAudio.audio.duration)) {
+	                soundCloudAudio.audio.currentTime = xPos * soundCloudAudio.audio.duration;
+	            }
+	        }
+
+	        return (0, _deku.dom)(
+	            'div',
+	            { 'class': 'sb-soundplayer-progress-container', onClick: handleSeekTrack },
+	            (0, _deku.dom)('div', { 'class': 'sb-soundplayer-progress-inner', style: style })
+	        );
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx dom */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _deku = __webpack_require__(7);
+
+	// eslint-disable-line no-unused-vars
+
+	function prettyTime(time) {
+	    var hours = Math.floor(time / 3600);
+	    var mins = '0' + Math.floor(time % 3600 / 60);
+	    var secs = '0' + Math.floor(time % 60);
+
+	    mins = mins.substr(mins.length - 2);
+	    secs = secs.substr(secs.length - 2);
+
+	    if (!isNaN(secs)) {
+	        if (hours) {
+	            return '' + hours + ':' + mins + ':' + secs;
+	        } else {
+	            return '' + mins + ':' + secs;
+	        }
+	    } else {
+	        return '00:00';
+	    }
+	}
+
+	exports['default'] = {
+	    defaultProps: {
+	        duration: 0,
+	        currentTime: 0
+	    },
+
+	    propTypes: {
+	        duration: {
+	            type: 'number'
+	        },
+
+	        currentTime: {
+	            type: 'number'
+	        }
+	    },
+
+	    render: function render(component) {
+	        var props = component.props;
+
+	        return (0, _deku.dom)(
+	            'div',
+	            { 'class': 'sb-soundplayer-timer' },
+	            prettyTime(props.currentTime),
+	            ' / ',
+	            prettyTime(props.duration)
+	        );
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx dom */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _deku = __webpack_require__(7);
+
+	// eslint-disable-line no-unused-vars
+
+	var _classnames = __webpack_require__(46);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	exports['default'] = {
+	    propTypes: {
+	        artworkUrl: {
+	            type: 'string'
+	        }
+	    },
+
+	    render: function render(component) {
+	        var props = component.props;
+
+	        var classNames = (0, _classnames2['default'])('sb-soundplayer-cover', props['class']);
+
+	        return (0, _deku.dom)(
+	            'div',
+	            { 'class': classNames, style: { 'background-image': 'url(' + props.artworkUrl + ')' } },
+	            props.children
+	        );
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2015 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+
+	(function () {
+		'use strict';
+
+		function classNames () {
+
+			var classes = '';
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg;
+
+				if ('string' === argType || 'number' === argType) {
+					classes += ' ' + arg;
+
+				} else if (Array.isArray(arg)) {
+					classes += ' ' + classNames.apply(null, arg);
+
+				} else if ('object' === argType) {
+					for (var key in arg) {
+						if (arg.hasOwnProperty(key) && arg[key]) {
+							classes += ' ' + key;
+						}
+					}
+				}
+			}
+
+			return classes.substr(1);
+		}
+
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true){
+			// AMD. Register as an anonymous module.
+			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+
+	}());
+
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(48);
+
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _SoundPlayerContainer2 = __webpack_require__(49);
+
+	var _SoundPlayerContainer3 = _interopRequireDefault(_SoundPlayerContainer2);
+
+	exports.SoundPlayerContainer = _SoundPlayerContainer3['default'];
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx dom */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _deku = __webpack_require__(7);
+
+	// eslint-disable-line no-unused-vars
+
+	var _objectAssign = __webpack_require__(50);
+
+	var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
+	var _soundcloudAudio = __webpack_require__(37);
+
+	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
+
+	var _utilsAudioStore = __webpack_require__(51);
 
 	exports['default'] = {
 	    propTypes: {
 	        url: {
 	            type: 'string'
 	        },
+
 	        soundCloudAudio: function soundCloudAudio(prop) {
 	            return prop instanceof _soundcloudAudio2['default'];
 	        }
@@ -4585,6 +4658,27 @@
 	        soundCloudAudio.on('ended', onAudioEnded);
 	    },
 
+	    afterUpdate: function afterUpdate(component, prevProps, prevState, setState) {
+	        var props = component.props;
+	        var state = component.state;
+	        var soundCloudAudio = props.soundCloudAudio;
+
+	        var playedBefore = state.playing;
+
+	        if (props.url !== prevProps.url) {
+	            soundCloudAudio.stop();
+	            soundCloudAudio.resolve(props.url, function (data) {
+	                // TBD: support for playlists
+	                var track = data.tracks ? data.tracks[0] : data;
+	                setState({ track: track });
+
+	                if (playedBefore) {
+	                    soundCloudAudio.play();
+	                }
+	            });
+	        }
+	    },
+
 	    beforeUnmount: function beforeUnmount(component) {
 	        var props = component.props;
 
@@ -4613,7 +4707,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 47 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4658,7 +4752,7 @@
 
 
 /***/ },
-/* 48 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// handling multiple audio on the page helpers

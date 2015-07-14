@@ -48,7 +48,7 @@
     position: relative;
     z-index: 1;
 }
-.sb-soundplayer-widget-progress-container {
+.sb-soundplayer-progress-container {
     background-color: rgba(0, 0, 0, .25);
     width: 100%;
     height: 8px;
@@ -56,12 +56,12 @@
     cursor: pointer;
     border-radius: 3px;
 }
-.sb-soundplayer-widget-progress-inner {
+.sb-soundplayer-progress-inner {
     background-color: #fff;
     height: 100%;
     transition: width .2s ease-in;
 }
-.sb-soundplayer-widget-cover {
+.sb-soundplayer-cover {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -78,7 +78,7 @@
     bottom: 0;
     border-radius: 3px;
 }
-.sb-soundplayer-widget-play {
+.sb-soundplayer-play-btn {
     display: inline-block;
     border: 1px solid transparent;
     color: #fff;
@@ -100,7 +100,7 @@
     border-radius: 3px;
     cursor: pointer;
 }
-.sb-soundplayer-widget-play:before {
+.sb-soundplayer-play-btn:before {
     content: '';
     display: block;
     border: 1px solid transparent;
@@ -117,26 +117,26 @@
     opacity: 0;
     border-radius: 3px;
 }
-.sb-soundplayer-widget-play:hover,
-.sb-soundplayer-widget-play:active {
+.sb-soundplayer-play-btn:hover,
+.sb-soundplayer-play-btn:active {
   box-shadow: none;
 }
-.sb-soundplayer-widget-play:hover:before,
-.sb-soundplayer-widget-play:focus:before {
+.sb-soundplayer-play-btn:hover:before,
+.sb-soundplayer-play-btn:focus:before {
     opacity: .09375;
 }
-.sb-soundplayer-widget-play:focus {
+.sb-soundplayer-play-btn:focus {
     outline: none;
     border-color: transparent;
     box-shadow: 0 0 0 2px;
 }
-.sb-soundplayer-widget-button-icon {
+.sb-soundplayer-button-icon {
     width: 1em;
     height: 1em;
     position: relative;
     vertical-align: middle;
 }
-.sb-soundplayer-widget-cover-logo {
+.sb-soundplayer-cover-logo {
     color: #fff;
     width: 100px;
     height: 14px;
@@ -145,7 +145,7 @@
     right: 10px;
     z-index: 1;
 }
-.sb-soundplayer-widget-timer {
+.sb-soundplayer-timer {
     flex: none;
     color: #fff;
     font-size: 12px;

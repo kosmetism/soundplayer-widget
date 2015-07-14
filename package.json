@@ -11,6 +11,7 @@
     "build-css": "cssnext cssnext/index.css dist/soundplayer-widget.min.css -c",
     "build": "NODE_ENV=production webpack --config webpack.config.js --progress --colors -p",
     "watch": "webpack --config webpack.config.js --progress --colors --watch",
+    "start": "npm run watch",
     "prepublish": "npm run build"
   },
   "keywords": [
@@ -27,7 +28,7 @@
   "license": "MIT",
   "dependencies": {
     "deku": "^0.4.9",
-    "deku-soundplayer": "^0.1.4-rc",
+    "deku-soundplayer": "^0.2.1",
     "soundcloud-audio": "^0.1.4"
   },
   "devDependencies": {
