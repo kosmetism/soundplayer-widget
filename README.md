@@ -28,7 +28,7 @@ var sb_soundplayer_client_id = 'YOUR_CLIENT_ID';
     p = /^http:/.test(d.location) ? 'http' : 'https';
     js = d.createElement(s);
     js.id = id;
-    js.src = p + '://cdnjs.cloudflare.com/ajax/libs/soundplayer-widget/0.1.3/soundplayer-widget.min.js';
+    js.src = p + '://cdnjs.cloudflare.com/ajax/libs/soundplayer-widget/0.2.3/soundplayer-widget.min.js';
     fjs.parentNode.insertBefore(js, fjs);
 })(document, 'script', 'sb-soundplayer-widget-sdk');
 </script>
@@ -66,7 +66,7 @@ Dependency on [Deku](https://github.com/segmentio/deku) which (due to its' tiny 
 - [ ] support for multiple different style layouts
 - [ ] global SDK object (for purposes like subscribe to audio events etc.)
 
-Have a [suggestion](https://github.com/soundblogs/embed-soundplayer-widget/issues)?
+Have a [suggestion](https://github.com/soundblogs/soundplayer-widget/issues)?
 
 ---
 
