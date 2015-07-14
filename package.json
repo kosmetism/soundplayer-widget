@@ -1,15 +1,17 @@
 {
   "name": "soundplayer-widget",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Lightweight embedded SoundCloud player widgets",
-  "main": "src/index.js",
+  "main": "index.js",
   "style": "cssnext/index.css",
   "directories": {
     "example": "example"
   },
   "scripts": {
     "build-css": "cssnext cssnext/index.css dist/soundplayer-widget.min.css -c",
-    "build": "NODE_ENV=production webpack --config webpack.config.js --progress --colors -p",
+    "build-js": "babel src/Player.js -o lib/Player.js --stage 0",
+    "build-widget": "NODE_ENV=production webpack --config webpack.config.js --progress --colors -p",
+    "build": "npm run build-css && npm run build-js && npm run build-widget",
     "watch": "webpack --config webpack.config.js --progress --colors --watch",
     "start": "npm run watch",
     "prepublish": "npm run build"
