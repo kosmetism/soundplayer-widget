@@ -1,1 +1,1 @@
-module.exports = require('./src/Player');
+module.exports = require('./lib/Player');
