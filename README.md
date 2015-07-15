@@ -6,7 +6,7 @@
 
 <!-- ![](http://img.shields.io/badge/Status-Work%20In%20Progress-FA572C.svg?style=flat-square) -->
 
-> The proof of concept in building of component-based, high-quality embeddable widgets. Under the hood **Soundplayer Widget** consists of [Deku](https://github.com/segmentio/deku) for components and [SoundCloud Audio](https://github.com/voronianski/soundcloud-audio.js) for HTML5 Audio API.
+> The proof of concept in building of component-based, high-quality embeddable widgets. Under the hood **Soundplayer Widget** consists of [deku.js](https://github.com/segmentio/deku) for [components](https://github.com/soundblogs/deku-soundplayer) and [soundcloud-audio.js](https://github.com/voronianski/soundcloud-audio.js) for HTML5 Audio API.
 
 ### [Demo](http://labs.voronianski.com/get-soundplayer)
 
@@ -28,7 +28,7 @@ var sb_soundplayer_client_id = 'YOUR_CLIENT_ID';
     p = /^http:/.test(d.location) ? 'http' : 'https';
     js = d.createElement(s);
     js.id = id;
-    js.src = p + '://cdnjs.cloudflare.com/ajax/libs/soundplayer-widget/0.2.3/soundplayer-widget.min.js';
+    js.src = p + '://cdnjs.cloudflare.com/ajax/libs/soundplayer-widget/0.3.4/soundplayer-widget.min.js';
     fjs.parentNode.insertBefore(js, fjs);
 })(document, 'script', 'sb-soundplayer-widget-sdk');
 </script>
