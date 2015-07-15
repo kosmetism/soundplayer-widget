@@ -97,12 +97,12 @@ const Player = {
 
 export default {
     propTypes: {
-        url: {
+        resolveUrl: {
             type: 'string'
         },
 
-        soundCloudAudio: function (prop) {
-            return (prop instanceof SoundCloudAudio);
+        clientId: {
+            type: 'string'
         }
     },
 

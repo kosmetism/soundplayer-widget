@@ -1,3 +1,7 @@
+# 0.3.4 / 2015-07-15
+
+- update to latest [deku-soundplayer](https://github.com/soundblogs/deku-soundplayer) which api is in sync with [react-soundplayer](https://github.com/soundblogs/react-soundplayer) now.
+
 # 0.3.3 / 2015-07-14
 
 - create and export `Player` deku component consisted from [deku-soundplayer](https://github.com/soundblogs/deku-soundplayer) components
