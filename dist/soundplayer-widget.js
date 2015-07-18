@@ -397,7 +397,7 @@
 
 	var _deku2 = _interopRequireDefault(_deku);
 
-	var _Player = __webpack_require__(37);
+	var _Player = __webpack_require__(35);
 
 	var _Player2 = _interopRequireDefault(_Player);
 
@@ -540,7 +540,7 @@
 	 * Render scenes to a string
 	 */
 
-	exports.renderString = __webpack_require__(32)
+	exports.renderString = __webpack_require__(30)
 
 	/**
 	 * Create virtual elements.
@@ -548,7 +548,7 @@
 
 	exports.element =
 	exports.createElement =
-	exports.dom = __webpack_require__(33)
+	exports.dom = __webpack_require__(31)
 
 
 /***/ },
@@ -817,21 +817,20 @@
 	 * Dependencies.
 	 */
 
-	var raf = __webpack_require__(12)
-	var Pool = __webpack_require__(13)
-	var walk = __webpack_require__(14)
-	var isDom = __webpack_require__(15)
-	var uid = __webpack_require__(16)
-	var keypath = __webpack_require__(17)
-	var type = __webpack_require__(18)
-	var utils = __webpack_require__(11)
-	var svg = __webpack_require__(19)
-	var events = __webpack_require__(21)
+	var raf = __webpack_require__(11)
+	var Pool = __webpack_require__(12)
+	var walk = __webpack_require__(13)
+	var isDom = __webpack_require__(14)
+	var uid = __webpack_require__(15)
+	var keypath = __webpack_require__(16)
+	var utils = __webpack_require__(17)
+	var svg = __webpack_require__(18)
+	var events = __webpack_require__(19)
 	var defaults = utils.defaults
-	var forEach = __webpack_require__(22)
-	var assign = __webpack_require__(26)
-	var reduce = __webpack_require__(27)
-	var isPromise = __webpack_require__(31)
+	var forEach = __webpack_require__(20)
+	var assign = __webpack_require__(24)
+	var reduce = __webpack_require__(25)
+	var isPromise = __webpack_require__(29)
 
 	/**
 	 * These elements won't be pooled
@@ -882,8 +881,7 @@
 
 	  var options = defaults(assign({}, app.options || {}, opts || {}), {
 	    pooling: true,
-	    batching: true,
-	    validateProps: false
+	    batching: true
 	  })
 
 	  /**
@@ -1888,8 +1886,10 @@
 	    }
 	    entity.pendingState = assign({}, entity.context.state)
 	    entity.pendingProps = assign({}, entity.context.props)
-	    validateProps(entity.context.props, entity.propTypes)
 	    entity.dirty = false
+	    if (typeof entity.component.validate === 'function') {
+	      entity.component.validate(entity.context)
+	    }
 	  }
 
 	  /**
@@ -2010,7 +2010,7 @@
 
 	  function addNativeEventListeners () {
 	    forEach(events, function (eventType) {
-	      document.body.addEventListener(eventType, handleEvent, true)
+	      document.addEventListener(eventType, handleEvent, true)
 	    })
 	  }
 
@@ -2020,7 +2020,7 @@
 
 	  function removeNativeEventListeners () {
 	    forEach(events, function (eventType) {
-	      document.body.removeEventListener(eventType, handleEvent, true)
+	      document.removeEventListener(eventType, handleEvent, true)
 	    })
 	  }
 
@@ -2040,8 +2040,7 @@
 	      var fn = keypath.get(handlers, [target.__entity__, target.__path__, eventType])
 	      if (fn) {
 	        event.delegateTarget = target
-	        fn(event)
-	        break
+	        if (false === fn(event)) break
 	      }
 	      target = target.parentNode
 	    }
@@ -2064,8 +2063,9 @@
 	        if (result) {
 	          updateEntityStateAsync(entity, result)
 	        }
+	        return result
 	      } else {
-	        fn.call(null, e)
+	        return fn.call(null, e)
 	      }
 	    })
 	  }
@@ -2091,78 +2091,6 @@
 
 	  function removeAllEvents (entityId) {
 	    keypath.del(handlers, [entityId])
-	  }
-
-	  /**
-	   * Validate the current properties. These simple validations
-	   * make it easier to ensure the correct props are passed in.
-	   *
-	   * Available rules include:
-	   *
-	   * type: {String} string | array | object | boolean | number | date | function
-	   *       {Array} An array of types mentioned above
-	   *       {Function} fn(value) should return `true` to pass in
-	   * expects: [] An array of values this prop could equal
-	   * optional: Boolean
-	   */
-
-	  function validateProps (props, rules, optPrefix) {
-	    var prefix = optPrefix || ''
-	    if (!options.validateProps) return
-	    forEach(rules, function (options, name) {
-	      if (!options) {
-	        throw new Error('deku: propTypes should have an options object for each type')
-	      }
-
-	      var propName = prefix ? prefix + '.' + name : name
-	      var value = keypath.get(props, name)
-	      var valueType = type(value)
-	      var typeFormat = type(options.type)
-	      var optional = (options.optional === true)
-
-	      // If it's optional and doesn't exist
-	      if (optional && value == null) {
-	        return
-	      }
-
-	      // If it's required and doesn't exist
-	      if (!optional && value == null) {
-	        throw new TypeError('Missing property: ' + propName)
-	      }
-
-	      // It's a nested type
-	      if (typeFormat === 'object') {
-	        validateProps(value, options.type, propName)
-	        return
-	      }
-
-	      // If it's the incorrect type
-	      if (typeFormat === 'string' && valueType !== options.type) {
-	        throw new TypeError('Invalid property type: ' + propName)
-	      }
-
-	      // If type is validate function
-	      if (typeFormat === 'function' && !options.type(value)) {
-	        throw new TypeError('Invalid property type: ' + propName)
-	      }
-
-	      // if type is array of possible types
-	      if (typeFormat === 'array' && options.type.indexOf(valueType) < 0) {
-	        throw new TypeError('Invalid property type: ' + propName)
-	      }
-
-	      // If it's an invalid value
-	      if (options.expects && options.expects.indexOf(value) < 0) {
-	        throw new TypeError('Invalid property value: ' + propName)
-	      }
-	    })
-
-	    // Now check for props that haven't been defined
-	    forEach(props, function (value, key) {
-	      // props.children is always passed in, even if it's not defined
-	      if (key === 'children') return
-	      if (!rules[key]) throw new Error('Unexpected property: ' + key)
-	    })
 	  }
 
 	  /**
@@ -2254,30 +2182,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * The npm 'defaults' module but without clone because
-	 * it was requiring the 'Buffer' module which is huge.
-	 *
-	 * @param {Object} options
-	 * @param {Object} defaults
-	 *
-	 * @return {Object}
-	 */
-
-	exports.defaults = function(options, defaults) {
-	  Object.keys(defaults).forEach(function(key) {
-	    if (typeof options[key] === 'undefined') {
-	      options[key] = defaults[key]
-	    }
-	  })
-	  return options
-	}
-
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
 	 * Expose `requestAnimationFrame()`.
 	 */
 
@@ -2314,7 +2218,7 @@
 
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function Pool(params) {
@@ -2372,7 +2276,7 @@
 
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var slice = Array.prototype.slice
@@ -2402,7 +2306,7 @@
 
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*global window*/
@@ -2423,7 +2327,7 @@
 
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** generate unique id for selector */
@@ -2434,7 +2338,7 @@
 	};
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory){
@@ -2709,50 +2613,32 @@
 
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * toString ref.
-	 */
-
-	var toString = Object.prototype.toString;
-
-	/**
-	 * Return the type of `val`.
+	 * The npm 'defaults' module but without clone because
+	 * it was requiring the 'Buffer' module which is huge.
 	 *
-	 * @param {Mixed} val
-	 * @return {String}
-	 * @api public
+	 * @param {Object} options
+	 * @param {Object} defaults
+	 *
+	 * @return {Object}
 	 */
 
-	module.exports = function(val){
-	  switch (toString.call(val)) {
-	    case '[object Date]': return 'date';
-	    case '[object RegExp]': return 'regexp';
-	    case '[object Arguments]': return 'arguments';
-	    case '[object Array]': return 'array';
-	    case '[object Error]': return 'error';
-	  }
-
-	  if (val === null) return 'null';
-	  if (val === undefined) return 'undefined';
-	  if (val !== val) return 'nan';
-	  if (val && val.nodeType === 1) return 'element';
-
-	  val = val.valueOf
-	    ? val.valueOf()
-	    : Object.prototype.valueOf.apply(val)
-
-	  return typeof val;
-	};
+	exports.defaults = function(options, defaults) {
+	  Object.keys(defaults).forEach(function(key) {
+	    if (typeof options[key] === 'undefined') {
+	      options[key] = defaults[key]
+	    }
+	  })
+	  return options
+	}
 
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
-
-	var indexOf = __webpack_require__(20)
 
 	/**
 	 * This file lists the supported SVG elements used by the
@@ -2768,76 +2654,76 @@
 	 * @type {Array}
 	 */
 
-	exports.elements = [
-	  'animate',
-	  'circle',
-	  'defs',
-	  'ellipse',
-	  'g',
-	  'line',
-	  'linearGradient',
-	  'mask',
-	  'path',
-	  'pattern',
-	  'polygon',
-	  'polyline',
-	  'radialGradient',
-	  'rect',
-	  'stop',
-	  'svg',
-	  'text',
-	  'tspan'
-	]
+	exports.elements = {
+	  'animate': true,
+	  'circle': true,
+	  'defs': true,
+	  'ellipse': true,
+	  'g': true,
+	  'line': true,
+	  'linearGradient': true,
+	  'mask': true,
+	  'path': true,
+	  'pattern': true,
+	  'polygon': true,
+	  'polyline': true,
+	  'radialGradient': true,
+	  'rect': true,
+	  'stop': true,
+	  'svg': true,
+	  'text': true,
+	  'tspan': true
+	}
 
 	/**
 	 * Supported SVG attributes
 	 */
 
-	exports.attributes = [
-	  'cx',
-	  'cy',
-	  'd',
-	  'dx',
-	  'dy',
-	  'fill',
-	  'fillOpacity',
-	  'fontFamily',
-	  'fontSize',
-	  'fx',
-	  'fy',
-	  'gradientTransform',
-	  'gradientUnits',
-	  'markerEnd',
-	  'markerMid',
-	  'markerStart',
-	  'offset',
-	  'opacity',
-	  'patternContentUnits',
-	  'patternUnits',
-	  'points',
-	  'preserveAspectRatio',
-	  'r',
-	  'rx',
-	  'ry',
-	  'spreadMethod',
-	  'stopColor',
-	  'stopOpacity',
-	  'stroke',
-	  'strokeDasharray',
-	  'strokeLinecap',
-	  'strokeOpacity',
-	  'strokeWidth',
-	  'textAnchor',
-	  'transform',
-	  'version',
-	  'viewBox',
-	  'x1',
-	  'x2',
-	  'x',
-	  'y1',
-	  'y2',
-	  'y'
-	]
+	exports.attributes = {
+	  'cx': true,
+	  'cy': true,
+	  'd': true,
+	  'dx': true,
+	  'dy': true,
+	  'fill': true,
+	  'fillOpacity': true,
+	  'fontFamily': true,
+	  'fontSize': true,
+	  'fx': true,
+	  'fy': true,
+	  'gradientTransform': true,
+	  'gradientUnits': true,
+	  'markerEnd': true,
+	  'markerMid': true,
+	  'markerStart': true,
+	  'offset': true,
+	  'opacity': true,
+	  'patternContentUnits': true,
+	  'patternUnits': true,
+	  'points': true,
+	  'preserveAspectRatio': true,
+	  'r': true,
+	  'rx': true,
+	  'ry': true,
+	  'spreadMethod': true,
+	  'stopColor': true,
+	  'stopOpacity': true,
+	  'stroke': true,
+	  'strokeDasharray': true,
+	  'strokeLinecap': true,
+	  'strokeOpacity': true,
+	  'strokeWidth': true,
+	  'textAnchor': true,
+	  'transform': true,
+	  'version': true,
+	  'viewBox': true,
+	  'x1': true,
+	  'x2': true,
+	  'x': true,
+	  'y1': true,
+	  'y2': true,
+	  'y': true,
+	}
 
 	/**
 	 * Is element's namespace SVG?
@@ -2846,7 +2732,7 @@
 	 */
 
 	exports.isElement = function (name) {
-	  return indexOf(exports.elements, name) !== -1
+	  return name in exports.elements
 	}
 
 	/**
@@ -2856,52 +2742,12 @@
 	 */
 
 	exports.isAttribute = function (attr) {
-	  return indexOf(exports.attributes, attr) !== -1
+	  return attr in exports.attributes
 	}
 
 
-
 /***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * # Index Of
-	 *
-	 * A faster `Array.prototype.indexOf()` implementation.
-	 *
-	 * @param  {Array}  subject   The array (or array-like) to search within.
-	 * @param  {mixed}  target    The target item to search for.
-	 * @param  {Number} fromIndex The position to start searching from, if known.
-	 * @return {Number}           The position of the target in the subject, or -1 if it does not exist.
-	 */
-	module.exports = function fastIndexOf (subject, target, fromIndex) {
-	  var length = subject.length,
-	      i = 0;
-
-	  if (typeof fromIndex === 'number') {
-	    i = fromIndex;
-	    if (i < 0) {
-	      i += length;
-	      if (i < 0) {
-	        i = 0;
-	      }
-	    }
-	  }
-
-	  for (; i < length; i++) {
-	    if (subject[i] === target) {
-	      return i;
-	    }
-	  }
-	  return -1;
-	};
-
-
-/***/ },
-/* 21 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2948,13 +2794,13 @@
 
 
 /***/ },
-/* 22 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var forEachArray = __webpack_require__(23),
-	    forEachObject = __webpack_require__(25);
+	var forEachArray = __webpack_require__(21),
+	    forEachObject = __webpack_require__(23);
 
 	/**
 	 * # ForEach
@@ -2975,12 +2821,12 @@
 	};
 
 /***/ },
-/* 23 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bindInternal3 = __webpack_require__(24);
+	var bindInternal3 = __webpack_require__(22);
 
 	/**
 	 * # For Each
@@ -3002,7 +2848,7 @@
 
 
 /***/ },
-/* 24 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3019,12 +2865,12 @@
 
 
 /***/ },
-/* 25 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bindInternal3 = __webpack_require__(24);
+	var bindInternal3 = __webpack_require__(22);
 
 	/**
 	 * # For Each
@@ -3048,7 +2894,7 @@
 
 
 /***/ },
-/* 26 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3088,13 +2934,13 @@
 
 
 /***/ },
-/* 27 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var reduceArray = __webpack_require__(28),
-	    reduceObject = __webpack_require__(30);
+	var reduceArray = __webpack_require__(26),
+	    reduceObject = __webpack_require__(28);
 
 	/**
 	 * # Reduce
@@ -3117,12 +2963,12 @@
 	};
 
 /***/ },
-/* 28 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bindInternal4 = __webpack_require__(29);
+	var bindInternal4 = __webpack_require__(27);
 
 	/**
 	 * # Reduce
@@ -3158,7 +3004,7 @@
 
 
 /***/ },
-/* 29 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3175,12 +3021,12 @@
 
 
 /***/ },
-/* 30 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bindInternal4 = __webpack_require__(29);
+	var bindInternal4 = __webpack_require__(27);
 
 	/**
 	 * # Reduce
@@ -3218,7 +3064,7 @@
 
 
 /***/ },
-/* 31 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = isPromise;
@@ -3229,11 +3075,11 @@
 
 
 /***/ },
-/* 32 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var utils = __webpack_require__(11)
-	var events = __webpack_require__(21)
+	var utils = __webpack_require__(17)
+	var events = __webpack_require__(19)
 	var defaults = utils.defaults
 
 	/**
@@ -3342,16 +3188,15 @@
 
 
 /***/ },
-/* 33 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
+	/* WEBPACK VAR INJECTION */(function(process) {/**
 	 * Module dependencies.
 	 */
 
-	var type = __webpack_require__(18)
-	var slice = __webpack_require__(34)
-	var flatten = __webpack_require__(36)
+	var type = __webpack_require__(32)
+	var slice = __webpack_require__(33)
 
 	/**
 	 * This function lets us create virtual nodes using a simple
@@ -3410,7 +3255,7 @@
 	    children = [ children ]
 	  }
 
-	  children = flatten(children, 1).reduce(normalize, [])
+	  children = children.reduce(normalize, [])
 
 	  // pull the key out from the data.
 	  var key = 'key' in props ? String(props.key) : null
@@ -3441,8 +3286,11 @@
 	 */
 
 	function normalize (acc, node) {
-	  if (node == null) {
+	  if (node == null || node === false) {
 	    return acc
+	  }
+	  if (Array.isArray(node)) {
+	    throw new TypeError('deku: Child nodes can\'t be an array. https://goo.gl/m5bIS2')
 	  }
 	  if (typeof node === 'string' || typeof node === 'number') {
 	    var newNode = new TextNode(String(node))
@@ -3555,6 +3403,9 @@
 	  if (type(styles) === 'string') {
 	    return styles
 	  }
+	  if (process.env.NODE_ENV === 'development') {
+	    console.warn('deku: Using an object for the style attribute is deprecated. You should use another module to transform the object into a string.')
+	  }
 	  var str = ''
 	  for (var name in styles) {
 	    var value = styles[name]
@@ -3575,6 +3426,9 @@
 	function parseClass (value) {
 	  // { foo: true, bar: false, baz: true }
 	  if (type(value) === 'object') {
+	    if (process.env.NODE_ENV === 'development') {
+	      console.warn('deku: Using an objects and arrays for the class attribute is deprecated. You should use another module like https://www.npmjs.com/package/classnames')
+	    }
 	    var matched = []
 	    for (var key in value) {
 	      if (value[key]) matched.push(key)
@@ -3584,6 +3438,9 @@
 
 	  // ['foo', 'bar', 'baz']
 	  if (type(value) === 'array') {
+	    if (process.env.NODE_ENV === 'development') {
+	      console.warn('deku: Using an objects and arrays for the class attribute is deprecated. You should use another module like https://www.npmjs.com/package/classnames')
+	    }
 	    if (value.length === 0) {
 	      return
 	    }
@@ -3593,16 +3450,57 @@
 	  return value
 	}
 
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * toString ref.
+	 */
+
+	var toString = Object.prototype.toString;
+
+	/**
+	 * Return the type of `val`.
+	 *
+	 * @param {Mixed} val
+	 * @return {String}
+	 * @api public
+	 */
+
+	module.exports = function(val){
+	  switch (toString.call(val)) {
+	    case '[object Date]': return 'date';
+	    case '[object RegExp]': return 'regexp';
+	    case '[object Arguments]': return 'arguments';
+	    case '[object Array]': return 'array';
+	    case '[object Error]': return 'error';
+	  }
+
+	  if (val === null) return 'null';
+	  if (val === undefined) return 'undefined';
+	  if (val !== val) return 'nan';
+	  if (val && val.nodeType === 1) return 'element';
+
+	  val = val.valueOf
+	    ? val.valueOf()
+	    : Object.prototype.valueOf.apply(val)
+
+	  return typeof val;
+	};
+
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = exports = __webpack_require__(34);
+
 
 /***/ },
 /* 34 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = exports = __webpack_require__(35);
-
-
-/***/ },
-/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -3641,77 +3539,7 @@
 
 
 /***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict'
-
-	/**
-	 * Expose `arrayFlatten`.
-	 */
-	module.exports = arrayFlatten
-
-	/**
-	 * Recursive flatten function with depth.
-	 *
-	 * @param  {Array}  array
-	 * @param  {Array}  result
-	 * @param  {Number} depth
-	 * @return {Array}
-	 */
-	function flattenWithDepth (array, result, depth) {
-	  for (var i = 0; i < array.length; i++) {
-	    var value = array[i]
-
-	    if (depth > 0 && Array.isArray(value)) {
-	      flattenWithDepth(value, result, depth - 1)
-	    } else {
-	      result.push(value)
-	    }
-	  }
-
-	  return result
-	}
-
-	/**
-	 * Recursive flatten function. Omitting depth is slightly faster.
-	 *
-	 * @param  {Array} array
-	 * @param  {Array} result
-	 * @return {Array}
-	 */
-	function flattenForever (array, result) {
-	  for (var i = 0; i < array.length; i++) {
-	    var value = array[i]
-
-	    if (Array.isArray(value)) {
-	      flattenForever(value, result)
-	    } else {
-	      result.push(value)
-	    }
-	  }
-
-	  return result
-	}
-
-	/**
-	 * Flatten an array, with the ability to define a depth.
-	 *
-	 * @param  {Array}  array
-	 * @param  {Number} depth
-	 * @return {Array}
-	 */
-	function arrayFlatten (array, depth) {
-	  if (depth == null) {
-	    return flattenForever(array, [])
-	  }
-
-	  return flattenWithDepth(array, [], depth)
-	}
-
-
-/***/ },
-/* 37 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -3727,13 +3555,13 @@
 
 	// eslint-disable-line no-unused-vars
 
-	var _soundcloudAudio = __webpack_require__(38);
+	var _soundcloudAudio = __webpack_require__(36);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
-	var _dekuSoundplayerComponents = __webpack_require__(39);
+	var _dekuSoundplayerComponents = __webpack_require__(37);
 
-	var _dekuSoundplayerAddons = __webpack_require__(47);
+	var _dekuSoundplayerAddons = __webpack_require__(45);
 
 	var SoundCloudLogoSVG = _dekuSoundplayerComponents.Icons.SoundCloudLogoSVG;
 
@@ -3863,7 +3691,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 38 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4026,14 +3854,14 @@
 
 
 /***/ },
-/* 39 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(40);
+	module.exports = __webpack_require__(38);
 
 
 /***/ },
-/* 40 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4044,38 +3872,38 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _PlayButton2 = __webpack_require__(41);
+	var _PlayButton2 = __webpack_require__(39);
 
 	var _PlayButton3 = _interopRequireDefault(_PlayButton2);
 
 	exports.PlayButton = _PlayButton3['default'];
 
-	var _Progress2 = __webpack_require__(43);
+	var _Progress2 = __webpack_require__(41);
 
 	var _Progress3 = _interopRequireDefault(_Progress2);
 
 	exports.Progress = _Progress3['default'];
 
-	var _Timer2 = __webpack_require__(44);
+	var _Timer2 = __webpack_require__(42);
 
 	var _Timer3 = _interopRequireDefault(_Timer2);
 
 	exports.Timer = _Timer3['default'];
 
-	var _Cover2 = __webpack_require__(45);
+	var _Cover2 = __webpack_require__(43);
 
 	var _Cover3 = _interopRequireDefault(_Cover2);
 
 	exports.Cover = _Cover3['default'];
 
-	var _Icons2 = __webpack_require__(42);
+	var _Icons2 = __webpack_require__(40);
 
 	var _Icons3 = _interopRequireDefault(_Icons2);
 
 	exports.Icons = _Icons3['default'];
 
 /***/ },
-/* 41 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -4091,11 +3919,11 @@
 
 	// eslint-disable-line no-unused-vars
 
-	var _soundcloudAudio = __webpack_require__(38);
+	var _soundcloudAudio = __webpack_require__(36);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
-	var _Icons = __webpack_require__(42);
+	var _Icons = __webpack_require__(40);
 
 	exports['default'] = {
 	    defaultProps: {
@@ -4143,7 +3971,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 42 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -4305,7 +4133,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 43 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -4321,7 +4149,7 @@
 
 	// eslint-disable-line no-unused-vars
 
-	var _soundcloudAudio = __webpack_require__(38);
+	var _soundcloudAudio = __webpack_require__(36);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
@@ -4373,7 +4201,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 44 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -4437,7 +4265,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 45 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -4453,7 +4281,7 @@
 
 	// eslint-disable-line no-unused-vars
 
-	var _classnames = __webpack_require__(46);
+	var _classnames = __webpack_require__(44);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -4479,7 +4307,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 46 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -4534,14 +4362,14 @@
 
 
 /***/ },
-/* 47 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(48);
+	module.exports = __webpack_require__(46);
 
 
 /***/ },
-/* 48 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4552,14 +4380,14 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _SoundPlayerContainer2 = __webpack_require__(49);
+	var _SoundPlayerContainer2 = __webpack_require__(47);
 
 	var _SoundPlayerContainer3 = _interopRequireDefault(_SoundPlayerContainer2);
 
 	exports.SoundPlayerContainer = _SoundPlayerContainer3['default'];
 
 /***/ },
-/* 49 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -4575,15 +4403,15 @@
 
 	// eslint-disable-line no-unused-vars
 
-	var _objectAssign = __webpack_require__(50);
+	var _objectAssign = __webpack_require__(48);
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
-	var _soundcloudAudio = __webpack_require__(38);
+	var _soundcloudAudio = __webpack_require__(36);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
-	var _utilsAudioStore = __webpack_require__(51);
+	var _utilsAudioStore = __webpack_require__(49);
 
 	exports['default'] = {
 	    propTypes: {
@@ -4738,7 +4566,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 50 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4783,7 +4611,7 @@
 
 
 /***/ },
-/* 51 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// handling multiple audio on the page helpers
@@ -4799,8 +4627,18 @@
 	var _playedAudios = [];
 	var _audioRegistry = {};
 
+	function each(arr, cb) {
+	    if (arr) {
+	        for (var i = 0, len = arr.length; i < len; i++) {
+	            if (arr[i] && cb(arr[i], i, arr)) {
+	                break;
+	            }
+	        }
+	    }
+	}
+
 	function stopAllOther(playing) {
-	    _playedAudios.forEach(function (soundCloudAudio) {
+	    each(_playedAudios, function (soundCloudAudio) {
 	        if (soundCloudAudio.playing && soundCloudAudio.playing !== playing) {
 	            soundCloudAudio.stop();
 	        }
@@ -4810,13 +4648,12 @@
 	function addToPlayedStore(soundCloudAudio) {
 	    var isPresent = false;
 
-	    for (var i = 0, len = _playedAudios.length; i < len; i++) {
-	        var _soundCloudAudio = _playedAudios[i];
+	    each(_playedAudios, function (_soundCloudAudio) {
 	        if (_soundCloudAudio.playing === soundCloudAudio.playing) {
 	            isPresent = true;
-	            break;
+	            return true;
 	        }
-	    }
+	    });
 
 	    if (!isPresent) {
 	        _playedAudios.push(soundCloudAudio);
