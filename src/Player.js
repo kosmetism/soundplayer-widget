@@ -66,8 +66,10 @@ const Player = {
             );
         }
 
+        const { artwork_url } = props.track;
+
         return (
-            <Cover artworkUrl={props.track.artwork_url.replace('large', 't500x500')}>
+            <Cover artworkUrl={artwork_url && artwork_url.replace('large', 't500x500')}>
                 <div class="sb-soundplayer-widget-overlay" />
                 <div class="sb-soundplayer-widget-track-info">
                     <h3 class="sb-soundplayer-widget-user">{props.track.user.username}</h3>

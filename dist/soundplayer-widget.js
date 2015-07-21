@@ -3624,9 +3624,11 @@
 	            );
 	        }
 
+	        var artwork_url = props.track.artwork_url;
+
 	        return (0, _deku.dom)(
 	            _dekuSoundplayerComponents.Cover,
-	            { artworkUrl: props.track.artwork_url.replace('large', 't500x500') },
+	            { artworkUrl: artwork_url && artwork_url.replace('large', 't500x500') },
 	            (0, _deku.dom)('div', { 'class': 'sb-soundplayer-widget-overlay' }),
 	            (0, _deku.dom)(
 	                'div',
@@ -4299,7 +4301,7 @@
 
 	        return (0, _deku.dom)(
 	            'div',
-	            { 'class': classNames, style: { 'background-image': 'url(' + props.artworkUrl + ')' } },
+	            { 'class': classNames, style: props.artworkUrl ? { 'background-image': 'url(' + props.artworkUrl + ')' } : {} },
 	            props.children
 	        );
 	    }
