@@ -1,3 +1,8 @@
+# 0.3.6 / 2015-07-21
+
+- udpated dependencies
+- fixed exception when artwork is missed
+
 # 0.3.4 / 2015-07-15
 
 - update to latest [deku-soundplayer](https://github.com/soundblogs/deku-soundplayer) which api is in sync with [react-soundplayer](https://github.com/soundblogs/react-soundplayer) now.

@@ -25,7 +25,7 @@ var sb_soundplayer_client_id = 'YOUR_CLIENT_ID';
     var fjs = d.getElementsByTagName(s)[0],
         js = fjs.parentNode.insertBefore(d.createElement(s), fjs);
     js.id = id;
-    js.src = '//cdnjs.cloudflare.com/ajax/libs/soundplayer-widget/0.3.5/soundplayer-widget.min.js';
+    js.src = '//cdnjs.cloudflare.com/ajax/libs/soundplayer-widget/0.3.6/soundplayer-widget.min.js';
 })(document, 'script', 'sb-soundplayer-widget-sdk');
 </script>
 ```
