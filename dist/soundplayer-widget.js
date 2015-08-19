@@ -382,7 +382,7 @@
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {/** @jsx deku.dom */
+	/* WEBPACK VAR INJECTION */(function(process) {/** @jsx dom */
 
 	'use strict';
 
@@ -393,11 +393,17 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _deku = __webpack_require__(7);
+	var _magicVirtualElement = __webpack_require__(7);
+
+	var _magicVirtualElement2 = _interopRequireDefault(_magicVirtualElement);
+
+	// eslint-disable-line no-unused-vars
+
+	var _deku = __webpack_require__(32);
 
 	var _deku2 = _interopRequireDefault(_deku);
 
-	var _Player = __webpack_require__(35);
+	var _Player = __webpack_require__(57);
 
 	var _Player2 = _interopRequireDefault(_Player);
 
@@ -410,7 +416,7 @@
 	        return;
 	    }
 
-	    var app = _deku2['default'].tree(_deku2['default'].dom(_Player2['default'], { resolveUrl: opts.url, clientId: clientId }));
+	    var app = _deku2['default'].tree((0, _magicVirtualElement2['default'])(_Player2['default'], { resolveUrl: opts.url, clientId: clientId }));
 
 	    if (env === 'development') {
 	        app.option('validateProps', true);
@@ -520,46 +526,1008 @@
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Create the application.
-	 */
+	var toStyle = __webpack_require__(8).string
+	var classnames = __webpack_require__(25)
+	var element = __webpack_require__(26)
+	var type = __webpack_require__(30)
+	var slice = __webpack_require__(31)
 
-	exports.tree =
-	exports.scene =
-	exports.deku = __webpack_require__(8)
+	module.exports = function (t, attributes, children) {
 
-	/**
-	 * Render scenes to the DOM.
-	 */
+	  // Account for JSX putting the children as multiple arguments.
+	  // This is essentially just the ES6 rest param
+	  if (arguments.length > 2 && Array.isArray(arguments[2]) === false) {
+	    children = slice(arguments, 2)
+	  }
 
-	if (typeof document !== 'undefined') {
-	  exports.render = __webpack_require__(10)
+	  var node = element(t, attributes, children)
+
+	  if (type(node.attributes.class) === 'array') {
+	    node.attributes.class = classnames.apply(null, node.attributes.class)
+	  }
+
+	  if (type(node.attributes.class) === 'object') {
+	    node.attributes.class = classnames(node.attributes.class)
+	  }
+
+	  if (type(node.attributes.style) === 'object') {
+	    node.attributes.style = toStyle(node.attributes.style)
+	  }
+
+	  return node
 	}
-
-	/**
-	 * Render scenes to a string
-	 */
-
-	exports.renderString = __webpack_require__(30)
-
-	/**
-	 * Create virtual elements.
-	 */
-
-	exports.element =
-	exports.createElement =
-	exports.dom = __webpack_require__(31)
 
 
 /***/ },
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict'
+
+	module.exports = {
+	   prefixProperties: __webpack_require__(9) ,
+	   cssUnitless: __webpack_require__(10) ,
+	   object: __webpack_require__(11),
+	   string: __webpack_require__(24)
+	}
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+	    'border-radius'              : 1,
+	    'border-top-left-radius'     : 1,
+	    'border-top-right-radius'    : 1,
+	    'border-bottom-left-radius'  : 1,
+	    'border-bottom-right-radius' : 1,
+	    'box-shadow'                 : 1,
+	    'order'                      : 1,
+	    'flex'                       : function(name, prefix){
+	        return [prefix + 'box-flex']
+	    },
+	    'box-flex'                   : 1,
+	    'box-align'                  : 1,
+	    'animation'                  : 1,
+	    'animation-duration'         : 1,
+	    'animation-name'             : 1,
+	    'transition'                 : 1,
+	    'transition-duration'        : 1,
+	    'transform'                  : 1,
+	    'transform-style'            : 1,
+	    'transform-origin'           : 1,
+	    'backface-visibility'        : 1,
+	    'perspective'                : 1,
+	    'box-pack'                   : 1
+	}
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use exports'
+
+	//make sure properties are in hyphenated form
+
+	module.exports = {
+	    'animation'    : 1,
+	    'column-count' : 1,
+	    'columns'      : 1,
+	    'font-weight'  : 1,
+	    'opacity'      : 1,
+	    'order  '      : 1,
+	    'z-index'      : 1,
+	    'zoom'         : 1,
+	    'flex'         : 1,
+	    'box-flex'     : 1,
+	    'transform'    : 1,
+	    'perspective'  : 1,
+	    'box-pack'     : 1,
+	    'box-align'    : 1,
+	    'colspan'      : 1,
+	    'rowspan'      : 1
+	}
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict'
+
+	var prefixInfo  = __webpack_require__(13)
+	var cssPrefixFn = __webpack_require__(15)
+
+	var HYPHENATE   = __webpack_require__(19)
+	var CAMELIZE   = __webpack_require__(17)
+	var HAS_OWN     = __webpack_require__(12)
+	var IS_OBJECT   = __webpack_require__(22)
+	var IS_FUNCTION = __webpack_require__(23)
+
+	var applyPrefix = function(target, property, value, normalizeFn){
+	    cssPrefixFn(property).forEach(function(p){
+	        target[normalizeFn? normalizeFn(p): p] = value
+	    })
+	}
+
+	var toObject = function(str){
+	    str = (str || '').split(';')
+
+	    var result = {}
+
+	    str.forEach(function(item){
+	        var split = item.split(':')
+
+	        if (split.length == 2){
+	            result[split[0].trim()] = split[1].trim()
+	        }
+	    })
+
+	    return result
+	}
+
+	var CONFIG = {
+	    cssUnitless: __webpack_require__(10)
+	}
+
+	/**
+	 * @ignore
+	 * @method toStyleObject
+	 *
+	 * @param  {Object} styles The object to convert to a style object.
+	 * @param  {Object} [config]
+	 * @param  {Boolean} [config.addUnits=true] True if you want to add units when numerical values are encountered.
+	 * @param  {Object}  config.cssUnitless An object whose keys represent css numerical property names that will not be appended with units.
+	 * @param  {Object}  config.prefixProperties An object whose keys represent css property names that should be prefixed
+	 * @param  {String}  config.cssUnit='px' The css unit to append to numerical values. Defaults to 'px'
+	 * @param  {String}  config.normalizeName A function that normalizes a name to a valid css property name
+	 * @param  {String}  config.scope
+	 *
+	 * @return {Object} The object, normalized with css style names
+	 */
+	var TO_STYLE_OBJECT = function(styles, config, prepend, result){
+
+	    if (typeof styles == 'string'){
+	        styles = toObject(styles)
+	    }
+
+	    config = config || CONFIG
+
+	    config.cssUnitless = config.cssUnitless || CONFIG.cssUnitless
+
+	    result = result || {}
+
+	    var scope    = config.scope || {},
+
+	        //configs
+	        addUnits = config.addUnits != null?
+	                            config.addUnits:
+	                            scope && scope.addUnits != null?
+	                                scope.addUnits:
+	                                true,
+
+	        cssUnitless      = (config.cssUnitless != null?
+	                                config.cssUnitless:
+	                                scope?
+	                                    scope.cssUnitless:
+	                                    null) || {},
+	        cssUnit          = (config.cssUnit || scope? scope.cssUnit: null) || 'px',
+	        prefixProperties = (config.prefixProperties || (scope? scope.prefixProperties: null)) || {},
+
+	        camelize    = config.camelize,
+	        normalizeFn = camelize? CAMELIZE: HYPHENATE
+
+	    // Object.keys(cssUnitless).forEach(function(key){
+	    //     cssUnitless[normalizeFn(key)] = 1
+	    // })
+
+	    var processed,
+	        styleName,
+
+	        propName,
+	        propValue,
+	        propCssUnit,
+	        propType,
+	        propIsNumber,
+
+	        fnPropValue,
+	        prefix
+
+	    for (propName in styles) if (HAS_OWN(styles, propName)) {
+
+	        propValue = styles[ propName ]
+
+	        //the hyphenated style name (css property name)
+	        styleName = HYPHENATE(prepend? prepend + propName: propName)
+
+	        processed = false
+	        prefix    = false
+
+	        if (IS_FUNCTION(propValue)) {
+
+	            //a function can either return a css value
+	            //or an object with { value, prefix, name }
+	            fnPropValue = propValue.call(scope || styles, propValue, propName, styleName, styles)
+
+	            if (IS_OBJECT(fnPropValue) && fnPropValue.value != null){
+
+	                propValue = fnPropValue.value
+	                prefix    = fnPropValue.prefix
+	                styleName = fnPropValue.name?
+	                                HYPHENATE(fnPropValue.name):
+	                                styleName
+
+	            } else {
+	                propValue = fnPropValue
+	            }
+	        }
+
+	        propType     = typeof propValue
+	        propIsNumber = propType == 'number' || (propType == 'string' && propValue != '' && propValue * 1 == propValue)
+
+	        if (propValue == null || styleName == null || styleName === ''){
+	            continue
+	        }
+
+	        if (propIsNumber || propType == 'string'){
+	           processed = true
+	        }
+
+	        if (!processed && propValue.value != null && propValue.prefix){
+	           processed = true
+	           prefix    = propValue.prefix
+	           propValue = propValue.value
+	        }
+
+	        // hyphenStyleName = camelize? HYPHENATE(styleName): styleName
+
+	        if (processed){
+
+	            prefix = prefix || !!prefixProperties[styleName]
+
+	            if (propIsNumber){
+	                propValue = addUnits && !(styleName in cssUnitless) ?
+	                                propValue + cssUnit:
+	                                propValue + ''//change it to a string, so that jquery does not append px or other units
+	            }
+
+	            //special border treatment
+	            if (
+	                    (
+	                     styleName == 'border' ||
+	                    (!styleName.indexOf('border')
+	                        &&
+	                        !~styleName.indexOf('radius')
+	                        &&
+	                        !~styleName.indexOf('width'))
+	                    ) &&
+	                    propIsNumber
+	                ){
+
+	                styleName = styleName + '-width'
+	            }
+
+	            //special border radius treatment
+	            if (!styleName.indexOf('border-radius-')){
+	                styleName.replace(/border(-radius)(-(.*))/, function(str, radius, theRest){
+	                    var positions = {
+	                        '-top'    : ['-top-left',      '-top-right' ],
+	                        '-left'   : ['-top-left',    '-bottom-left' ],
+	                        '-right'  : ['-top-right',   '-bottom-right'],
+	                        '-bottom' : ['-bottom-left', '-bottom-right']
+	                    }
+
+	                    if (theRest in positions){
+	                        styleName = []
+
+	                        positions[theRest].forEach(function(pos){
+	                            styleName.push('border' + pos + radius)
+	                        })
+	                    } else {
+	                        styleName = 'border'+ theRest + radius
+	                    }
+
+	                })
+
+	                if (Array.isArray(styleName)){
+	                    styleName.forEach(function(styleName){
+	                        if (prefix){
+	                            applyPrefix(result, styleName, propValue, normalizeFn)
+	                        } else {
+	                            result[normalizeFn(styleName)] = propValue
+	                        }
+	                    })
+
+	                    continue
+	                }
+	            }
+
+	            if (prefix){
+	                applyPrefix(result, styleName, propValue, normalizeFn)
+	            } else {
+	                result[normalizeFn(styleName)] = propValue
+	            }
+
+	        } else {
+	            //the propValue must be an object, so go down the hierarchy
+	            TO_STYLE_OBJECT(propValue, config, styleName + '-', result)
+	        }
+	    }
+
+	    return result
+	}
+
+	module.exports = TO_STYLE_OBJECT
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict'
+
+	var objectHasOwn = Object.prototype.hasOwnProperty
+
+	module.exports = function(object, propertyName){
+	    return objectHasOwn.call(object, propertyName)
+	}
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var toUpperFirst = __webpack_require__(14)
+
+	var re         = /^(Moz|Webkit|Khtml|O|ms|Icab)(?=[A-Z])/
+
+	var docStyle   = typeof document == 'undefined'?
+	                    {}:
+	                    document.documentElement.style
+
+	var prefixInfo = (function(){
+
+	    var prefix = (function(){
+
+	            for (var prop in docStyle) {
+	                if( re.test(prop) ) {
+	                    // test is faster than match, so it's better to perform
+	                    // that on the lot and match only when necessary
+	                    return  prop.match(re)[0]
+	                }
+	            }
+
+	            // Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
+	            // However (prop in style) returns the correct value, so we'll have to test for
+	            // the precence of a specific property
+	            if ('WebkitOpacity' in docStyle){
+	                return 'Webkit'
+	            }
+
+	            if ('KhtmlOpacity' in docStyle) {
+	                return 'Khtml'
+	            }
+
+	            return ''
+	        })(),
+
+	    lower = prefix.toLowerCase()
+
+	    return {
+	        style       : prefix,
+	        css       : '-' + lower + '-',
+	        dom       : ({
+	            Webkit: 'WebKit',
+	            ms    : 'MS',
+	            o     : 'WebKit'
+	        })[prefix] || toUpperFirst(prefix)
+	    }
+
+	})()
+
+	module.exports = prefixInfo
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict'
+
+	module.exports = function(value){
+	    return value.length?
+	                value.charAt(0).toUpperCase() + value.substring(1):
+	                value
+	}
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(16)()
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict'
+
+	var camelize     = __webpack_require__(17)
+	var hyphenate    = __webpack_require__(19)
+	var toLowerFirst = __webpack_require__(21)
+	var toUpperFirst = __webpack_require__(14)
+
+	var prefixInfo = __webpack_require__(13)
+	var prefixProperties = __webpack_require__(9)
+
+	var docStyle = typeof document == 'undefined'?
+	                {}:
+	                document.documentElement.style
+
+	module.exports = function(asStylePrefix){
+
+	    return function(name, config){
+	        config = config || {}
+
+	        var styleName = toLowerFirst(camelize(name)),
+	            cssName   = hyphenate(name),
+
+	            theName   = asStylePrefix?
+	                            styleName:
+	                            cssName,
+
+	            thePrefix = prefixInfo.style?
+	                            asStylePrefix?
+	                                prefixInfo.style:
+	                                prefixInfo.css
+	                            :
+	                            ''
+
+	        if ( styleName in docStyle ) {
+	            return config.asString?
+	                              theName :
+	                            [ theName ]
+	        }
+
+	        //not a valid style name, so we'll return the value with a prefix
+
+	        var upperCased     = theName,
+	            prefixProperty = prefixProperties[cssName],
+	            result         = []
+
+	        if (asStylePrefix){
+	            upperCased = toUpperFirst(theName)
+	        }
+
+	        if (typeof prefixProperty == 'function'){
+	            var prefixedCss = prefixProperty(theName, thePrefix) || []
+	            if (prefixedCss && !Array.isArray(prefixedCss)){
+	                prefixedCss = [prefixedCss]
+	            }
+
+	            if (prefixedCss.length){
+	                prefixedCss = prefixedCss.map(function(property){
+	                    return asStylePrefix?
+	                                toLowerFirst(camelize(property)):
+	                                hyphenate(property)
+
+	                })
+	            }
+
+	            result = result.concat(prefixedCss)
+	        }
+
+	        if (thePrefix){
+	            result.push(thePrefix + upperCased)
+	        }
+
+	        result.push(theName)
+
+	        if (config.asString || result.length == 1){
+	            return result[0]
+	        }
+
+	        return result
+	    }
+	}
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict'
+
+	var toCamelFn = function(str, letter){
+	       return letter ? letter.toUpperCase(): ''
+	   }
+
+	var hyphenRe = __webpack_require__(18)
+
+	module.exports = function(str){
+	   return str?
+	          str.replace(hyphenRe, toCamelFn):
+	          ''
+	}
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = /[-\s]+(.)?/g
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict'
+
+	var separate = __webpack_require__(20)
+
+	module.exports = function(name){
+	   return separate(name).toLowerCase()
+	}
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict'
+
+	var doubleColonRe      = /::/g
+	var upperToLowerRe     = /([A-Z]+)([A-Z][a-z])/g
+	var lowerToUpperRe     = /([a-z\d])([A-Z])/g
+	var underscoreToDashRe = /_/g
+
+	module.exports = function(name, separator){
+
+	   return name?
+	           name.replace(doubleColonRe, '/')
+	                .replace(upperToLowerRe, '$1_$2')
+	                .replace(lowerToUpperRe, '$1_$2')
+	                .replace(underscoreToDashRe, separator || '-')
+	            :
+	            ''
+	}
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict'
+
+	module.exports = function(value){
+	    return value.length?
+	                value.charAt(0).toLowerCase() + value.substring(1):
+	                value
+	}
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict'
+
+	var objectToString = Object.prototype.toString
+
+	module.exports = function(v){
+	    return !!v && objectToString.call(v) === '[object Object]'
+	}
+
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict'
+
+	var objectToString = Object.prototype.toString
+
+	module.exports = function(v) {
+	    return objectToString.apply(v) === '[object Function]'
+	}
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict'
+
+	var toStyleObject = __webpack_require__(11)
+	var hasOwn        = __webpack_require__(12)
+
+	/**
+	 * @ignore
+	 * @method toStyleString
+	 *
+	 * @param  {Object} styles The object to convert to a style string.
+	 * @param  {Object} config
+	 * @param  {Boolean} config.addUnits=true True if you want to add units when numerical values are encountered. Defaults to true
+	 * @param  {Object}  config.cssUnitless An object whose keys represent css numerical property names that will not be appended with units.
+	 * @param  {Object}  config.prefixProperties An object whose keys represent css property names that should be prefixed
+	 * @param  {String}  config.cssUnit='px' The css unit to append to numerical values. Defaults to 'px'
+	 * @param  {String}  config.scope
+	 *
+	 * @return {Object} The object, normalized with css style names
+	 */
+	module.exports = function(styles, config){
+	    styles = toStyleObject(styles, config)
+
+	    var result = []
+	    var prop
+
+	    for(prop in styles) if (hasOwn(styles, prop)){
+	        result.push(prop + ': ' + styles[prop])
+	    }
+
+	    return result.join('; ')
+	}
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2015 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+
+	(function () {
+		'use strict';
+
+		function classNames () {
+
+			var classes = '';
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg;
+
+				if ('string' === argType || 'number' === argType) {
+					classes += ' ' + arg;
+
+				} else if (Array.isArray(arg)) {
+					classes += ' ' + classNames.apply(null, arg);
+
+				} else if ('object' === argType) {
+					for (var key in arg) {
+						if (arg.hasOwnProperty(key) && arg[key]) {
+							classes += ' ' + key;
+						}
+					}
+				}
+			}
+
+			return classes.substr(1);
+		}
+
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true){
+			// AMD. Register as an anonymous module.
+			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+
+	}());
+
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/**
 	 * Module dependencies.
 	 */
 
-	var Emitter = __webpack_require__(9)
+	var slice = __webpack_require__(27)
+	var flatten = __webpack_require__(29)
+
+	/**
+	 * This function lets us create virtual nodes using a simple
+	 * syntax. It is compatible with JSX transforms so you can use
+	 * JSX to write nodes that will compile to this function.
+	 *
+	 * let node = element('div', { id: 'foo' }, [
+	 *   element('a', { href: 'http://google.com' }, 'Google')
+	 * ])
+	 *
+	 * You can leave out the attributes or the children if either
+	 * of them aren't needed and it will figure out what you're
+	 * trying to do.
+	 */
+
+	module.exports = element
+
+	/**
+	 * Create virtual trees of components.
+	 *
+	 * This creates the nicer API for the user.
+	 * It translates that friendly API into an actual tree of nodes.
+	 *
+	 * @param {*} type
+	 * @param {Object} attributes
+	 * @param {Array} children
+	 * @return {Object}
+	 * @api public
+	 */
+
+	function element (type, attributes, children) {
+	  // Default to div with no args
+	  if (!type) {
+	    throw new TypeError('element() needs a type.')
+	  }
+
+	  // Skipped adding attributes and we're passing
+	  // in children instead.
+	  if (arguments.length === 2 && (typeof attributes === 'string' || Array.isArray(attributes))) {
+	    children = attributes
+	    attributes = {}
+	  }
+
+	  // Account for JSX putting the children as multiple arguments.
+	  // This is essentially just the ES6 rest param
+	  if (arguments.length > 2 && children && Array.isArray(arguments[2]) === false) {
+	    children = slice(arguments, 2)
+	  }
+
+	  children = children || []
+	  attributes = attributes || {}
+
+	  // passing in a single child, you can skip
+	  // using the array
+	  if (!Array.isArray(children)) {
+	    children = [children]
+	  }
+
+	  // Flatten nested child arrays. This is how JSX compiles some nodes.
+	  children = flatten(children, 2)
+
+	  // if you pass in a function, it's a `Component` constructor.
+	  // otherwise it's an element.
+	  return {
+	    type: type,
+	    children: children,
+	    attributes: attributes
+	  }
+	}
+
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = exports = __webpack_require__(28);
+
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/**
+	 * An Array.prototype.slice.call(arguments) alternative
+	 *
+	 * @param {Object} args something with a length
+	 * @param {Number} slice
+	 * @param {Number} sliceEnd
+	 * @api public
+	 */
+
+	module.exports = function (args, slice, sliceEnd) {
+	  var ret = [];
+	  var len = args.length;
+
+	  if (0 === len) return ret;
+
+	  var start = slice < 0
+	    ? Math.max(0, slice + len)
+	    : slice || 0;
+
+	  if (sliceEnd !== undefined) {
+	    len = sliceEnd < 0
+	      ? sliceEnd + len
+	      : sliceEnd
+	  }
+
+	  while (len-- > start) {
+	    ret[len - start] = args[len];
+	  }
+
+	  return ret;
+	}
+
+
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict'
+
+	/**
+	 * Expose `arrayFlatten`.
+	 */
+	module.exports = arrayFlatten
+
+	/**
+	 * Recursive flatten function with depth.
+	 *
+	 * @param  {Array}  array
+	 * @param  {Array}  result
+	 * @param  {Number} depth
+	 * @return {Array}
+	 */
+	function flattenWithDepth (array, result, depth) {
+	  for (var i = 0; i < array.length; i++) {
+	    var value = array[i]
+
+	    if (depth > 0 && Array.isArray(value)) {
+	      flattenWithDepth(value, result, depth - 1)
+	    } else {
+	      result.push(value)
+	    }
+	  }
+
+	  return result
+	}
+
+	/**
+	 * Recursive flatten function. Omitting depth is slightly faster.
+	 *
+	 * @param  {Array} array
+	 * @param  {Array} result
+	 * @return {Array}
+	 */
+	function flattenForever (array, result) {
+	  for (var i = 0; i < array.length; i++) {
+	    var value = array[i]
+
+	    if (Array.isArray(value)) {
+	      flattenForever(value, result)
+	    } else {
+	      result.push(value)
+	    }
+	  }
+
+	  return result
+	}
+
+	/**
+	 * Flatten an array, with the ability to define a depth.
+	 *
+	 * @param  {Array}  array
+	 * @param  {Number} depth
+	 * @return {Array}
+	 */
+	function arrayFlatten (array, depth) {
+	  if (depth == null) {
+	    return flattenForever(array, [])
+	  }
+
+	  return flattenWithDepth(array, [], depth)
+	}
+
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * toString ref.
+	 */
+
+	var toString = Object.prototype.toString;
+
+	/**
+	 * Return the type of `val`.
+	 *
+	 * @param {Mixed} val
+	 * @return {String}
+	 * @api public
+	 */
+
+	module.exports = function(val){
+	  switch (toString.call(val)) {
+	    case '[object Date]': return 'date';
+	    case '[object RegExp]': return 'regexp';
+	    case '[object Arguments]': return 'arguments';
+	    case '[object Array]': return 'array';
+	    case '[object Error]': return 'error';
+	  }
+
+	  if (val === null) return 'null';
+	  if (val === undefined) return 'undefined';
+	  if (val !== val) return 'nan';
+	  if (val && val.nodeType === 1) return 'element';
+
+	  val = val.valueOf
+	    ? val.valueOf()
+	    : Object.prototype.valueOf.apply(val)
+
+	  return typeof val;
+	};
+
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/**
+	 * An Array.prototype.slice.call(arguments) alternative
+	 *
+	 * @param {Object} args something with a length
+	 * @param {Number} slice
+	 * @param {Number} sliceEnd
+	 * @api public
+	 */
+
+	module.exports = function (args, slice, sliceEnd) {
+	  var ret = [];
+	  var len = args.length;
+
+	  if (0 === len) return ret;
+
+	  var start = slice < 0
+	    ? Math.max(0, slice + len)
+	    : slice || 0;
+
+	  if (sliceEnd !== undefined) {
+	    len = sliceEnd < 0
+	      ? sliceEnd + len
+	      : sliceEnd
+	  }
+
+	  while (len-- > start) {
+	    ret[len - start] = args[len];
+	  }
+
+	  return ret;
+	}
+
+
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Create the application.
+	 */
+
+	exports.tree =
+	exports.scene =
+	exports.deku = __webpack_require__(33)
+
+	/**
+	 * Render scenes to the DOM.
+	 */
+
+	if (typeof document !== 'undefined') {
+	  exports.render = __webpack_require__(35)
+	}
+
+	/**
+	 * Render scenes to a string
+	 */
+
+	exports.renderString = __webpack_require__(56)
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Module dependencies.
+	 */
+
+	var Emitter = __webpack_require__(34)
 
 	/**
 	 * Expose `scene`.
@@ -643,7 +1611,7 @@
 
 
 /***/ },
-/* 9 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -810,33 +1778,24 @@
 
 
 /***/ },
-/* 10 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Dependencies.
 	 */
 
-	var raf = __webpack_require__(11)
-	var Pool = __webpack_require__(12)
-	var walk = __webpack_require__(13)
-	var isDom = __webpack_require__(14)
-	var uid = __webpack_require__(15)
-	var keypath = __webpack_require__(16)
-	var utils = __webpack_require__(17)
-	var svg = __webpack_require__(18)
-	var events = __webpack_require__(19)
-	var defaults = utils.defaults
-	var forEach = __webpack_require__(20)
-	var assign = __webpack_require__(24)
-	var reduce = __webpack_require__(25)
-	var isPromise = __webpack_require__(29)
-
-	/**
-	 * These elements won't be pooled
-	 */
-
-	var avoidPooling = ['input', 'textarea', 'select', 'option'];
+	var raf = __webpack_require__(36)
+	var isDom = __webpack_require__(37)
+	var uid = __webpack_require__(38)
+	var keypath = __webpack_require__(39)
+	var events = __webpack_require__(40)
+	var svg = __webpack_require__(41)
+	var defaults = __webpack_require__(44)
+	var forEach = __webpack_require__(45)
+	var assign = __webpack_require__(49)
+	var reduce = __webpack_require__(50)
+	var nodeType = __webpack_require__(54)
 
 	/**
 	 * Expose `dom`.
@@ -863,7 +1822,6 @@
 	  var connections = {}
 	  var components = {}
 	  var entities = {}
-	  var pools = {}
 	  var handlers = {}
 	  var mountQueue = []
 	  var children = {}
@@ -880,14 +1838,13 @@
 	   */
 
 	  var options = defaults(assign({}, app.options || {}, opts || {}), {
-	    pooling: true,
 	    batching: true
 	  })
 
 	  /**
 	   * Listen to DOM events
 	   */
-
+	  var rootElement = getRootElement(container)
 	  addNativeEventListeners()
 
 	  /**
@@ -1018,8 +1975,9 @@
 
 	  function renderEntity (entity) {
 	    var component = entity.component
-	    if (!component.render) throw new Error('Component needs a render function')
-	    var result = component.render(entity.context, setState(entity))
+	    var fn = typeof component === 'function' ? component : component.render
+	    if (!fn) throw new Error('Component needs a render function')
+	    var result = fn(entity.context, setState(entity))
 	    if (!result) throw new Error('Render function must return an element.')
 	    return result
 	  }
@@ -1036,7 +1994,7 @@
 
 	  function setState (entity) {
 	    return function (nextState) {
-	      updateEntityStateAsync(entity, nextState)
+	      updateEntityState(entity, nextState)
 	    }
 	  }
 
@@ -1090,7 +2048,7 @@
 	      if (container === document.body) {
 	        console.warn('deku: Using document.body is allowed but it can cause some issues. Read more: http://cl.ly/b0SC')
 	      }
-	      removeAllChildren(container);
+	      removeAllChildren(container)
 	      container.appendChild(currentNativeElement)
 	    } else if (currentElement !== app.element) {
 	      currentNativeElement = patch(rootId, currentElement, app.element, currentNativeElement)
@@ -1105,6 +2063,7 @@
 
 	    // Allow rendering again.
 	    isRendering = false
+
 	  }
 
 	  /**
@@ -1113,11 +2072,11 @@
 	   */
 
 	  function flushMountQueue () {
-	    var entityId
-	    while (entityId = mountQueue.pop()) {
+	    while (mountQueue.length > 0) {
+	      var entityId = mountQueue.shift()
 	      var entity = entities[entityId]
 	      trigger('afterRender', entity, [entity.context, entity.nativeElement])
-	      triggerUpdate('afterMount', entity, [entity.context, entity.nativeElement, setState(entity)])
+	      trigger('afterMount', entity, [entity.context, entity.nativeElement, setState(entity)])
 	    }
 	  }
 
@@ -1178,7 +2137,7 @@
 	    trigger('afterRender', entity, [entity.context, entity.nativeElement])
 
 	    // trigger afterUpdate after all children have updated.
-	    triggerUpdate('afterUpdate', entity, [entity.context, previousProps, previousState])
+	    trigger('afterUpdate', entity, [entity.context, previousProps, previousState, setState(entity)])
 	  }
 
 	  /**
@@ -1227,8 +2186,9 @@
 	   */
 
 	  function toNative (entityId, path, vnode) {
-	    switch (vnode.type) {
+	    switch (nodeType(vnode)) {
 	      case 'text': return toNativeText(vnode)
+	      case 'empty': return toNativeEmptyElement(entityId, path)
 	      case 'element': return toNativeElement(entityId, path, vnode)
 	      case 'component': return toNativeComponent(entityId, path, vnode)
 	    }
@@ -1240,8 +2200,8 @@
 	   * @param {Object} vnode
 	   */
 
-	  function toNativeText (vnode) {
-	    return document.createTextNode(vnode.data)
+	  function toNativeText (text) {
+	    return document.createTextNode(text)
 	  }
 
 	  /**
@@ -1249,22 +2209,16 @@
 	   */
 
 	  function toNativeElement (entityId, path, vnode) {
-	    var attributes = vnode.attributes
-	    var children = vnode.children
-	    var tagName = vnode.tagName
 	    var el
+	    var attributes = vnode.attributes
+	    var tagName = vnode.type
+	    var childNodes = vnode.children
 
 	    // create element either from pool or fresh.
-	    if (!options.pooling || !canPool(tagName)) {
-	      if (svg.isElement(tagName)) {
-	        el = document.createElementNS(svg.namespace, tagName)
-	      } else {
-	        el = document.createElement(tagName)
-	      }
+	    if (svg.isElement(tagName)) {
+	      el = document.createElementNS(svg.namespace, tagName)
 	    } else {
-	      var pool = getPool(tagName)
-	      el = cleanup(pool.pop())
-	      if (el.parentNode) el.parentNode.removeChild(el)
+	      el = document.createElement(tagName)
 	    }
 
 	    // set attributes.
@@ -1272,16 +2226,27 @@
 	      setAttribute(entityId, path, el, name, value)
 	    })
 
-	    // store keys on the native element for fast event handling.
-	    el.__entity__ = entityId
-	    el.__path__ = path
-
 	    // add children.
-	    forEach(children, function (child, i) {
+	    forEach(childNodes, function (child, i) {
 	      var childEl = toNative(entityId, path + '.' + i, child)
 	      if (!childEl.parentNode) el.appendChild(childEl)
 	    })
 
+	    // store keys on the native element for fast event handling.
+	    el.__entity__ = entityId
+	    el.__path__ = path
+
+	    return el
+	  }
+
+	  /**
+	   * Create a native element from a virtual element.
+	   */
+
+	  function toNativeEmptyElement (entityId, path) {
+	    var el = document.createElement('noscript')
+	    el.__entity__ = entityId
+	    el.__path__ = path
 	    return el
 	  }
 
@@ -1290,7 +2255,7 @@
 	   */
 
 	  function toNativeComponent (entityId, path, vnode) {
-	    var child = new Entity(vnode.component, vnode.props, entityId)
+	    var child = new Entity(vnode.type, assign({ children: vnode.children }, vnode.attributes), entityId)
 	    children[entityId][path] = child.id
 	    return mountEntity(child)
 	  }
@@ -1308,13 +2273,17 @@
 	   */
 
 	  function diffNode (path, entityId, prev, next, el) {
+	    var leftType = nodeType(prev)
+	    var rightType = nodeType(next)
+
 	    // Type changed. This could be from element->text, text->ComponentA,
 	    // ComponentA->ComponentB etc. But NOT div->span. These are the same type
 	    // (ElementNode) but different tag name.
-	    if (prev.type !== next.type) return replaceElement(entityId, path, el, next)
+	    if (leftType !== rightType) return replaceElement(entityId, path, el, next)
 
-	    switch (next.type) {
+	    switch (rightType) {
 	      case 'text': return diffText(prev, next, el)
+	      case 'empty': return el
 	      case 'element': return diffElement(path, entityId, prev, next, el)
 	      case 'component': return diffComponent(path, entityId, prev, next, el)
 	    }
@@ -1325,7 +2294,7 @@
 	   */
 
 	  function diffText (previous, current, el) {
-	    if (current.data !== previous.data) el.data = current.data
+	    if (current !== previous) el.data = current
 	    return el
 	  }
 
@@ -1341,9 +2310,12 @@
 	    var rightKeys = reduce(next.children, keyMapReducer, {})
 	    var currentChildren = assign({}, children[entityId])
 
-	    function keyMapReducer (acc, child) {
-	      if (child.key != null) {
-	        acc[child.key] = child
+	    function keyMapReducer (acc, child, i) {
+	      if (child && child.attributes && child.attributes.key != null) {
+	        acc[child.attributes.key] = {
+	          element: child,
+	          index: i
+	        }
 	        hasKeys = true
 	      }
 	      return acc
@@ -1378,8 +2350,8 @@
 	        positions[rightNode.index] = diffNode(
 	          leftPath,
 	          entityId,
-	          leftNode,
-	          rightNode,
+	          leftNode.element,
+	          rightNode.element,
 	          childNodes[leftNode.index]
 	        )
 	      })
@@ -1412,7 +2384,7 @@
 	          positions[rightNode.index] = toNative(
 	            entityId,
 	            rightPath,
-	            rightNode
+	            rightNode.element
 	          )
 	        }
 	      })
@@ -1426,40 +2398,40 @@
 	        var rightNode = next.children[i]
 
 	        // Removals
-	        if (rightNode == null) {
+	        if (rightNode === undefined) {
 	          removeElement(
 	            entityId,
-	            path + '.' + leftNode.index,
-	            childNodes[leftNode.index]
+	            path + '.' + i,
+	            childNodes[i]
 	          )
+	          continue
 	        }
 
 	        // New Node
-	        if (leftNode == null) {
-	          positions[rightNode.index] = toNative(
+	        if (leftNode === undefined) {
+	          positions[i] = toNative(
 	            entityId,
-	            path + '.' + rightNode.index,
+	            path + '.' + i,
 	            rightNode
 	          )
+	          continue
 	        }
 
 	        // Updated
-	        if (leftNode && rightNode) {
-	          positions[leftNode.index] = diffNode(
-	            path + '.' + leftNode.index,
-	            entityId,
-	            leftNode,
-	            rightNode,
-	            childNodes[leftNode.index]
-	          )
-	        }
+	        positions[i] = diffNode(
+	          path + '.' + i,
+	          entityId,
+	          leftNode,
+	          rightNode,
+	          childNodes[i]
+	        )
 	      }
 	    }
 
 	    // Reposition all the elements
 	    forEach(positions, function (childEl, newPosition) {
 	      var target = el.childNodes[newPosition]
-	      if (childEl !== target) {
+	      if (childEl && childEl !== target) {
 	        if (target) {
 	          el.insertBefore(childEl, target)
 	        } else {
@@ -1499,14 +2471,14 @@
 	   */
 
 	  function diffComponent (path, entityId, prev, next, el) {
-	    if (next.component !== prev.component) {
+	    if (next.type !== prev.type) {
 	      return replaceElement(entityId, path, el, next)
 	    } else {
 	      var targetId = children[entityId][path]
 
 	      // This is a hack for now
 	      if (targetId) {
-	        updateEntityProps(targetId, next.props)
+	        updateEntityProps(targetId, assign({ children: next.children }, next.attributes))
 	      }
 
 	      return el
@@ -1518,7 +2490,7 @@
 	   */
 
 	  function diffElement (path, entityId, prev, next, el) {
-	    if (next.tagName !== prev.tagName) return replaceElement(entityId, path, el, next)
+	    if (next.type !== prev.type) return replaceElement(entityId, path, el, next)
 	    diffAttributes(prev, next, el, entityId, path)
 	    diffChildren(path, entityId, prev, next, el)
 	    return el
@@ -1580,15 +2552,6 @@
 
 	    // Remove it from the DOM
 	    el.parentNode.removeChild(el)
-
-	    // Return all of the elements in this node tree to the pool
-	    // so that the elements can be re-used.
-	    if (options.pooling) {
-	      walk(el, function (node) {
-	        if (!isElement(node) || !canPool(node.tagName)) return
-	        getPool(node.tagName.toLowerCase()).push(node)
-	      })
-	    }
 	  }
 
 	  /**
@@ -1659,6 +2622,10 @@
 	   */
 
 	  function setAttribute (entityId, path, el, name, value) {
+	    if (!value) {
+	      removeAttribute(entityId, path, el, name)
+	      return
+	    }
 	    if (events[name]) {
 	      addEvent(entityId, path, events[name], value)
 	      return
@@ -1670,8 +2637,10 @@
 	        el[name] = true
 	        break
 	      case 'innerHTML':
+	        el.innerHTML = value
+	        break
 	      case 'value':
-	        el[name] = value
+	        setElementValue(el, value)
 	        break
 	      case svg.isAttribute(name):
 	        el.setAttributeNS(svg.namespace, name, value)
@@ -1702,8 +2671,9 @@
 	        el[name] = false
 	        break
 	      case 'innerHTML':
+	        el.innerHTML = ''
 	      case 'value':
-	        el[name] = ""
+	        setElementValue(el, null)
 	        break
 	      default:
 	        el.removeAttribute(name)
@@ -1741,51 +2711,6 @@
 	  }
 
 	  /**
-	   * Get the pool for a tagName, creating it if it
-	   * doesn't exist.
-	   *
-	   * @param {String} tagName
-	   *
-	   * @return {Pool}
-	   */
-
-	  function getPool (tagName) {
-	    var pool = pools[tagName]
-	    if (!pool) {
-	      var poolOpts = svg.isElement(tagName) ?
-	        { namespace: svg.namespace, tagName: tagName } :
-	        { tagName: tagName }
-	      pool = pools[tagName] = new Pool(poolOpts)
-	    }
-	    return pool
-	  }
-
-	  /**
-	   * Clean up previously used native element for reuse.
-	   *
-	   * @param {HTMLElement} el
-	   */
-
-	  function cleanup (el) {
-	    removeAllChildren(el)
-	    removeAllAttributes(el)
-	    return el
-	  }
-
-	  /**
-	   * Remove all the attributes from a node
-	   *
-	   * @param {HTMLElement} el
-	   */
-
-	  function removeAllAttributes (el) {
-	    for (var i = el.attributes.length - 1; i >= 0; i--) {
-	      var name = el.attributes[i].name
-	      el.removeAttribute(name)
-	    }
-	  }
-
-	  /**
 	   * Remove all the child nodes from an element
 	   *
 	   * @param {HTMLElement} el
@@ -1809,43 +2734,6 @@
 	  }
 
 	  /**
-	   * Trigger a hook on the component and allow state to be
-	   * updated too.
-	   *
-	   * @param {String} name
-	   * @param {Object} entity
-	   * @param {Array} args
-	   *
-	   * @return {void}
-	   */
-
-	  function triggerUpdate (name, entity, args) {
-	    var update = setState(entity)
-	    args.push(update)
-	    var result = trigger(name, entity, args)
-	    if (result) {
-	      updateEntityStateAsync(entity, result)
-	    }
-	  }
-
-	  /**
-	   * Update the entity state using a promise
-	   *
-	   * @param {Entity} entity
-	   * @param {Promise} promise
-	   */
-
-	  function updateEntityStateAsync (entity, value) {
-	    if (isPromise(value)) {
-	      value.then(function (newState) {
-	        updateEntityState(entity, newState)
-	      })
-	    } else {
-	      updateEntityState(entity, value)
-	    }
-	  }
-
-	  /**
 	   * Update an entity to match the latest rendered vode. We always
 	   * replace the props on the component when composing them. This
 	   * will trigger a re-render on all children below this point.
@@ -1859,7 +2747,7 @@
 
 	  function updateEntityProps (entityId, nextProps) {
 	    var entity = entities[entityId]
-	    entity.pendingProps = nextProps
+	    entity.pendingProps = defaults({}, nextProps, entity.component.defaultProps || {})
 	    entity.dirty = true
 	    invalidate()
 	  }
@@ -2010,7 +2898,7 @@
 
 	  function addNativeEventListeners () {
 	    forEach(events, function (eventType) {
-	      document.addEventListener(eventType, handleEvent, true)
+	      rootElement.addEventListener(eventType, handleEvent, true)
 	    })
 	  }
 
@@ -2020,7 +2908,7 @@
 
 	  function removeNativeEventListeners () {
 	    forEach(events, function (eventType) {
-	      document.removeEventListener(eventType, handleEvent, true)
+	      rootElement.removeEventListener(eventType, handleEvent, true)
 	    })
 	  }
 
@@ -2040,7 +2928,7 @@
 	      var fn = keypath.get(handlers, [target.__entity__, target.__path__, eventType])
 	      if (fn) {
 	        event.delegateTarget = target
-	        if (false === fn(event)) break
+	        if (fn(event) === false) break
 	      }
 	      target = target.parentNode
 	    }
@@ -2058,14 +2946,9 @@
 	    keypath.set(handlers, [entityId, path, eventType], function (e) {
 	      var entity = entities[entityId]
 	      if (entity) {
-	        var update = setState(entity)
-	        var result = fn.call(null, e, entity.context, update)
-	        if (result) {
-	          updateEntityStateAsync(entity, result)
-	        }
-	        return result
+	        fn.call(null, e, entity.context, setState(entity))
 	      } else {
-	        return fn.call(null, e)
+	        fn.call(null, e)
 	      }
 	    })
 	  }
@@ -2103,7 +2986,6 @@
 	  function inspect () {
 	    return {
 	      entities: entities,
-	      pools: pools,
 	      handlers: handlers,
 	      connections: connections,
 	      currentElement: currentElement,
@@ -2141,7 +3023,7 @@
 	  this.component = component
 	  this.propTypes = component.propTypes || {}
 	  this.context = {}
-	  this.context.id = this.id;
+	  this.context.id = this.id
 	  this.context.props = defaults(props || {}, component.defaultProps || {})
 	  this.context.state = this.component.initialState ? this.component.initialState(this.context.props) : {}
 	  this.pendingProps = assign({}, this.context.props)
@@ -2153,32 +3035,62 @@
 	}
 
 	/**
-	 * Should we pool an element?
-	 */
-
-	function canPool(tagName) {
-	  return avoidPooling.indexOf(tagName) < 0
-	}
-
-	/**
-	 * Get a nested node using a path
+	 * Retrieve the nearest 'body' ancestor of the given element or else the root
+	 * element of the document in which stands the given element.
 	 *
-	 * @param {HTMLElement} el   The root node '0'
-	 * @param {String} path The path string eg. '0.2.43'
+	 * This is necessary if you want to attach the events handler to the correct
+	 * element and be able to dispatch events in document fragments such as
+	 * Shadow DOM.
+	 *
+	 * @param  {HTMLElement} el The element on which we will render an app.
+	 * @return {HTMLElement}    The root element on which we will attach the events
+	 *                          handler.
 	 */
 
-	function getNodeAtPath(el, path) {
-	  var parts = path.split('.')
-	  parts.shift()
-	  while (parts.length) {
-	    el = el.childNodes[parts.pop()]
+	function getRootElement (el) {
+	  while (el.parentElement) {
+	    if (el.tagName === 'BODY' || !el.parentElement) {
+	      return el
+	    }
+	    el = el.parentElement
 	  }
 	  return el
 	}
 
+	/**
+	 * Set the value property of an element and keep the text selection
+	 * for input fields.
+	 *
+	 * @param {HTMLElement} el
+	 * @param {String} value
+	 */
+
+	function setElementValue (el, value) {
+	  if (el === document.activeElement && canSelectText(el)) {
+	    var start = el.selectionStart
+	    var end = el.selectionEnd
+	    el.value = value
+	    el.setSelectionRange(start, end)
+	  } else {
+	    el.value = value
+	  }
+	}
+
+	/**
+	 * For some reason only certain types of inputs can set the selection range.
+	 *
+	 * @param {HTMLElement} el
+	 *
+	 * @return {Boolean}
+	 */
+
+	function canSelectText (el) {
+	  return el.tagName === 'INPUT' && ['text','search','password','tel','url'].indexOf(el.type) > -1
+	}
+
 
 /***/ },
-/* 11 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2218,95 +3130,7 @@
 
 
 /***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	function Pool(params) {
-	    if (typeof params !== 'object') {
-	        throw new Error("Please pass parameters. Example -> new Pool({ tagName: \"div\" })");
-	    }
-
-	    if (typeof params.tagName !== 'string') {
-	        throw new Error("Please specify a tagName. Example -> new Pool({ tagName: \"div\" })");
-	    }
-
-	    this.storage = [];
-	    this.tagName = params.tagName.toLowerCase();
-	    this.namespace = params.namespace;
-	}
-
-	Pool.prototype.push = function(el) {
-	    if (el.tagName.toLowerCase() !== this.tagName) {
-	        return;
-	    }
-	    
-	    this.storage.push(el);
-	};
-
-	Pool.prototype.pop = function(argument) {
-	    if (this.storage.length === 0) {
-	        return this.create();
-	    } else {
-	        return this.storage.pop();
-	    }
-	};
-
-	Pool.prototype.create = function() {
-	    if (this.namespace) {
-	        return document.createElementNS(this.namespace, this.tagName);
-	    } else {
-	        return document.createElement(this.tagName);
-	    }
-	};
-
-	Pool.prototype.allocate = function(size) {
-	    if (this.storage.length >= size) {
-	        return;
-	    }
-
-	    var difference = size - this.storage.length;
-	    for (var poolAllocIter = 0; poolAllocIter < difference; poolAllocIter++) {
-	        this.storage.push(this.create());
-	    }
-	};
-
-	if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-	    module.exports = Pool;
-	}
-
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var slice = Array.prototype.slice
-
-	module.exports = iterativelyWalk
-
-	function iterativelyWalk(nodes, cb) {
-	    if (!('length' in nodes)) {
-	        nodes = [nodes]
-	    }
-	    
-	    nodes = slice.call(nodes)
-
-	    while(nodes.length) {
-	        var node = nodes.shift(),
-	            ret = cb(node)
-
-	        if (ret) {
-	            return ret
-	        }
-
-	        if (node.childNodes && node.childNodes.length) {
-	            nodes = slice.call(node.childNodes).concat(nodes)
-	        }
-	    }
-	}
-
-
-/***/ },
-/* 14 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*global window*/
@@ -2327,7 +3151,7 @@
 
 
 /***/ },
-/* 15 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** generate unique id for selector */
@@ -2338,7 +3162,7 @@
 	};
 
 /***/ },
-/* 16 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory){
@@ -2366,15 +3190,16 @@
 	      return true;
 	    }
 	    if (isArray(value) && value.length === 0) {
-	      return true;
-	    } else {
-	      for (var i in value) {
-	        if (_hasOwnProperty.call(value, i)) {
-	          return false;
+	        return true;
+	    } else if (!isString(value)) {
+	        for (var i in value) {
+	            if (_hasOwnProperty.call(value, i)) {
+	                return false;
+	            }
 	        }
-	      }
-	      return true;
+	        return true;
 	    }
+	    return false;
 	  }
 
 	  function toString(type){
@@ -2477,7 +3302,15 @@
 	    return obj;
 	  }
 
-	  var objectPath = {};
+	  var objectPath = function(obj) {
+	    return Object.keys(objectPath).reduce(function(proxy, prop) {
+	      if (typeof objectPath[prop] === 'function') {
+	        proxy[prop] = objectPath[prop].bind(objectPath, obj);
+	      }
+
+	      return proxy;
+	    }, {});
+	  };
 
 	  objectPath.has = function (obj, path) {
 	    if (isEmpty(obj)) {
@@ -2613,40 +3446,69 @@
 
 
 /***/ },
-/* 17 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * The npm 'defaults' module but without clone because
-	 * it was requiring the 'Buffer' module which is huge.
-	 *
-	 * @param {Object} options
-	 * @param {Object} defaults
-	 *
-	 * @return {Object}
+	 * All of the events can bind to
 	 */
 
-	exports.defaults = function(options, defaults) {
-	  Object.keys(defaults).forEach(function(key) {
-	    if (typeof options[key] === 'undefined') {
-	      options[key] = defaults[key]
-	    }
-	  })
-	  return options
+	module.exports = {
+	  onBlur: 'blur',
+	  onChange: 'change',
+	  onClick: 'click',
+	  onContextMenu: 'contextmenu',
+	  onCopy: 'copy',
+	  onCut: 'cut',
+	  onDoubleClick: 'dblclick',
+	  onDrag: 'drag',
+	  onDragEnd: 'dragend',
+	  onDragEnter: 'dragenter',
+	  onDragExit: 'dragexit',
+	  onDragLeave: 'dragleave',
+	  onDragOver: 'dragover',
+	  onDragStart: 'dragstart',
+	  onDrop: 'drop',
+	  onError: 'error',
+	  onFocus: 'focus',
+	  onInput: 'input',
+	  onInvalid: 'invalid',
+	  onKeyDown: 'keydown',
+	  onKeyPress: 'keypress',
+	  onKeyUp: 'keyup',
+	  onMouseDown: 'mousedown',
+	  onMouseEnter: 'mouseenter',
+	  onMouseLeave: 'mouseleave',
+	  onMouseMove: 'mousemove',
+	  onMouseOut: 'mouseout',
+	  onMouseOver: 'mouseover',
+	  onMouseUp: 'mouseup',
+	  onPaste: 'paste',
+	  onReset: 'reset',
+	  onScroll: 'scroll',
+	  onSubmit: 'submit',
+	  onTouchCancel: 'touchcancel',
+	  onTouchEnd: 'touchend',
+	  onTouchMove: 'touchmove',
+	  onTouchStart: 'touchstart',
+	  onWheel: 'wheel'
 	}
 
 
 /***/ },
-/* 18 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * This file lists the supported SVG elements used by the
-	 * renderer. We may add better SVG support in the future
-	 * that doesn't require whitelisting elements.
-	 */
+	module.exports = {
+	  isElement: __webpack_require__(42).isElement,
+	  isAttribute: __webpack_require__(43),
+	  namespace: 'http://www.w3.org/2000/svg'
+	}
 
-	exports.namespace = 'http://www.w3.org/2000/svg'
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Supported SVG elements
@@ -2674,6 +3536,21 @@
 	  'text': true,
 	  'tspan': true
 	}
+
+	/**
+	 * Is element's namespace SVG?
+	 *
+	 * @param {String} name
+	 */
+
+	exports.isElement = function (name) {
+	  return name in exports.elements
+	}
+
+
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Supported SVG attributes
@@ -2722,17 +3599,7 @@
 	  'x': true,
 	  'y1': true,
 	  'y2': true,
-	  'y': true,
-	}
-
-	/**
-	 * Is element's namespace SVG?
-	 *
-	 * @param {String} name
-	 */
-
-	exports.isElement = function (name) {
-	  return name in exports.elements
+	  'y': true
 	}
 
 	/**
@@ -2741,66 +3608,42 @@
 	 * @param {String} attr
 	 */
 
-	exports.isAttribute = function (attr) {
+	module.exports = function (attr) {
 	  return attr in exports.attributes
 	}
 
 
 /***/ },
-/* 19 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * All of the events can bind to
-	 */
+	'use strict'
 
-	module.exports = {
-	  onBlur: 'blur',
-	  onChange: 'change',
-	  onClick: 'click',
-	  onContextMenu: 'contextmenu',
-	  onCopy: 'copy',
-	  onCut: 'cut',
-	  onDoubleClick: 'dblclick',
-	  onDrag: 'drag',
-	  onDragEnd: 'dragend',
-	  onDragEnter: 'dragenter',
-	  onDragExit: 'dragexit',
-	  onDragLeave: 'dragleave',
-	  onDragOver: 'dragover',
-	  onDragStart: 'dragstart',
-	  onDrop: 'drop',
-	  onFocus: 'focus',
-	  onInput: 'input',
-	  onKeyDown: 'keydown',
-	  onKeyPress: 'keypress',
-	  onKeyUp: 'keyup',
-	  onMouseDown: 'mousedown',
-	  onMouseEnter: 'mouseenter',
-	  onMouseLeave: 'mouseleave',
-	  onMouseMove: 'mousemove',
-	  onMouseOut: 'mouseout',
-	  onMouseOver: 'mouseover',
-	  onMouseUp: 'mouseup',
-	  onPaste: 'paste',
-	  onScroll: 'scroll',
-	  onSubmit: 'submit',
-	  onTouchCancel: 'touchcancel',
-	  onTouchEnd: 'touchend',
-	  onTouchMove: 'touchmove',
-	  onTouchStart: 'touchstart',
-	  onWheel: 'wheel'
+	module.exports = function(target) {
+	  target = target || {}
+
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i]
+	    if (!source) continue
+
+	    Object.getOwnPropertyNames(source).forEach(function(key) {
+	      if (undefined === target[key])
+	        target[key] = source[key]
+	    })
+	  }
+
+	  return target
 	}
 
 
 /***/ },
-/* 20 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var forEachArray = __webpack_require__(21),
-	    forEachObject = __webpack_require__(23);
+	var forEachArray = __webpack_require__(46),
+	    forEachObject = __webpack_require__(48);
 
 	/**
 	 * # ForEach
@@ -2821,12 +3664,12 @@
 	};
 
 /***/ },
-/* 21 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bindInternal3 = __webpack_require__(22);
+	var bindInternal3 = __webpack_require__(47);
 
 	/**
 	 * # For Each
@@ -2848,7 +3691,7 @@
 
 
 /***/ },
-/* 22 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2865,12 +3708,12 @@
 
 
 /***/ },
-/* 23 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bindInternal3 = __webpack_require__(22);
+	var bindInternal3 = __webpack_require__(47);
 
 	/**
 	 * # For Each
@@ -2894,7 +3737,7 @@
 
 
 /***/ },
-/* 24 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2934,13 +3777,13 @@
 
 
 /***/ },
-/* 25 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var reduceArray = __webpack_require__(26),
-	    reduceObject = __webpack_require__(28);
+	var reduceArray = __webpack_require__(51),
+	    reduceObject = __webpack_require__(53);
 
 	/**
 	 * # Reduce
@@ -2963,12 +3806,12 @@
 	};
 
 /***/ },
-/* 26 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bindInternal4 = __webpack_require__(27);
+	var bindInternal4 = __webpack_require__(52);
 
 	/**
 	 * # Reduce
@@ -3004,7 +3847,7 @@
 
 
 /***/ },
-/* 27 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3021,12 +3864,12 @@
 
 
 /***/ },
-/* 28 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bindInternal4 = __webpack_require__(27);
+	var bindInternal4 = __webpack_require__(52);
 
 	/**
 	 * # Reduce
@@ -3064,396 +3907,29 @@
 
 
 /***/ },
-/* 29 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = isPromise;
+	var type = __webpack_require__(55)
 
-	function isPromise(obj) {
-	  return obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
+	/**
+	 * Returns the type of a virtual node
+	 *
+	 * @param  {Object} node
+	 * @return {String}
+	 */
+
+	module.exports = function nodeType (node) {
+	  var v = type(node)
+	  if (v === 'null' || node === false) return 'empty'
+	  if (v !== 'object') return 'text'
+	  if (type(node.type) === 'string') return 'element'
+	  return 'component'
 	}
 
 
 /***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var utils = __webpack_require__(17)
-	var events = __webpack_require__(19)
-	var defaults = utils.defaults
-
-	/**
-	 * Expose `stringify`.
-	 */
-
-	module.exports = function (app) {
-	  if (!app.element) {
-	    throw new Error('No element mounted')
-	  }
-
-	  /**
-	   * Render to string.
-	   *
-	   * @param {Component} component
-	   * @param {Object} [props]
-	   * @return {String}
-	   */
-
-	  function stringify (component, optProps) {
-	    var propTypes = component.propTypes || {}
-	    var props = defaults(optProps || {}, component.defaultProps || {})
-	    var state = component.initialState ? component.initialState(props) : {}
-
-	    for (var name in propTypes) {
-	      var options = propTypes[name]
-	      if (options.source) {
-	        props[name] = app.sources[options.source]
-	      }
-	    }
-
-	    if (component.beforeMount) component.beforeMount({ props: props, state: state })
-	    if (component.beforeRender) component.beforeRender({ props: props, state: state })
-	    var node = component.render({ props: props, state: state })
-	    return stringifyNode(node, '0')
-	  }
-
-	  /**
-	   * Render a node to a string
-	   *
-	   * @param {Node} node
-	   * @param {Tree} tree
-	   *
-	   * @return {String}
-	   */
-
-	  function stringifyNode (node, path) {
-	    switch (node.type) {
-	      case 'text': return node.data
-	      case 'element':
-	        var children = node.children
-	        var attributes = node.attributes
-	        var tagName = node.tagName
-	        var innerHTML = attributes.innerHTML
-	        var str = '<' + tagName + attrs(attributes) + '>'
-
-	        if (innerHTML) {
-	          str += innerHTML
-	        } else {
-	          for (var i = 0, n = children.length; i < n; i++) {
-	            str += stringifyNode(children[i], path + '.' + i)
-	          }
-	        }
-
-	        str += '</' + tagName + '>'
-	        return str
-	      case 'component': return stringify(node.component, node.props)
-	    }
-
-	    throw new Error('Invalid type')
-	  }
-
-	  return stringifyNode(app.element, '0')
-	}
-
-	/**
-	 * HTML attributes to string.
-	 *
-	 * @param {Object} attributes
-	 * @return {String}
-	 * @api private
-	 */
-
-	function attrs (attributes) {
-	  var str = ''
-	  for (var key in attributes) {
-	    if (key === 'innerHTML') continue
-	    if (events[key]) continue
-	    str += attr(key, attributes[key])
-	  }
-	  return str
-	}
-
-	/**
-	 * HTML attribute to string.
-	 *
-	 * @param {String} key
-	 * @param {String} val
-	 * @return {String}
-	 * @api private
-	 */
-
-	function attr (key, val) {
-	  return ' ' + key + '="' + val + '"'
-	}
-
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Module dependencies.
-	 */
-
-	var type = __webpack_require__(32)
-	var slice = __webpack_require__(33)
-
-	/**
-	 * This function lets us create virtual nodes using a simple
-	 * syntax. It is compatible with JSX transforms so you can use
-	 * JSX to write nodes that will compile to this function.
-	 *
-	 * let node = virtual('div', { id: 'foo' }, [
-	 *   virtual('a', { href: 'http://google.com' }, 'Google')
-	 * ])
-	 *
-	 * You can leave out the attributes or the children if either
-	 * of them aren't needed and it will figure out what you're
-	 * trying to do.
-	 */
-
-	module.exports = virtual
-
-	/**
-	 * Create virtual DOM trees.
-	 *
-	 * This creates the nicer API for the user.
-	 * It translates that friendly API into an actual tree of nodes.
-	 *
-	 * @param {String|Function} type
-	 * @param {Object} props
-	 * @param {Array} children
-	 * @return {Node}
-	 * @api public
-	 */
-
-	function virtual (type, props, children) {
-	  // Default to div with no args
-	  if (!type) {
-	    throw new Error('deku: Element needs a type. Read more: http://cl.ly/b0KZ')
-	  }
-
-	  // Skipped adding attributes and we're passing
-	  // in children instead.
-	  if (arguments.length === 2 && (typeof props === 'string' || Array.isArray(props))) {
-	    children = props
-	    props = {}
-	  }
-
-	  // Account for JSX putting the children as multiple arguments.
-	  // This is essentially just the ES6 rest param
-	  if (arguments.length > 2 && Array.isArray(arguments[2]) === false) {
-	    children = slice(arguments, 2)
-	  }
-
-	  children = children || []
-	  props = props || {}
-
-	  // passing in a single child, you can skip
-	  // using the array
-	  if (!Array.isArray(children)) {
-	    children = [ children ]
-	  }
-
-	  children = children.reduce(normalize, [])
-
-	  // pull the key out from the data.
-	  var key = 'key' in props ? String(props.key) : null
-	  delete props['key']
-
-	  // if you pass in a function, it's a `Component` constructor.
-	  // otherwise it's an element.
-	  var node
-	  if (typeof type === 'string') {
-	    node = new ElementNode(type, props, key, children)
-	  } else {
-	    node = new ComponentNode(type, props, key, children)
-	  }
-
-	  // set the unique ID
-	  node.index = 0
-
-	  return node
-	}
-
-	/**
-	 * Parse nodes into real `Node` objects.
-	 *
-	 * @param {Mixed} node
-	 * @param {Integer} index
-	 * @return {Node}
-	 * @api private
-	 */
-
-	function normalize (acc, node) {
-	  if (node == null || node === false) {
-	    return acc
-	  }
-	  if (Array.isArray(node)) {
-	    throw new TypeError('deku: Child nodes can\'t be an array. https://goo.gl/m5bIS2')
-	  }
-	  if (typeof node === 'string' || typeof node === 'number') {
-	    var newNode = new TextNode(String(node))
-	    newNode.index = acc.length
-	    acc.push(newNode)
-	  } else {
-	    node.index = acc.length
-	    acc.push(node)
-	  }
-	  return acc
-	}
-
-	/**
-	 * Initialize a new `ComponentNode`.
-	 *
-	 * @param {Component} component
-	 * @param {Object} props
-	 * @param {String} key Used for sorting/replacing during diffing.
-	 * @param {Array} children Child virtual nodes
-	 * @api public
-	 */
-
-	function ComponentNode (component, props, key, children) {
-	  this.key = key
-	  this.props = props
-	  this.type = 'component'
-	  this.component = component
-	  this.props.children = children || []
-	}
-
-	/**
-	 * Initialize a new `ElementNode`.
-	 *
-	 * @param {String} tagName
-	 * @param {Object} attributes
-	 * @param {String} key Used for sorting/replacing during diffing.
-	 * @param {Array} children Child virtual dom nodes.
-	 * @api public
-	 */
-
-	function ElementNode (tagName, attributes, key, children) {
-	  this.type = 'element'
-	  this.attributes = parseAttributes(attributes)
-	  this.tagName = tagName
-	  this.children = children || []
-	  this.key = key
-	}
-
-	/**
-	 * Initialize a new `TextNode`.
-	 *
-	 * This is just a virtual HTML text object.
-	 *
-	 * @param {String} text
-	 * @api public
-	 */
-
-	function TextNode (text) {
-	  this.type = 'text'
-	  this.data = String(text)
-	}
-
-	/**
-	 * Parse attributes for some special cases.
-	 *
-	 * TODO: This could be more functional and allow hooks
-	 * into the processing of the attributes at a component-level
-	 *
-	 * @param {Object} attributes
-	 *
-	 * @return {Object}
-	 */
-
-	function parseAttributes (attributes) {
-	  // style: { 'text-align': 'left' }
-	  if (attributes.style) {
-	    attributes.style = parseStyle(attributes.style)
-	  }
-
-	  // class: { foo: true, bar: false, baz: true }
-	  // class: ['foo', 'bar', 'baz']
-	  if (attributes.class) {
-	    attributes.class = parseClass(attributes.class)
-	  }
-
-	  // Remove attributes with false values
-	  var filteredAttributes = {}
-	  for (var key in attributes) {
-	    var value = attributes[key]
-	    if (value == null || value === false) continue
-	    filteredAttributes[key] = value
-	  }
-
-	  return filteredAttributes
-	}
-
-	/**
-	 * Parse a block of styles into a string.
-	 *
-	 * TODO: this could do a lot more with vendor prefixing,
-	 * number values etc. Maybe there's a way to allow users
-	 * to hook into this?
-	 *
-	 * @param {Object} styles
-	 *
-	 * @return {String}
-	 */
-
-	function parseStyle (styles) {
-	  if (type(styles) === 'string') {
-	    return styles
-	  }
-	  if (process.env.NODE_ENV === 'development') {
-	    console.warn('deku: Using an object for the style attribute is deprecated. You should use another module to transform the object into a string.')
-	  }
-	  var str = ''
-	  for (var name in styles) {
-	    var value = styles[name]
-	    str = str + name + ':' + value + ';'
-	  }
-	  return str;
-	}
-
-	/**
-	 * Parse the class attribute so it's able to be
-	 * set in a more user-friendly way
-	 *
-	 * @param {String|Object|Array} value
-	 *
-	 * @return {String}
-	 */
-
-	function parseClass (value) {
-	  // { foo: true, bar: false, baz: true }
-	  if (type(value) === 'object') {
-	    if (process.env.NODE_ENV === 'development') {
-	      console.warn('deku: Using an objects and arrays for the class attribute is deprecated. You should use another module like https://www.npmjs.com/package/classnames')
-	    }
-	    var matched = []
-	    for (var key in value) {
-	      if (value[key]) matched.push(key)
-	    }
-	    value = matched
-	  }
-
-	  // ['foo', 'bar', 'baz']
-	  if (type(value) === 'array') {
-	    if (process.env.NODE_ENV === 'development') {
-	      console.warn('deku: Using an objects and arrays for the class attribute is deprecated. You should use another module like https://www.npmjs.com/package/classnames')
-	    }
-	    if (value.length === 0) {
-	      return
-	    }
-	    value = value.join(' ')
-	  }
-
-	  return value
-	}
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
-
-/***/ },
-/* 32 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -3493,53 +3969,145 @@
 
 
 /***/ },
-/* 33 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = exports = __webpack_require__(34);
+	var defaults = __webpack_require__(44)
+	var nodeType = __webpack_require__(54)
+	var type = __webpack_require__(55)
 
-
-/***/ },
-/* 34 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
 	/**
-	 * An Array.prototype.slice.call(arguments) alternative
-	 *
-	 * @param {Object} args something with a length
-	 * @param {Number} slice
-	 * @param {Number} sliceEnd
-	 * @api public
+	 * Expose `stringify`.
 	 */
 
-	module.exports = function (args, slice, sliceEnd) {
-	  var ret = [];
-	  var len = args.length;
-
-	  if (0 === len) return ret;
-
-	  var start = slice < 0
-	    ? Math.max(0, slice + len)
-	    : slice || 0;
-
-	  if (sliceEnd !== undefined) {
-	    len = sliceEnd < 0
-	      ? sliceEnd + len
-	      : sliceEnd
+	module.exports = function (app) {
+	  if (!app.element) {
+	    throw new Error('No element mounted')
 	  }
 
-	  while (len-- > start) {
-	    ret[len - start] = args[len];
+	  /**
+	   * Render to string.
+	   *
+	   * @param {Component} component
+	   * @param {Object} [props]
+	   * @return {String}
+	   */
+
+	  function stringify (component, optProps, children) {
+	    var propTypes = component.propTypes || {}
+	    var props = defaults(optProps || {}, component.defaultProps || {})
+	    var state = component.initialState ? component.initialState(props) : {}
+	    props.children = children;
+
+	    for (var name in propTypes) {
+	      var options = propTypes[name]
+	      if (options.source) {
+	        props[name] = app.sources[options.source]
+	      }
+	    }
+
+	    if (component.beforeMount) component.beforeMount({ props: props, state: state })
+	    if (component.beforeRender) component.beforeRender({ props: props, state: state })
+	    var node = component.render({ props: props, state: state })
+	    return stringifyNode(node, '0')
 	  }
 
-	  return ret;
+	  /**
+	   * Render a node to a string
+	   *
+	   * @param {Node} node
+	   * @param {Tree} tree
+	   *
+	   * @return {String}
+	   */
+
+	  function stringifyNode (node, path) {
+	    switch (nodeType(node)) {
+	      case 'empty': return '<noscript />'
+	      case 'text': return node
+	      case 'element':
+	        var children = node.children
+	        var attributes = node.attributes
+	        var tagName = node.type
+	        var innerHTML = attributes.innerHTML
+	        var str = '<' + tagName + attrs(attributes) + '>'
+
+	        if (innerHTML) {
+	          str += innerHTML
+	        } else {
+	          for (var i = 0, n = children.length; i < n; i++) {
+	            str += stringifyNode(children[i], path + '.' + i)
+	          }
+	        }
+
+	        str += '</' + tagName + '>'
+	        return str
+	      case 'component': return stringify(node.type, node.attributes, node.children)
+	    }
+
+	    throw new Error('Invalid type')
+	  }
+
+	  return stringifyNode(app.element, '0')
+	}
+
+	/**
+	 * HTML attributes to string.
+	 *
+	 * @param {Object} attributes
+	 * @return {String}
+	 * @api private
+	 */
+
+	function attrs (attributes) {
+	  var str = ''
+	  for (var key in attributes) {
+	    var value = attributes[key]
+	    if (key === 'innerHTML') continue
+	    if (isValidAttributeValue(value)) str += attr(key, attributes[key])
+	  }
+	  return str
+	}
+
+	/**
+	 * HTML attribute to string.
+	 *
+	 * @param {String} key
+	 * @param {String} val
+	 * @return {String}
+	 * @api private
+	 */
+
+	function attr (key, val) {
+	  return ' ' + key + '="' + val + '"'
+	}
+
+	/**
+	 * Is a value able to be set a an attribute value?
+	 *
+	 * @param {Any} value
+	 *
+	 * @return {Boolean}
+	 */
+
+	function isValidAttributeValue (value) {
+	  var valueType = type(value)
+	  switch (valueType) {
+	  case 'string':
+	  case 'number':
+	    return true;
+
+	  case 'boolean':
+	    return value;
+
+	  default:
+	    return false;
+	  }
 	}
 
 
-
 /***/ },
-/* 35 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -3551,17 +4119,19 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _deku = __webpack_require__(7);
+	var _magicVirtualElement = __webpack_require__(7);
+
+	var _magicVirtualElement2 = _interopRequireDefault(_magicVirtualElement);
 
 	// eslint-disable-line no-unused-vars
 
-	var _soundcloudAudio = __webpack_require__(36);
+	var _soundcloudAudio = __webpack_require__(58);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
-	var _dekuSoundplayerComponents = __webpack_require__(37);
+	var _dekuSoundplayerComponents = __webpack_require__(59);
 
-	var _dekuSoundplayerAddons = __webpack_require__(45);
+	var _dekuSoundplayerAddons = __webpack_require__(67);
 
 	var SoundCloudLogoSVG = _dekuSoundplayerComponents.Icons.SoundCloudLogoSVG;
 
@@ -3608,14 +4178,14 @@
 	        var props = component.props;
 
 	        if (!props.track) {
-	            return (0, _deku.dom)('span', null);
+	            return (0, _magicVirtualElement2['default'])('span', null);
 	        }
 
 	        if (props.track && !props.track.streamable) {
-	            return (0, _deku.dom)(
+	            return (0, _magicVirtualElement2['default'])(
 	                'div',
 	                { 'class': 'sb-soundplayer-widget-message' },
-	                (0, _deku.dom)(
+	                (0, _magicVirtualElement2['default'])(
 	                    'a',
 	                    { href: props.track.permalink_url, target: '_blank' },
 	                    props.track.title
@@ -3626,41 +4196,41 @@
 
 	        var artwork_url = props.track.artwork_url;
 
-	        return (0, _deku.dom)(
+	        return (0, _magicVirtualElement2['default'])(
 	            _dekuSoundplayerComponents.Cover,
 	            { artworkUrl: artwork_url && artwork_url.replace('large', 't500x500') },
-	            (0, _deku.dom)('div', { 'class': 'sb-soundplayer-widget-overlay' }),
-	            (0, _deku.dom)(
+	            (0, _magicVirtualElement2['default'])('div', { 'class': 'sb-soundplayer-widget-overlay' }),
+	            (0, _magicVirtualElement2['default'])(
 	                'div',
 	                { 'class': 'sb-soundplayer-widget-track-info' },
-	                (0, _deku.dom)(
+	                (0, _magicVirtualElement2['default'])(
 	                    'h3',
 	                    { 'class': 'sb-soundplayer-widget-user' },
 	                    props.track.user.username
 	                ),
-	                (0, _deku.dom)(
+	                (0, _magicVirtualElement2['default'])(
 	                    'h2',
 	                    { 'class': 'sb-soundplayer-widget-title' },
 	                    props.track.title
 	                )
 	            ),
-	            (0, _deku.dom)(
+	            (0, _magicVirtualElement2['default'])(
 	                'a',
 	                { href: props.track.permalink_url, target: '_blank' },
-	                (0, _deku.dom)(SoundCloudLogoSVG, null)
+	                (0, _magicVirtualElement2['default'])(SoundCloudLogoSVG, null)
 	            ),
-	            (0, _deku.dom)(
+	            (0, _magicVirtualElement2['default'])(
 	                'div',
 	                { 'class': 'sb-soundplayer-widget-controls' },
-	                (0, _deku.dom)(_dekuSoundplayerComponents.PlayButton, {
+	                (0, _magicVirtualElement2['default'])(_dekuSoundplayerComponents.PlayButton, {
 	                    playing: props.playing,
 	                    soundCloudAudio: props.soundCloudAudio
 	                }),
-	                (0, _deku.dom)(_dekuSoundplayerComponents.Progress, {
+	                (0, _magicVirtualElement2['default'])(_dekuSoundplayerComponents.Progress, {
 	                    value: props.currentTime / props.duration * 100 || 0,
 	                    soundCloudAudio: props.soundCloudAudio
 	                }),
-	                (0, _deku.dom)(_dekuSoundplayerComponents.Timer, {
+	                (0, _magicVirtualElement2['default'])(_dekuSoundplayerComponents.Timer, {
 	                    duration: props.track.duration / 1000,
 	                    currentTime: props.currentTime
 	                })
@@ -3683,17 +4253,17 @@
 	    render: function render(component) {
 	        var props = component.props;
 
-	        return (0, _deku.dom)(
+	        return (0, _magicVirtualElement2['default'])(
 	            _dekuSoundplayerAddons.SoundPlayerContainer,
 	            props,
-	            (0, _deku.dom)(Player, null)
+	            (0, _magicVirtualElement2['default'])(Player, null)
 	        );
 	    }
 	};
 	module.exports = exports['default'];
 
 /***/ },
-/* 36 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3856,14 +4426,14 @@
 
 
 /***/ },
-/* 37 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(38);
+	module.exports = __webpack_require__(60);
 
 
 /***/ },
-/* 38 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3874,38 +4444,38 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _PlayButton2 = __webpack_require__(39);
+	var _PlayButton2 = __webpack_require__(61);
 
 	var _PlayButton3 = _interopRequireDefault(_PlayButton2);
 
 	exports.PlayButton = _PlayButton3['default'];
 
-	var _Progress2 = __webpack_require__(41);
+	var _Progress2 = __webpack_require__(63);
 
 	var _Progress3 = _interopRequireDefault(_Progress2);
 
 	exports.Progress = _Progress3['default'];
 
-	var _Timer2 = __webpack_require__(42);
+	var _Timer2 = __webpack_require__(64);
 
 	var _Timer3 = _interopRequireDefault(_Timer2);
 
 	exports.Timer = _Timer3['default'];
 
-	var _Cover2 = __webpack_require__(43);
+	var _Cover2 = __webpack_require__(65);
 
 	var _Cover3 = _interopRequireDefault(_Cover2);
 
 	exports.Cover = _Cover3['default'];
 
-	var _Icons2 = __webpack_require__(40);
+	var _Icons2 = __webpack_require__(62);
 
 	var _Icons3 = _interopRequireDefault(_Icons2);
 
 	exports.Icons = _Icons3['default'];
 
 /***/ },
-/* 39 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -3917,15 +4487,17 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _deku = __webpack_require__(7);
+	var _magicVirtualElement = __webpack_require__(7);
+
+	var _magicVirtualElement2 = _interopRequireDefault(_magicVirtualElement);
 
 	// eslint-disable-line no-unused-vars
 
-	var _soundcloudAudio = __webpack_require__(36);
+	var _soundcloudAudio = __webpack_require__(58);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
-	var _Icons = __webpack_require__(40);
+	var _Icons = __webpack_require__(62);
 
 	exports['default'] = {
 	    defaultProps: {
@@ -3963,17 +4535,17 @@
 	            }
 	        }
 
-	        return (0, _deku.dom)(
+	        return (0, _magicVirtualElement2['default'])(
 	            'button',
 	            { 'class': 'sb-soundplayer-play-btn', onClick: handleClick },
-	            !props.playing ? (0, _deku.dom)(_Icons.PlayIconSVG, { onClick: handleClick }) : (0, _deku.dom)(_Icons.PauseIconSVG, { onClick: handleClick })
+	            !props.playing ? (0, _magicVirtualElement2['default'])(_Icons.PlayIconSVG, { onClick: handleClick }) : (0, _magicVirtualElement2['default'])(_Icons.PauseIconSVG, { onClick: handleClick })
 	        );
 	    }
 	};
 	module.exports = exports['default'];
 
 /***/ },
-/* 40 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -3983,7 +4555,11 @@
 	    value: true
 	});
 
-	var _deku = __webpack_require__(7);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _magicVirtualElement = __webpack_require__(7);
+
+	var _magicVirtualElement2 = _interopRequireDefault(_magicVirtualElement);
 
 	// eslint-disable-line no-unused-vars
 
@@ -4005,7 +4581,7 @@
 	    render: function render(component) {
 	        var props = component.props;
 
-	        return (0, _deku.dom)(
+	        return (0, _magicVirtualElement2['default'])(
 	            'svg',
 	            {
 	                'class': 'sb-soundplayer-cover-logo',
@@ -4013,7 +4589,7 @@
 	                fill: 'currentColor',
 	                onClick: props.onClick
 	            },
-	            (0, _deku.dom)('path', { d: 'M10.517 3.742c-.323 0-.49.363-.49.582 0 0-.244 3.591-.244 4.641 0 1.602.15 2.621.15 2.621 0 .222.261.401.584.401.321 0 .519-.179.519-.401 0 0 .398-1.038.398-2.639 0-1.837-.153-4.127-.284-4.592-.112-.395-.313-.613-.633-.613zm-1.996.268c-.323 0-.49.363-.49.582 0 0-.244 3.322-.244 4.372 0 1.602.119 2.621.119 2.621 0 .222.26.401.584.401.321 0 .581-.179.581-.401 0 0 .081-1.007.081-2.608 0-1.837-.206-4.386-.206-4.386 0-.218-.104-.581-.425-.581zm-2.021 1.729c-.324 0-.49.362-.49.582 0 0-.272 1.594-.272 2.644 0 1.602.179 2.559.179 2.559 0 .222.229.463.552.463.321 0 .519-.241.519-.463 0 0 .19-.944.19-2.546 0-1.837-.253-2.657-.253-2.657 0-.22-.104-.582-.425-.582zm-2.046-.358c-.323 0-.49.363-.49.582 0 0-.162 1.92-.162 2.97 0 1.602.069 2.496.069 2.496 0 .222.26.557.584.557.321 0 .581-.304.581-.526 0 0 .143-.936.143-2.538 0-1.837-.206-2.96-.206-2.96 0-.218-.198-.581-.519-.581zm-2.169 1.482c-.272 0-.232.218-.232.218v3.982s-.04.335.232.335c.351 0 .716-.832.716-2.348 0-1.245-.436-2.187-.716-2.187zm18.715-.976c-.289 0-.567.042-.832.116-.417-2.266-2.806-3.989-5.263-3.989-1.127 0-2.095.705-2.931 1.316v8.16s0 .484.5.484h8.526c1.655 0 3-1.55 3-3.155 0-1.607-1.346-2.932-3-2.932zm10.17.857c-1.077-.253-1.368-.389-1.368-.815 0-.3.242-.611.97-.611.621 0 1.106.253 1.542.699l.981-.951c-.641-.669-1.417-1.067-2.474-1.067-1.339 0-2.425.757-2.425 1.99 0 1.338.873 1.736 2.124 2.026 1.281.291 1.513.486 1.513.923 0 .514-.379.738-1.184.738-.65 0-1.26-.223-1.736-.777l-.98.873c.514.757 1.504 1.232 2.639 1.232 1.853 0 2.668-.873 2.668-2.163 0-1.477-1.193-1.845-2.27-2.097zm6.803-2.745c-1.853 0-2.949 1.435-2.949 3.502s1.096 3.501 2.949 3.501c1.852 0 2.949-1.434 2.949-3.501s-1.096-3.502-2.949-3.502zm0 5.655c-1.097 0-1.553-.941-1.553-2.153 0-1.213.456-2.153 1.553-2.153 1.096 0 1.551.94 1.551 2.153.001 1.213-.454 2.153-1.551 2.153zm8.939-1.736c0 1.086-.533 1.756-1.396 1.756-.864 0-1.388-.689-1.388-1.775v-3.897h-1.358v3.916c0 1.978 1.106 3.084 2.746 3.084 1.726 0 2.754-1.136 2.754-3.103v-3.897h-1.358v3.916zm8.142-.89l.019 1.485c-.087-.174-.31-.515-.475-.768l-2.703-3.692h-1.362v6.894h1.401v-2.988l-.02-1.484c.088.175.311.514.475.767l2.79 3.705h1.213v-6.894h-1.339v2.975zm5.895-2.923h-2.124v6.791h2.027c1.746 0 3.474-1.01 3.474-3.395 0-2.484-1.437-3.396-3.377-3.396zm-.097 5.472h-.67v-4.152h.719c1.436 0 2.028.688 2.028 2.076 0 1.242-.651 2.076-2.077 2.076zm7.909-4.229c.611 0 1 .271 1.242.737l1.26-.582c-.426-.883-1.202-1.503-2.483-1.503-1.775 0-3.016 1.435-3.016 3.502 0 2.143 1.191 3.501 2.968 3.501 1.232 0 2.047-.572 2.513-1.533l-1.145-.68c-.358.602-.718.864-1.329.864-1.019 0-1.611-.932-1.611-2.153-.001-1.261.583-2.153 1.601-2.153zm5.17-1.192h-1.359v6.791h4.083v-1.338h-2.724v-5.453zm6.396-.157c-1.854 0-2.949 1.435-2.949 3.502s1.095 3.501 2.949 3.501c1.853 0 2.95-1.434 2.95-3.501s-1.097-3.502-2.95-3.502zm0 5.655c-1.097 0-1.553-.941-1.553-2.153 0-1.213.456-2.153 1.553-2.153 1.095 0 1.55.94 1.55 2.153.001 1.213-.454 2.153-1.55 2.153zm8.557-1.736c0 1.086-.532 1.756-1.396 1.756-.864 0-1.388-.689-1.388-1.775v-3.794h-1.358v3.813c0 1.978 1.106 3.084 2.746 3.084 1.726 0 2.755-1.136 2.755-3.103v-3.794h-1.36v3.813zm5.449-3.907h-2.318v6.978h2.211c1.908 0 3.789-1.037 3.789-3.489 0-2.552-1.565-3.489-3.682-3.489zm-.108 5.623h-.729v-4.266h.783c1.565 0 2.21.706 2.21 2.133.001 1.276-.707 2.133-2.264 2.133z' })
+	            (0, _magicVirtualElement2['default'])('path', { d: 'M10.517 3.742c-.323 0-.49.363-.49.582 0 0-.244 3.591-.244 4.641 0 1.602.15 2.621.15 2.621 0 .222.261.401.584.401.321 0 .519-.179.519-.401 0 0 .398-1.038.398-2.639 0-1.837-.153-4.127-.284-4.592-.112-.395-.313-.613-.633-.613zm-1.996.268c-.323 0-.49.363-.49.582 0 0-.244 3.322-.244 4.372 0 1.602.119 2.621.119 2.621 0 .222.26.401.584.401.321 0 .581-.179.581-.401 0 0 .081-1.007.081-2.608 0-1.837-.206-4.386-.206-4.386 0-.218-.104-.581-.425-.581zm-2.021 1.729c-.324 0-.49.362-.49.582 0 0-.272 1.594-.272 2.644 0 1.602.179 2.559.179 2.559 0 .222.229.463.552.463.321 0 .519-.241.519-.463 0 0 .19-.944.19-2.546 0-1.837-.253-2.657-.253-2.657 0-.22-.104-.582-.425-.582zm-2.046-.358c-.323 0-.49.363-.49.582 0 0-.162 1.92-.162 2.97 0 1.602.069 2.496.069 2.496 0 .222.26.557.584.557.321 0 .581-.304.581-.526 0 0 .143-.936.143-2.538 0-1.837-.206-2.96-.206-2.96 0-.218-.198-.581-.519-.581zm-2.169 1.482c-.272 0-.232.218-.232.218v3.982s-.04.335.232.335c.351 0 .716-.832.716-2.348 0-1.245-.436-2.187-.716-2.187zm18.715-.976c-.289 0-.567.042-.832.116-.417-2.266-2.806-3.989-5.263-3.989-1.127 0-2.095.705-2.931 1.316v8.16s0 .484.5.484h8.526c1.655 0 3-1.55 3-3.155 0-1.607-1.346-2.932-3-2.932zm10.17.857c-1.077-.253-1.368-.389-1.368-.815 0-.3.242-.611.97-.611.621 0 1.106.253 1.542.699l.981-.951c-.641-.669-1.417-1.067-2.474-1.067-1.339 0-2.425.757-2.425 1.99 0 1.338.873 1.736 2.124 2.026 1.281.291 1.513.486 1.513.923 0 .514-.379.738-1.184.738-.65 0-1.26-.223-1.736-.777l-.98.873c.514.757 1.504 1.232 2.639 1.232 1.853 0 2.668-.873 2.668-2.163 0-1.477-1.193-1.845-2.27-2.097zm6.803-2.745c-1.853 0-2.949 1.435-2.949 3.502s1.096 3.501 2.949 3.501c1.852 0 2.949-1.434 2.949-3.501s-1.096-3.502-2.949-3.502zm0 5.655c-1.097 0-1.553-.941-1.553-2.153 0-1.213.456-2.153 1.553-2.153 1.096 0 1.551.94 1.551 2.153.001 1.213-.454 2.153-1.551 2.153zm8.939-1.736c0 1.086-.533 1.756-1.396 1.756-.864 0-1.388-.689-1.388-1.775v-3.897h-1.358v3.916c0 1.978 1.106 3.084 2.746 3.084 1.726 0 2.754-1.136 2.754-3.103v-3.897h-1.358v3.916zm8.142-.89l.019 1.485c-.087-.174-.31-.515-.475-.768l-2.703-3.692h-1.362v6.894h1.401v-2.988l-.02-1.484c.088.175.311.514.475.767l2.79 3.705h1.213v-6.894h-1.339v2.975zm5.895-2.923h-2.124v6.791h2.027c1.746 0 3.474-1.01 3.474-3.395 0-2.484-1.437-3.396-3.377-3.396zm-.097 5.472h-.67v-4.152h.719c1.436 0 2.028.688 2.028 2.076 0 1.242-.651 2.076-2.077 2.076zm7.909-4.229c.611 0 1 .271 1.242.737l1.26-.582c-.426-.883-1.202-1.503-2.483-1.503-1.775 0-3.016 1.435-3.016 3.502 0 2.143 1.191 3.501 2.968 3.501 1.232 0 2.047-.572 2.513-1.533l-1.145-.68c-.358.602-.718.864-1.329.864-1.019 0-1.611-.932-1.611-2.153-.001-1.261.583-2.153 1.601-2.153zm5.17-1.192h-1.359v6.791h4.083v-1.338h-2.724v-5.453zm6.396-.157c-1.854 0-2.949 1.435-2.949 3.502s1.095 3.501 2.949 3.501c1.853 0 2.95-1.434 2.95-3.501s-1.097-3.502-2.95-3.502zm0 5.655c-1.097 0-1.553-.941-1.553-2.153 0-1.213.456-2.153 1.553-2.153 1.095 0 1.55.94 1.55 2.153.001 1.213-.454 2.153-1.55 2.153zm8.557-1.736c0 1.086-.532 1.756-1.396 1.756-.864 0-1.388-.689-1.388-1.775v-3.794h-1.358v3.813c0 1.978 1.106 3.084 2.746 3.084 1.726 0 2.755-1.136 2.755-3.103v-3.794h-1.36v3.813zm5.449-3.907h-2.318v6.978h2.211c1.908 0 3.789-1.037 3.789-3.489 0-2.552-1.565-3.489-3.682-3.489zm-.108 5.623h-.729v-4.266h.783c1.565 0 2.21.706 2.21 2.133.001 1.276-.707 2.133-2.264 2.133z' })
 	        );
 	    }
 	};
@@ -4025,7 +4601,7 @@
 	    render: function render(component) {
 	        var props = component.props;
 
-	        return (0, _deku.dom)(
+	        return (0, _magicVirtualElement2['default'])(
 	            'svg',
 	            {
 	                'class': 'sb-soundplayer-button-icon',
@@ -4050,10 +4626,10 @@
 	    render: function render(component) {
 	        var props = component.props;
 
-	        return (0, _deku.dom)(
+	        return (0, _magicVirtualElement2['default'])(
 	            ButtonIconSVG,
 	            props,
-	            (0, _deku.dom)('path', { d: 'M0 0 L32 16 L0 32 z' })
+	            (0, _magicVirtualElement2['default'])('path', { d: 'M0 0 L32 16 L0 32 z' })
 	        );
 	    }
 	};
@@ -4069,10 +4645,10 @@
 	    render: function render(component) {
 	        var props = component.props;
 
-	        return (0, _deku.dom)(
+	        return (0, _magicVirtualElement2['default'])(
 	            ButtonIconSVG,
 	            props,
-	            (0, _deku.dom)('path', { d: 'M0 0 H12 V32 H0 z M20 0 H32 V32 H20 z' })
+	            (0, _magicVirtualElement2['default'])('path', { d: 'M0 0 H12 V32 H0 z M20 0 H32 V32 H20 z' })
 	        );
 	    }
 	};
@@ -4093,10 +4669,10 @@
 	    render: function render(component) {
 	        var props = component.props;
 
-	        return (0, _deku.dom)(
+	        return (0, _magicVirtualElement2['default'])(
 	            ButtonIconSVG,
 	            props,
-	            (0, _deku.dom)('path', { d: 'M4 4 L24 14 V4 H28 V28 H24 V18 L4 28 z ' })
+	            (0, _magicVirtualElement2['default'])('path', { d: 'M4 4 L24 14 V4 H28 V28 H24 V18 L4 28 z ' })
 	        );
 	    }
 	};
@@ -4117,10 +4693,10 @@
 	    render: function render(component) {
 	        var props = component.props;
 
-	        return (0, _deku.dom)(
+	        return (0, _magicVirtualElement2['default'])(
 	            ButtonIconSVG,
 	            props,
-	            (0, _deku.dom)('path', { d: 'M4 4 H8 V14 L28 4 V28 L8 18 V28 H4 z ' })
+	            (0, _magicVirtualElement2['default'])('path', { d: 'M4 4 H8 V14 L28 4 V28 L8 18 V28 H4 z ' })
 	        );
 	    }
 	};
@@ -4135,7 +4711,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 41 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -4147,11 +4723,13 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _deku = __webpack_require__(7);
+	var _magicVirtualElement = __webpack_require__(7);
+
+	var _magicVirtualElement2 = _interopRequireDefault(_magicVirtualElement);
 
 	// eslint-disable-line no-unused-vars
 
-	var _soundcloudAudio = __webpack_require__(36);
+	var _soundcloudAudio = __webpack_require__(58);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
@@ -4193,17 +4771,17 @@
 	            }
 	        }
 
-	        return (0, _deku.dom)(
+	        return (0, _magicVirtualElement2['default'])(
 	            'div',
 	            { 'class': 'sb-soundplayer-progress-container', onClick: handleSeekTrack },
-	            (0, _deku.dom)('div', { 'class': 'sb-soundplayer-progress-inner', style: style })
+	            (0, _magicVirtualElement2['default'])('div', { 'class': 'sb-soundplayer-progress-inner', style: style })
 	        );
 	    }
 	};
 	module.exports = exports['default'];
 
 /***/ },
-/* 42 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -4213,7 +4791,11 @@
 	    value: true
 	});
 
-	var _deku = __webpack_require__(7);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _magicVirtualElement = __webpack_require__(7);
+
+	var _magicVirtualElement2 = _interopRequireDefault(_magicVirtualElement);
 
 	// eslint-disable-line no-unused-vars
 
@@ -4255,7 +4837,7 @@
 	    render: function render(component) {
 	        var props = component.props;
 
-	        return (0, _deku.dom)(
+	        return (0, _magicVirtualElement2['default'])(
 	            'div',
 	            { 'class': 'sb-soundplayer-timer' },
 	            prettyTime(props.currentTime),
@@ -4267,7 +4849,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 43 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -4279,11 +4861,13 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _deku = __webpack_require__(7);
+	var _magicVirtualElement = __webpack_require__(7);
+
+	var _magicVirtualElement2 = _interopRequireDefault(_magicVirtualElement);
 
 	// eslint-disable-line no-unused-vars
 
-	var _classnames = __webpack_require__(44);
+	var _classnames = __webpack_require__(66);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -4299,7 +4883,7 @@
 
 	        var classNames = (0, _classnames2['default'])('sb-soundplayer-cover', props['class']);
 
-	        return (0, _deku.dom)(
+	        return (0, _magicVirtualElement2['default'])(
 	            'div',
 	            { 'class': classNames, style: props.artworkUrl ? { 'background-image': 'url(' + props.artworkUrl + ')' } : {} },
 	            props.children
@@ -4309,7 +4893,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 44 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -4364,14 +4948,14 @@
 
 
 /***/ },
-/* 45 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(46);
+	module.exports = __webpack_require__(68);
 
 
 /***/ },
-/* 46 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4382,14 +4966,14 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _SoundPlayerContainer2 = __webpack_require__(47);
+	var _SoundPlayerContainer2 = __webpack_require__(69);
 
 	var _SoundPlayerContainer3 = _interopRequireDefault(_SoundPlayerContainer2);
 
 	exports.SoundPlayerContainer = _SoundPlayerContainer3['default'];
 
 /***/ },
-/* 47 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -4401,19 +4985,21 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _deku = __webpack_require__(7);
+	var _magicVirtualElement = __webpack_require__(7);
+
+	var _magicVirtualElement2 = _interopRequireDefault(_magicVirtualElement);
 
 	// eslint-disable-line no-unused-vars
 
-	var _objectAssign = __webpack_require__(48);
+	var _objectAssign = __webpack_require__(70);
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
-	var _soundcloudAudio = __webpack_require__(36);
+	var _soundcloudAudio = __webpack_require__(58);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
-	var _utilsAudioStore = __webpack_require__(49);
+	var _utilsAudioStore = __webpack_require__(71);
 
 	exports['default'] = {
 	    propTypes: {
@@ -4558,7 +5144,7 @@
 	            return cloneElement;
 	        }
 
-	        return (0, _deku.dom)(
+	        return (0, _magicVirtualElement2['default'])(
 	            'span',
 	            null,
 	            props.children.map(wrapChild)
@@ -4568,7 +5154,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 48 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4613,7 +5199,7 @@
 
 
 /***/ },
-/* 49 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// handling multiple audio on the page helpers

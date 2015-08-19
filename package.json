@@ -1,6 +1,6 @@
 {
   "name": "soundplayer-widget",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Lightweight embedded SoundCloud player widgets",
   "main": "index.js",
   "style": "cssnext/index.css",
