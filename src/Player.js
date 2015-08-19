@@ -1,5 +1,5 @@
 /** @jsx dom */
-import { dom } from 'deku'; // eslint-disable-line no-unused-vars
+import dom from 'magic-virtual-element'; // eslint-disable-line no-unused-vars
 import SoundCloudAudio from 'soundcloud-audio';
 import {
     Cover,

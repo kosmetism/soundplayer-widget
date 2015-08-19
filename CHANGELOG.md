@@ -1,3 +1,7 @@
+# 0.4.0 / 2015-08-19
+
+- updated to deku `0.5.x` (deku's `dom` is replaced by [magic-virtual-element](https://github.com/dekujs/magic-virtual-element))
+
 # 0.3.6 / 2015-07-21
 
 - udpated dependencies
