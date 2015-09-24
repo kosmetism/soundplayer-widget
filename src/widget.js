@@ -2,7 +2,7 @@
 
 const env = process.env.NODE_ENV || 'development';
 
-import dom from 'magic-virtual-element'; // eslint-disable-line no-unused-vars
+import dom from 'virtual-element'; // eslint-disable-line no-unused-vars
 import deku from 'deku';
 import Player from './Player';
 

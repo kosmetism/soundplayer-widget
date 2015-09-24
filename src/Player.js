@@ -1,5 +1,5 @@
 /** @jsx dom */
-import dom from 'magic-virtual-element'; // eslint-disable-line no-unused-vars
+import dom from 'virtual-element'; // eslint-disable-line no-unused-vars
 import SoundCloudAudio from 'soundcloud-audio';
 import {
     Cover,
@@ -53,6 +53,8 @@ const Player = {
 
     render(component) {
         const { props } = component;
+
+        console.log(props);
 
         if (!props.track) {
             return <span />;
