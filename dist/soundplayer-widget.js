@@ -5025,6 +5025,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 	var _virtualElement = __webpack_require__(7);
 
 	var _virtualElement2 = _interopRequireDefault(_virtualElement);
@@ -5037,7 +5039,7 @@
 
 	var _dekuSoundplayerComponents = __webpack_require__(42);
 
-	var _dekuSoundplayerAddons = __webpack_require__(50);
+	var _dekuSoundplayerAddons = __webpack_require__(51);
 
 	var SoundCloudLogoSVG = _dekuSoundplayerComponents.Icons.SoundCloudLogoSVG;
 
@@ -5082,8 +5084,6 @@
 
 	    render: function render(component) {
 	        var props = component.props;
-
-	        console.log(props);
 
 	        if (!props.track) {
 	            return (0, _virtualElement2['default'])('span', null);
@@ -5160,10 +5160,13 @@
 
 	    render: function render(component) {
 	        var props = component.props;
+	        var children = props.children;
+
+	        var restProps = _objectWithoutProperties(props, ['children']);
 
 	        return (0, _virtualElement2['default'])(
 	            _dekuSoundplayerAddons.SoundPlayerContainer,
-	            props,
+	            restProps,
 	            (0, _virtualElement2['default'])(Player, null)
 	        );
 	    }
@@ -5358,25 +5361,25 @@
 
 	exports.PlayButton = _PlayButton3['default'];
 
-	var _Progress2 = __webpack_require__(46);
+	var _Progress2 = __webpack_require__(47);
 
 	var _Progress3 = _interopRequireDefault(_Progress2);
 
 	exports.Progress = _Progress3['default'];
 
-	var _Timer2 = __webpack_require__(47);
+	var _Timer2 = __webpack_require__(48);
 
 	var _Timer3 = _interopRequireDefault(_Timer2);
 
 	exports.Timer = _Timer3['default'];
 
-	var _Cover2 = __webpack_require__(48);
+	var _Cover2 = __webpack_require__(49);
 
 	var _Cover3 = _interopRequireDefault(_Cover2);
 
 	exports.Cover = _Cover3['default'];
 
-	var _Icons2 = __webpack_require__(45);
+	var _Icons2 = __webpack_require__(46);
 
 	var _Icons3 = _interopRequireDefault(_Icons2);
 
@@ -5401,11 +5404,11 @@
 
 	// eslint-disable-line no-unused-vars
 
-	var _soundcloudAudio = __webpack_require__(41);
+	var _soundcloudAudio = __webpack_require__(45);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
-	var _Icons = __webpack_require__(45);
+	var _Icons = __webpack_require__(46);
 
 	exports['default'] = {
 	    defaultProps: {
@@ -5454,6 +5457,176 @@
 
 /***/ },
 /* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	function SoundCloud (clientId) {
+	    if (!(this instanceof SoundCloud)) {
+	        return new SoundCloud(clientId);
+	    }
+
+	    if (!clientId) {
+	        throw new Error('SoundCloud API clientId is required, get it - https://developers.soundcloud.com/');
+	    }
+
+	    this._events = {};
+
+	    this._clientId = clientId;
+	    this._baseUrl = 'https://api.soundcloud.com';
+
+	    this.playing = false;
+	    this.duration = 0;
+
+	    this.audio = document.createElement('audio');
+	}
+
+	SoundCloud.prototype.resolve = function (url, callback) {
+	    if (!url) {
+	        throw new Error('SoundCloud track or playlist url is required');
+	    }
+
+	    url = this._baseUrl + '/resolve.json?url=' + url + '&client_id=' + this._clientId;
+
+	    this._jsonp(url, function (data) {
+	        if (Array.isArray(data)) {
+	            var tracks = data;
+	            data = {tracks: tracks};
+	            this._playlist = data;
+	        } else if (data.tracks) {
+	            this._playlist = data;
+	        } else {
+	            this._track = data;
+	        }
+
+	        this.duration = data.duration && !isNaN(data.duration) ?
+	            data.duration / 1000 : // convert to seconds
+	            0; // no duration is zero
+
+	        callback(data);
+	    }.bind(this));
+	};
+
+	SoundCloud.prototype._jsonp = function (url, callback) {
+	    var target = document.getElementsByTagName('script')[0] || document.head;
+	    var script = document.createElement('script');
+
+	    var id = 'jsonp_callback_' + Math.round(100000 * Math.random());
+	    window[id] = function (data) {
+	        if (script.parentNode) {
+	            script.parentNode.removeChild(script);
+	        }
+	        window[id] = function () {};
+	        callback(data);
+	    };
+
+	    script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + id;
+	    target.parentNode.insertBefore(script, target);
+	};
+
+	SoundCloud.prototype.on = function (e, fn) {
+	    this._events[e] = fn;
+	    this.audio.addEventListener(e, fn, false);
+	};
+
+	SoundCloud.prototype.off = function (e, fn) {
+	    this._events[e] = null;
+	    this.audio.removeEventListener(e, fn);
+	};
+
+	SoundCloud.prototype.unbindAll = function () {
+	    for (var e in this._events) {
+	        var fn = this._events[e];
+	        if (fn) {
+	            this.off(e, fn);
+	        }
+	    }
+	};
+
+	SoundCloud.prototype.preload = function (streamUrl) {
+	    this._track = {stream_url: streamUrl};
+	    this.audio.src = streamUrl + '?client_id=' + this._clientId;
+	};
+
+	SoundCloud.prototype.play = function (options) {
+	    options = options || {};
+	    var src;
+
+	    if (options.streamUrl) {
+	        src = options.streamUrl;
+	    } else if (this._playlist) {
+	        var length = this._playlist.tracks.length;
+	        if (length) {
+	            this._playlistIndex = options.playlistIndex || 0;
+
+	            // be silent if index is out of range
+	            if (this._playlistIndex >= length || this._playlistIndex < 0) {
+	                this._playlistIndex = 0;
+	                return;
+	            }
+	            src = this._playlist.tracks[this._playlistIndex].stream_url;
+	        }
+	    } else if (this._track) {
+	        src = this._track.stream_url;
+	    }
+
+	    if (!src) {
+	        throw new Error('There is no tracks to play, use `streamUrl` option or `load` method');
+	    }
+
+	    src += '?client_id=' + this._clientId;
+
+	    if (src !== this.audio.src) {
+	        this.audio.src = src;
+	    }
+
+	    this.playing = src;
+	    this.audio.play();
+	};
+
+	SoundCloud.prototype.pause = function () {
+	    this.audio.pause();
+	    this.playing = false;
+	};
+
+	SoundCloud.prototype.stop = function () {
+	    this.audio.pause();
+	    this.audio.currentTime = 0;
+	    this.playing = false;
+	};
+
+	SoundCloud.prototype.next = function () {
+	    var tracksLength = this._playlist.tracks.length;
+	    if (this._playlistIndex >= tracksLength - 1) {
+	        return;
+	    }
+	    if (this._playlist && tracksLength) {
+	        this.play({playlistIndex: ++this._playlistIndex});
+	    }
+	};
+
+	SoundCloud.prototype.previous = function () {
+	    if (this._playlistIndex <= 0) {
+	        return;
+	    }
+	    if (this._playlist && this._playlist.tracks.length) {
+	        this.play({playlistIndex: --this._playlistIndex});
+	    }
+	};
+
+	SoundCloud.prototype.seek = function (e) {
+	    if (!this.audio.readyState) {
+	        return false;
+	    }
+	    var percent = e.offsetX / e.target.offsetWidth || (e.layerX - e.target.offsetLeft) / e.target.offsetWidth;
+	    this.audio.currentTime = percent * (this.audio.duration || 0);
+	};
+
+	module.exports = SoundCloud;
+
+
+/***/ },
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -5619,7 +5792,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -5637,7 +5810,7 @@
 
 	// eslint-disable-line no-unused-vars
 
-	var _soundcloudAudio = __webpack_require__(41);
+	var _soundcloudAudio = __webpack_require__(45);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
@@ -5689,7 +5862,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -5757,7 +5930,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -5775,7 +5948,7 @@
 
 	// eslint-disable-line no-unused-vars
 
-	var _classnames = __webpack_require__(49);
+	var _classnames = __webpack_require__(50);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -5800,9 +5973,8 @@
 	};
 	module.exports = exports['default'];
 
-
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -5810,12 +5982,14 @@
 	  Licensed under the MIT License (MIT), see
 	  http://jedwatson.github.io/classnames
 	*/
+	/* global define */
 
 	(function () {
 		'use strict';
 
-		function classNames () {
+		var hasOwn = {}.hasOwnProperty;
 
+		function classNames () {
 			var classes = '';
 
 			for (var i = 0; i < arguments.length; i++) {
@@ -5824,15 +5998,13 @@
 
 				var argType = typeof arg;
 
-				if ('string' === argType || 'number' === argType) {
+				if (argType === 'string' || argType === 'number') {
 					classes += ' ' + arg;
-
 				} else if (Array.isArray(arg)) {
 					classes += ' ' + classNames.apply(null, arg);
-
-				} else if ('object' === argType) {
+				} else if (argType === 'object') {
 					for (var key in arg) {
-						if (arg.hasOwnProperty(key) && arg[key]) {
+						if (hasOwn.call(arg, key) && arg[key]) {
 							classes += ' ' + key;
 						}
 					}
@@ -5844,27 +6016,26 @@
 
 		if (typeof module !== 'undefined' && module.exports) {
 			module.exports = classNames;
-		} else if (true){
-			// AMD. Register as an anonymous module.
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
 			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
 				return classNames;
 			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 		} else {
 			window.classNames = classNames;
 		}
-
 	}());
 
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(51);
+	module.exports = __webpack_require__(52);
 
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5875,14 +6046,14 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _SoundPlayerContainer2 = __webpack_require__(52);
+	var _SoundPlayerContainer2 = __webpack_require__(53);
 
 	var _SoundPlayerContainer3 = _interopRequireDefault(_SoundPlayerContainer2);
 
 	exports.SoundPlayerContainer = _SoundPlayerContainer3['default'];
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx dom */
@@ -5900,15 +6071,15 @@
 
 	// eslint-disable-line no-unused-vars
 
-	var _objectAssign = __webpack_require__(53);
+	var _objectAssign = __webpack_require__(54);
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
-	var _soundcloudAudio = __webpack_require__(41);
+	var _soundcloudAudio = __webpack_require__(45);
 
 	var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
 
-	var _utilsAudioStore = __webpack_require__(54);
+	var _utilsAudioStore = __webpack_require__(55);
 
 	exports['default'] = {
 	    propTypes: {
@@ -5960,6 +6131,7 @@
 	        } else if (resolveUrl) {
 	            soundCloudAudio.resolve(resolveUrl, function (data) {
 	                // TBD: support for playlists
+	                console.log(data);
 	                var track = data.tracks ? data.tracks[0] : data;
 	                setState({ track: track });
 	            });
@@ -6047,13 +6219,15 @@
 
 	        function wrapChild(child) {
 	            var cloneElement = (0, _objectAssign2['default'])({}, child);
-	            if (cloneElement.props) {
-	                cloneElement.props = (0, _objectAssign2['default'])({}, cloneElement.props, state, { soundCloudAudio: soundCloudAudio });
-	            }
+	            console.log(1, cloneElement, child);
+	            // if (cloneElement.attributes) {
+	                console.log('---', cloneElement.props);
+	                cloneElement.attributes = (0, _objectAssign2['default'])({}, (cloneElement.attributes || {}), state, { soundCloudAudio: soundCloudAudio });
+	            // }
 	            return cloneElement;
 	        }
 
-	        console.log(props);
+	        console.log(2, props.children);
 
 	        return (0, _virtualElement2['default'])(
 	            'span',
@@ -6066,43 +6240,43 @@
 
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* eslint-disable no-unused-vars */
 	'use strict';
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
 	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
-	function ToObject(val) {
-		if (val == null) {
+	function toObject(val) {
+		if (val === null || val === undefined) {
 			throw new TypeError('Object.assign cannot be called with null or undefined');
 		}
 
 		return Object(val);
 	}
 
-	function ownEnumerableKeys(obj) {
-		var keys = Object.getOwnPropertyNames(obj);
-
-		if (Object.getOwnPropertySymbols) {
-			keys = keys.concat(Object.getOwnPropertySymbols(obj));
-		}
-
-		return keys.filter(function (key) {
-			return propIsEnumerable.call(obj, key);
-		});
-	}
-
 	module.exports = Object.assign || function (target, source) {
 		var from;
-		var keys;
-		var to = ToObject(target);
+		var to = toObject(target);
+		var symbols;
 
 		for (var s = 1; s < arguments.length; s++) {
-			from = arguments[s];
-			keys = ownEnumerableKeys(Object(from));
+			from = Object(arguments[s]);
 
-			for (var i = 0; i < keys.length; i++) {
-				to[keys[i]] = from[keys[i]];
+			for (var key in from) {
+				if (hasOwnProperty.call(from, key)) {
+					to[key] = from[key];
+				}
+			}
+
+			if (Object.getOwnPropertySymbols) {
+				symbols = Object.getOwnPropertySymbols(from);
+				for (var i = 0; i < symbols.length; i++) {
+					if (propIsEnumerable.call(from, symbols[i])) {
+						to[symbols[i]] = from[symbols[i]];
+					}
+				}
 			}
 		}
 
@@ -6111,7 +6285,7 @@
 
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// handling multiple audio on the page helpers

@@ -54,8 +54,6 @@ const Player = {
     render(component) {
         const { props } = component;
 
-        console.log(props);
-
         if (!props.track) {
             return <span />;
         }
@@ -112,9 +110,10 @@ export default {
 
     render(component) {
         const { props } = component;
+        const { children, ...restProps } = props;
 
         return (
-            <SoundPlayerContainer {...props}>
+            <SoundPlayerContainer {...restProps}>
                 <Player />
             </SoundPlayerContainer>
         );
