@@ -22,34 +22,26 @@
         z-index: 2;
     }
     div {
-        margin: 20px 10px;
+        margin: 20px auto 10px;
+        max-width: 500px;
     }
     </style>
 </head>
 <body>
+    <div class="sb-soundplayer-widget" data-url="https://soundcloud.com/ksmtk/chronemics"></div>
 
-<div class="sb-soundplayer-widget" data-url="https://soundcloud.com/shura/shura-indecision-12-edit-1"></div>
+    <script>
+    /* * * CONFIGURATION VARIABLES * * */
+    var sb_soundplayer_client_id = '{YOUR ID HERE}';
 
-<!-- <hr />
-
-<div class="sb-soundplayer-widget" data-url="https://soundcloud.com/johnnyjewel/glass-candy-shell-game"></div>
-
-<hr />
-
-<div class="sb-soundplayer-widget" data-url="https://soundcloud.com/djangodjango/django-django-reflections-happa-remix"></div> -->
-
-<script>
-/* * * CONFIGURATION VARIABLES * * */
-var sb_soundplayer_client_id = '08f79801a998c381762ec5b15e4914d5';
-
-/* * * DON'T EDIT BELOW THIS LINE * * */
-(function(d, s, id) {
-    if (d.getElementById(id)) return;
-    var fjs = d.getElementsByTagName(s)[0],
-        js = fjs.parentNode.insertBefore(d.createElement(s), fjs);
-    js.id = id;
-    js.src = '../dist/soundplayer-widget.js';
-})(document, 'script', 'sb-soundplayer-widget-sdk');
-</script>
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function(d, s, id) {
+        if (d.getElementById(id)) return;
+        var fjs = d.getElementsByTagName(s)[0],
+            js = fjs.parentNode.insertBefore(d.createElement(s), fjs);
+        js.id = id;
+        js.src = '../dist/soundplayer-widget.js';
+    })(document, 'script', 'sb-soundplayer-widget-sdk');
+    </script>
 </body>
 </html>

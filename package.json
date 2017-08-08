@@ -1,6 +1,6 @@
 {
   "name": "soundplayer-widget",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Lightweight embedded SoundCloud player widgets",
   "main": "index.js",
   "style": "cssnext/index.css",
@@ -29,10 +29,10 @@
   "author": "Dmitri Voronianski <dmitri.voronianski@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "deku": "^0.5.6",
-    "deku-soundplayer": "^0.3.4",
-    "soundcloud-audio": "^0.1.4",
-    "virtual-element": "^1.2.0"
+    "deku": "^1.0.0",
+    "deku-soundplayer": "^0.4.3",
+    "magic-virtual-element": "^1.0.6",
+    "soundcloud-audio": "^0.1.4"
   },
   "devDependencies": {
     "babel": "^5.8.23",
