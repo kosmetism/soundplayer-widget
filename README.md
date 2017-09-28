@@ -52,6 +52,11 @@ Chrome | Firefox | IE/Edge | Safari
 --- | --- | --- | --- | --- 
 39+ ✔ | 34+ ✔ | 10+ ✔ | 7+ ✔
 
+Markdown | Less | Pretty
+--- | --- | ---
+*Still* | `renders` | **nicely**
+1 | 2 | 3
+
 ---
 
 **MIT Licensed**
