@@ -25,7 +25,7 @@ var sb_soundplayer_client_id = 'YOUR_CLIENT_ID';
     var fjs = d.getElementsByTagName(s)[0],
         js = fjs.parentNode.insertBefore(d.createElement(s), fjs);
     js.id = id;
-    js.src = '//cdnjs.cloudflare.com/ajax/libs/soundplayer-widget/0.3.6/soundplayer-widget.min.js';
+    js.src = '//cdnjs.cloudflare.com/ajax/libs/soundplayer-widget/0.4.2/soundplayer-widget.min.js';
 })(document, 'script', 'sb-soundplayer-widget-sdk');
 </script>
 ```
@@ -44,25 +44,13 @@ var sb_soundplayer_client_id = 'YOUR_CLIENT_ID';
 npm install soundplayer-widget --save
 ```
 
-## Why Deku and not React?!
-
-Article on this topic (and about the whole process of development) is coming soon..
-
 ## Browser support
 
-Dependency on [Deku](https://github.com/segmentio/deku) which (due to its' tiny size) doesn't support legacy [browsers](https://github.com/segmentio/deku/#tests). It means that _SoundPlayer_ has the same range of supported browsers.
+Dependency on [Deku](https://github.com/segmentio/deku) which (due to its' tiny size) doesn't support legacy [browsers](https://github.com/segmentio/deku/#tests). It means that _SoundPlayer_ has the same range of supported browsers:
 
-![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari/safari_48x48.png)
---- | --- | --- | --- | --- |
-39+ ✔ | 34+ ✔ | 10+ ✔ | 7+ ✔ |
-
-## To Do
-
-- [ ] playlists support
-- [ ] support for multiple different style layouts
-- [ ] global SDK object (for purposes like subscribe to audio events etc.)
-
-Have a [suggestion](https://github.com/soundblogs/soundplayer-widget/issues)?
+| ![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari/safari_48x48.png)
+| --- | --- | --- | --- | --- |
+| 39+ ✔ | 34+ ✔ | 10+ ✔ | 7+ ✔ |
 
 ---
 
